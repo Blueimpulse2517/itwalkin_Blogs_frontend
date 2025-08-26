@@ -7,7 +7,7 @@ import { use } from "react";
 const LiveTvDisplay = () => {
   const [allCandidates, setAllCandidates] =useState([]);
   const [jobSeekerList, setJobSeekerList] = useState([]);
-  const [pageLoader, setPageLoader]=useState(true);
+  const [pageLoader, setPageLoader]=useState(false);
   const[jobSeekerId, setJobSeekerIds]=useState([]);
 let params = useParams();
 
@@ -112,6 +112,7 @@ async function findList() {
 
 
 useEffect(() => {
+  console.log("jsl",jobSeekerList)
   if (jobSeekerList.length > 0) {
     findList();
   }
