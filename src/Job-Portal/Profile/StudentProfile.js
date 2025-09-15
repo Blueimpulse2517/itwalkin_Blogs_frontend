@@ -10,7 +10,6 @@ import Arrowimage from '../img/icons8-arrow-left-48.png'
 import socketIO from 'socket.io-client';
 import Footer from '../Footer/Footer'
 
-
 function StudentProfile(props) {
 
     // useEffect( ()=>{    
@@ -273,11 +272,15 @@ profileData.map((item, i) => {
                 <li className={styles.li}><b>Expected  Salary</b></li>
                 <li className={styles.li}><b>Current  CTC</b></li>
                 <li className={styles.li}><b>Qualification</b></li>
+                <li className={styles.li}><b>10th School</b></li>
+                <li className={styles.li}><b>12th School/College</b></li>
+                <li className={styles.li}><b>Degree/Diploma College</b></li>
+                <li className={styles.li}><b>Masters College</b></li>
+
                 <li className={styles.li}><b>Skill Tags</b></li>
                 <li className={styles.li}><b>Experience</b></li>
                 <li className={styles.li}><b>Account status</b></li>
                 <li className={styles.li}><b>HRs/Employer FeedBack</b></li>
-
 
 
             </ul>
@@ -304,6 +307,11 @@ profileData.map((item, i) => {
                          {item.ExpectedSalary?  <li className={` ${styles.Hli}`}>{item.ExpectedSalary} LPA</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.currentCTC?       <li className={` ${styles.Hli}`}>{item.currentCTC} LPA</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.Qualification?    <li className={` ${styles.Hli}`}>{item.Qualification}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.tenth?    <li className={` ${styles.Hli}`}>{item.tenth}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.twelfth?    <li className={` ${styles.Hli}`}>{item.twelfth}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.degree?    <li className={` ${styles.Hli}`}>{item.degree}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.college?    <li className={` ${styles.Hli}`}>{item.college}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         
                          {item.Skills?           <li className={` ${styles.Hli}`}>{item.Skills}&nbsp;
                          {/* => typeof e === 'string' */}
                          </li>: <li className={` ${styles.Hli} ${styles.Nli}`}>you have not updated your Skills yet</li>}
@@ -610,9 +618,10 @@ profileData.map((item, i) => {
             </>
       }
 
-
         </>
     )
 }
 
 export default StudentProfile
+
+

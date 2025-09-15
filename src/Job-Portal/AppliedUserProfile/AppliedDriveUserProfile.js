@@ -8,7 +8,6 @@ import useScreenSize from '../SizeHook';
 import profileDp from "../img/user_3177440.png"
 import Footer from '../Footer/Footer';
 
-
 function AppliedDriveUserProfile() {
     let params = useParams()
     let JobId = atob(params.jid)
@@ -154,7 +153,6 @@ function AppliedDriveUserProfile() {
         setAppliedUser(sorted)
     }
 
-
     function NoticeDescendingOrder() {
         let newjob = [...AppliedUser]
         const collator = new Intl.Collator(undefined, {
@@ -190,7 +188,6 @@ function AppliedDriveUserProfile() {
         })
         setAppliedUser(sorted)
     }
-
 
     // .......Experiance Sorting.......
     function ExpDescendingOrder() {
@@ -241,7 +238,6 @@ function AppliedDriveUserProfile() {
     }
 
 
-
     // .......Expected CTC Sorting.......
     function ExpCTCDescendingOrder() {
         let newjob = [...AppliedUser]
@@ -265,7 +261,6 @@ function AppliedDriveUserProfile() {
         })
         setAppliedUser(sorted)
     }
-
 
     let recordsperpage = JSON.parse(sessionStorage.getItem("recordsperpage"))
 
@@ -305,10 +300,25 @@ function AppliedDriveUserProfile() {
     }
 
 
-
     return (
         <>
-            <h4 style={{ marginTop: "10px", marginLeft: "6%" }}>Total {AppliedUser.length} Job Seekers have Applied</h4>
+         <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/posteddrives");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
+      
+
+            <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} Job Seekers have Applied</h4>
+            
+         
             {screenSize.width > 850 ?
 <>
                     <div style={{ display: "flex", justifyContent: "space-between"}}>
@@ -333,6 +343,7 @@ function AppliedDriveUserProfile() {
                             </button>
                         </div>
                     </div>
+                    
                     <div style={{ marginBottom: "5px", marginTop: "0", marginLeft: "10px" }}>
                         Show  <select onChange={(e) => { handleRecordchange(e) }}>
                             <option selected={lastIndex === 10} value={10}>10</option>
@@ -379,7 +390,7 @@ function AppliedDriveUserProfile() {
                         </li>
                         {/* <li className={`${styles.li} ${styles.checkProfile}`}><b>View Profile</b> </li> */}
                         <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Status</b> </li>
-                        <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Background Check</b> </li>
+                        {/* <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Background Check</b> </li> */}
 
                     </ul>
                     {PageLoader ?
@@ -429,7 +440,6 @@ function AppliedDriveUserProfile() {
                                                                         }} title="Click to Undo Select">Selected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br></>
                                                                     :
 
-
                                                                     (operationl.rejectedJobseker?.find((jobseekerid) => {
                                                                         return (
                                                                             jobseekerid == Applieduser._id
@@ -441,7 +451,6 @@ function AppliedDriveUserProfile() {
                                                                                 border: "solid", width: "80%", height: "30px", fontWeight: "bold"
                                                                             }} title="Click to Undo Reject">Rejected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br></>
                                                                         :
-
 
                                                                         (operationl.onHoldJobseker?.find((jobseekerid) => {
                                                                             return (
@@ -499,7 +508,7 @@ function AppliedDriveUserProfile() {
               <option selected = {lastIndex === 100} value={100}>100</option>
             </select>  candidates per page
             </div>
-
+           
           <div className={styles.navigationWrapper}>
               <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={firstPage}>
                 <i class='fas fa-step-backward' ></i>
@@ -583,7 +592,6 @@ function AppliedDriveUserProfile() {
                                                                 
                                                                 :
 
-
                                                                 (operationl.rejectedJobseker?.find((jobseekerid) => {
                                                                     return (
                                                                         jobseekerid == job._id
@@ -595,7 +603,6 @@ function AppliedDriveUserProfile() {
                                                                             border: "solid", width: "31%", height: "30px", fontWeight: "bold"
                                                                         }} title="Click to Undo Reject">Rejected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br></>
                                                                     :
-
 
                                                                     (operationl.onHoldJobseker?.find((jobseekerid) => {
                                                                         return (
@@ -657,3 +664,4 @@ function AppliedDriveUserProfile() {
 }
 
 export default AppliedDriveUserProfile;
+

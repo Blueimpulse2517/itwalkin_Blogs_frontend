@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from "./SudentUpdateProfile.module.css"
 import Style  from "../Jobs/Allobs.module.css"
 import imageCompression from 'browser-image-compression';
@@ -136,7 +136,15 @@ function StudentUpdateProfile(props) {
      const [Experiance, setExperiance] = useState("")
      const [loader, setLoader] = useState(false)
      const [Tags, setTag] = useState([])
-     const [college, setcollege] = useState([])
+     const [college, setcollege] = useState("")
+     const collegeInputRef = useRef(null);
+     const tenthInputRef = useRef(null);
+     const twelfthInputRef = useRef(null);
+     const DegreeInputRef = useRef(null);
+       const inputRefs = useRef(null);
+       const[tenth, setTenth]=useState("");
+       const[twelfth, setTwelfth]=useState("");
+       const[degree, setDegree]=useState("");
      const [Resulttag, setResulttagTag] = useState()
      const [Skills, setSkills] = useState([])
      console.log(Skills)
@@ -187,6 +195,7 @@ function StudentUpdateProfile(props) {
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     await axios.get(`/StudentProfile/viewProfile/${studId}`)
       .then((res) => {
+        console.log("res",res.data.result)
         let result = res.data.result
         if (result) {
           setResulttagTag(result.Tags)
@@ -197,7 +206,10 @@ function StudentUpdateProfile(props) {
           setphoneNumber(result.phoneNumber)
           setAadhar(result.Aadhar)
           setpanCard(result.panCard)
-          setcity(result.city)          
+          setcity(result.city)    
+          setTenth(result.tenth)    
+          setTwelfth(result.twelfth)  
+          setDegree(result.degree)
           setcollege(result.college)          
           setNoticePeriod(result.NoticePeriod)
           setExpectedSalary(result.ExpectedSalary)
@@ -217,7 +229,6 @@ function StudentUpdateProfile(props) {
     getUser()
   }, [])
 
-
   // ...............upload Image.....................
   async function uploadImage() {
     const formdata = new FormData()
@@ -234,9 +245,10 @@ function StudentUpdateProfile(props) {
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     // e.preventDefault()
+    // console.log("tenth",tenth)
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
       name, email, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
-      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college
+      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, tenth,twelfth,degree, college
     }, { headers })
       .then(async (res) => {
         let result = res.data
@@ -261,7 +273,6 @@ function StudentUpdateProfile(props) {
           top: 0,
           behavior: "smooth"
         });
-
 
       }).catch((err) => {
         alert("some thing went wrong")
@@ -377,6 +388,100 @@ if(confirm){
   }
 
 
+
+        // -------------college-----------------
+        useEffect(() => {
+          if (collegeInputRef.current && !collegeInputRef.current.autocomplete) {
+            const autocomplete = new window.google.maps.places.Autocomplete(collegeInputRef.current, {
+              fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+            });
+        
+            autocomplete.addListener("place_changed", () => {
+              const place = autocomplete.getPlace();
+              if (place && place.formatted_address) {
+                const displayValue =
+                  place.name && place.name !== place.formatted_address
+                    ? `${place.name}, ${place.formatted_address}`
+                    : place.formatted_address;
+        
+                setcollege(displayValue);
+              }
+            });
+        
+            collegeInputRef.current.autocomplete = autocomplete; // attach instance
+          }
+        }, []);
+
+          // ----------------degree/diploma---------
+          useEffect(() => {
+            if (DegreeInputRef.current && !DegreeInputRef.current.autocomplete) {
+              const autocomplete = new window.google.maps.places.Autocomplete(DegreeInputRef.current, {
+                fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+              });
+          
+              autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+                if (place && place.formatted_address) {
+                  const displayValue =
+                    place.name && place.name !== place.formatted_address
+                      ? `${place.name}, ${place.formatted_address}`
+                      : place.formatted_address;
+          
+                  setDegree(displayValue);
+                  
+                }
+              });
+          
+              DegreeInputRef.current.autocomplete = autocomplete; // attach instance
+            }
+          }, []);
+
+     // ----------------12th-----------
+
+            useEffect(() => {
+              if (twelfthInputRef.current && !twelfthInputRef.current.autocomplete) {
+                const autocomplete = new window.google.maps.places.Autocomplete(twelfthInputRef.current, {
+                  fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+                });
+            
+                autocomplete.addListener("place_changed", () => {
+                  const place = autocomplete.getPlace();
+                  if (place && place.formatted_address) {
+                    const displayValue =
+                      place.name && place.name !== place.formatted_address
+                        ? `${place.name}, ${place.formatted_address}`
+                        : place.formatted_address;
+            
+                    setTwelfth(displayValue);
+                  }
+                });
+            
+                twelfthInputRef.current.autocomplete = autocomplete; // attach instance
+              }
+            }, []);
+
+            // ----------------10th-----------
+              useEffect(() => {
+                if (tenthInputRef.current && !tenthInputRef.current.autocomplete) {
+                  const autocomplete = new window.google.maps.places.Autocomplete(tenthInputRef.current, {
+                    fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+                  });
+              
+                  autocomplete.addListener("place_changed", () => {
+                    const place = autocomplete.getPlace();
+                    if (place && place.formatted_address) {
+                      const displayValue =
+                        place.name && place.name !== place.formatted_address
+                          ? `${place.name}, ${place.formatted_address}`
+                          : place.formatted_address;
+              
+                      setTenth(displayValue);
+                    }
+                  });
+              
+                  tenthInputRef.current.autocomplete = autocomplete; // attach instance
+                }
+              }, []);
   return (
     <>
 
@@ -398,7 +503,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 :""
              }
 
-
               </div>
 
             <div className={styles.addfileDiconwrapper}>
@@ -418,7 +522,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
           {screenSize.width > 850 ?
 <>
             <div className={styles.inputWrapper}>
-
 
               <label className={styles.inputName}>
                 <h4>Name:</h4>
@@ -500,7 +603,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                   onChange={handleChange}   
                 />
                          </div> */}
-                         <div className={Style.JobtitleFilterWrapper}>
+                         <div style={{height:"178px"}} className={Style.JobtitleFilterWrapper}>
             {/* <buton className={ Active.length===0? Style.active:Style.JobtitleFilter} onClick={() => { getjobs() }}>All</buton> */}
             {
               jobTags.map((tags, i) => {
@@ -526,10 +629,9 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
             }
           </div>
 
-
               </label>
 
-              <label className={styles.inputName}>
+              {/* <label className={styles.inputName}>
                 <h4>College:</h4>
                 <div style={{marginTop:"-7px", width:"81%", marginLeft:"18px"}}>
                 <CreatableSelect  
@@ -538,7 +640,74 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                   onChange={handleCollege}   
                 />
                 </div>
-              </label>
+              </label> */}
+              <div style={{width:"50%"}}>
+                 <h4>School/College:</h4>
+                <div style={{display:"flex", alignItems:"center", gap:"20px"}}>                 
+                  <h4>10th:</h4> 
+                  <label className={styles.inputName}>
+                  <input
+                   type="text"
+                   ref={tenthInputRef}
+                   value={tenth}
+                   onChange={(e) => setTenth(e.target.value)}
+                   className={styles.input}
+                   style={{ width: "130%", marginLeft: "31px" }}
+                   placeholder="Search your School"
+                 />
+                 </label>
+               </div>
+               <div style={{display:"flex", alignItems:"center", gap:"20px"}}>  
+                 <h4>12th:</h4>
+              <label className={styles.inputName}>
+                 <input
+                   type="text"
+                   ref={twelfthInputRef}
+                   value={twelfth}
+                   onChange={(e) => setTwelfth(e.target.value)}
+                   className={styles.input}
+                   style={{ width: "130%", marginLeft: "31px" }}
+                   placeholder="Search your School/College"
+                 />
+                 
+               </label>
+               </div>
+
+               <div style={{display:"flex", alignItems:"center",}}>
+                <div>
+                  <h4>Degree/<br></br>Diploma:</h4>
+                 </div>
+               <label className={styles.inputName}>
+               
+                 <input
+                   type="text"
+                   ref={DegreeInputRef}
+                   value={degree}
+                   onChange={(e) => setDegree(e.target.value)}
+                   className={styles.input}
+                   style={{ width: "130%", marginLeft: "2px" }}
+                   placeholder="Search Degree/Diploma College"
+                 />
+                 
+               </label>
+               </div>
+
+               <div style={{display:"flex", alignItems:"center"}}>  
+                 <h4>Masters:</h4>
+               <label className={styles.inputName}>
+                 <input
+                   type="text"
+                   ref={collegeInputRef}
+                   value={college}
+                   onChange={(e) => setcollege(e.target.value)}
+                   className={styles.input}
+                   style={{ width: "130%", marginLeft: "51px" }}
+                   placeholder="Search  your Masters college"
+                 />
+                 
+               </label>
+               </div>
+           </div>
 <div style={{display:"flex", marginLeft:"80%"}}>
               <button className={styles.Save} onClick={(e) => { saveUpdate(e) }}>Save</button>
               <button className={styles.cancel} onClick={() => { navigate(-1) }} >Cancel</button>
@@ -658,7 +827,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
             }
           </div>
 
-
                <label className={styles.inputName}>
                 <h4 className={styles.MobileName}>College:</h4>
                 <div style={{ width:"88%", marginLeft:"10px"}}>
@@ -684,8 +852,8 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
       </div>
 
-
     </>
   )
 }
 export default StudentUpdateProfile
+
