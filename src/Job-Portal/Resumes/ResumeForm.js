@@ -9,6 +9,8 @@ const ResumeForm = () => {
     profileSummary: '',
     address: '',
     email: '',
+    qualification: '',
+    college: '',
     totalExperience: '',
     experiences: [
       { company: '', role: '', startDate: '', endDate: '', descriptions: [''] },
@@ -33,6 +35,7 @@ const ResumeForm = () => {
       try {
         const res =   await axios.get(`/StudentProfile/viewProfile/${studId}`)
         const result = res.data.result;
+        console.log("result",result)
         setProfileData([result]);
 
         setFormData(prev => ({
@@ -42,6 +45,8 @@ const ResumeForm = () => {
           profileSummary: result.profileSummary || "",
           totalExperience: result.Experiance || "",
           address: result.address || "",
+          qualification:result.Qualification||"",
+          college:result.college||"",
           experiences: result.experiences?.length
             ? result.experiences.map(exp => ({
               company: exp.company || "",
@@ -67,7 +72,6 @@ const ResumeForm = () => {
 
     fetchProfile();
   }, [studId]);
-
 
   useEffect(() => {
     console.log("profile", profileData)
@@ -239,14 +243,12 @@ const ResumeForm = () => {
     setFormData({ ...formData, languages: updated });
   };
 
-
   // ---------- SUBMIT ----------
   const handleSubmit = async () => {
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
 
     const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages } = formData;
-
 
     if (
       !profileSummary.trim() ||
@@ -322,7 +324,6 @@ return () => clearInterval(interval);
 }, []);
 
 
-
   return (
     <div className={styles.container}>
     {/* Left Section */}
@@ -366,6 +367,8 @@ return () => clearInterval(interval);
                                           />
       <input style={inputStyle} disabled placeholder="Email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
       <input style={inputStyle} disabled placeholder="Total Experience" value={formData.totalExperience} onChange={(e) => handleChange('totalExperience', e.target.value)} />
+      <input style={inputStyle} disabled placeholder="Qualification" value={formData.qualification} onChange={(e) => handleChange('totalExperience', e.target.value)} />
+      <input style={inputStyle} disabled placeholder="College" value={formData.college} onChange={(e) => handleChange('totalExperience', e.target.value)} />
 
       {/* EXPERIENCES */}
       <h2>Experience</h2>
@@ -439,3 +442,5 @@ return () => clearInterval(interval);
 };
 
 export default ResumeForm;
+
+

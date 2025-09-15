@@ -157,18 +157,8 @@ function PostJobs(props) {
                     setSkills("")
                     setTag([])
                     setconcent(false)
-                    setSuccessMessage(
-                        <span
-                          style={{
-                            color: "green",
-                            fontWeight: "700",   
-                            fontStyle: "normal", 
-                            fontFamily: "Courier New, Courier, monospace" 
-                          }}
-                        >
-                          Job Successfully Posted!
-                        </span>
-                      );
+                    setSuccessMessage("Successfully Posted")
+                       
                       
                 }
                 

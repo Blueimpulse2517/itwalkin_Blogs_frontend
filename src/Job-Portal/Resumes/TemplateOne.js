@@ -18,7 +18,7 @@ const TemplateOne = () => {
       try {
         const res =await axios.get(`/StudentProfile/viewProfile/${studId}`)
         setProfileData(res.data.result);
-        console.log(res.data.result)
+        console.log("response",res.data.result)
         setPageLoader(false)
       } catch (err) {
         alert("Something went wrong while fetching profile");
@@ -253,6 +253,36 @@ const TemplateOne = () => {
 ))}
 
             </div>
+
+            <div className="skills">
+              <h4>LANGUAGES </h4>
+              {pageLoader?<p>Loading...</p>:(profileData && profileData.languages && profileData.languages.length > 0 ? (
+  profileData.languages.map((group, i) => (
+    <div className="skill-section" key={i}>
+      <ul>
+        {/* {group.items&& group.items.map((skill, j) => ( */}
+          <li key={i}>{group}</li>
+        {/* ))} */}
+      </ul>
+    </div>
+  ))
+) : (
+  <p>No languages added</p>
+))}
+            </div>
+          
+
+          <div className="skills">
+              <h4>Qualification </h4>
+              <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.Qualification : "No Qualification added")}</p>
+            </div>
+
+            <div className="skills">
+              <h4>College</h4>
+              <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.college : "No College added")}</p>
+            </div>
+
+            
           </div>
         </div>
       </div>
