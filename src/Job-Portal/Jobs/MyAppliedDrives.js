@@ -325,7 +325,7 @@ console.log(records)
           <div className={styles.Uiwarpper}>
 
             <ul className={styles.ul}>
-              <li className={styles.li}><b>Company Name</b></li>
+              <li  className={styles.li}><b>Company Name</b></li>
               <li className={`${styles.li} ${styles.Jtitle}`}><b>Job Title</b></li>
               <li className={`${styles.li} ${styles.JobType}`}><b>JobType</b></li>
 
@@ -602,7 +602,7 @@ console.log(records)
                       </div>
 
                       <div className={styles.ApplyPackage}>
-                        <h3 style={{ marginLeft: "10px", marginTop: "23px" }}><span>&#8377;</span>{job.salaryRange}L</h3>
+                        <h3 style={{ marginLeft: "10px", marginTop: "23px" }}><span>&#8377;</span>{job.salaryRange}LPA</h3>
                         <div style={{display:"flex"}}>
                         <button style={{width:"40%"}} className={styles.MobileDelete} onClick={() => { UndoApply(job._id) }}>Delete</button>
                         <button className={styles.Mobileqr}  onClick={handleStart} >QR Scanner</button>
