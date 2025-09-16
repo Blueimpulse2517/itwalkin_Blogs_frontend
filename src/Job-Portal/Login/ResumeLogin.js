@@ -240,7 +240,7 @@ useEffect(() => {
  */}
  
 <div className={styles.BothsignUpWrapper}>
-<p className={styles.Loginpage}> Job Seeker Login pages  </p>
+<p className={styles.Loginpage}> Job Seeker Login page  </p>
 
           {/* <input maxLength="10" className={styles.inputs} type="number" placeholder='enter phone Number'
             value={PhoneNumber} autoComplete="on" onChange={(e) => { setPhoneNumber(e.target.value) }} />

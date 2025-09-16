@@ -184,7 +184,7 @@ const InterviewScreen = () => {
     setInterviewstarted(false) // mark as ended
     // setComments("");
     setNoData(false)
-    setinterviewStatusmessage("Interview completed Successfully and feedback has been submitted")
+    setinterviewStatusmessage("Interview completed successfully and feedback has been submitted")
           // alert("Interview completed Successfully and feedback has been submitted");
           // window.location.reload();
         }
@@ -274,7 +274,7 @@ const InterviewScreen = () => {
 
 {!loading && noData && !interviewEnded && (
   <div style={{ textAlign: "center", color: "red", marginTop: "20px" }}>
-    No Jobseeker has Scanned the QR Code
+    No Jobseeker has scanned the QR Code
   </div>
 )}
 

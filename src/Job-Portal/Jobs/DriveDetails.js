@@ -599,7 +599,7 @@ const [PageLoader, setPageLoader] = useState(false)
   &nbsp;<span>Location : {jobs.jobLocation ? jobs.jobLocation.charAt(0).toUpperCase() + jobs.jobLocation.substring(1) : ''} &nbsp;|</span>
   &nbsp; <span>Job Type : {jobs.jobtype}</span>&nbsp; |  
   &nbsp; <span>Qualification : {jobs.qualification}</span>&nbsp; |  
-  &nbsp; <span>Salary :{jobs.salaryRange==="Not disclosed"||jobs.salaryRange==="" ? "Not Disclosed":jobs.salaryRange+"LPA" }</span> 
+  &nbsp; <span>Salary :  {jobs.salaryRange==="Not disclosed"||jobs.salaryRange==="" ? "Not Disclosed":jobs.salaryRange+"LPA" }</span> 
   
   
 <p>Skills : {jobs.skills} </p>
@@ -823,7 +823,7 @@ const [PageLoader, setPageLoader] = useState(false)
         <button  className={styles.ApplyMobile} onClick={() =>
           applyforJobasjobseeker(jobs._id,jobs.SourceLink)}>Apply</button>
           :
-      <button className={styles.ApplyMobile} onClick={() => { navigate("/JobSeekerLogin") }}><b>Apply</b></button>
+      <button className={styles.ApplyMobile} onClick={() => { navigate("/JobSeekerLogin") }}><b>Register</b></button>
    
       
 

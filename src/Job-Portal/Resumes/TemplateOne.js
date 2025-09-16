@@ -159,9 +159,9 @@ const TemplateOne = () => {
         <div className="resume-body">
           {/* Left Section */}
           <div className="left-section">
-            <h2 className="section-title">EXPERIENCE</h2>
+            <h2 style={{fontWeight:"700"}} className="section-title">EXPERIENCE</h2>
             <div className="total-exp" style={{display:"flex", alignItems:"center"}}>
-            <div><h4>Total Experience</h4></div>
+            <div><h4>TOTAL EXPERIENCE</h4></div>
             <span><pre> - </pre> </span>
               <div><pre>{profileData ? `${profileData.Experiance}Years` : "Loading..."}</pre></div>
             </div>
@@ -220,7 +220,7 @@ const TemplateOne = () => {
           {/* Right Section */}
           <div className="right-section">
             <div className="certification">
-              <h4>Certification</h4>
+              <h4>CERTIFICATION</h4>
               {pageLoader ? (
   <p>Loading...</p>
 ) : profileData ? (
@@ -273,12 +273,12 @@ const TemplateOne = () => {
           
 
           <div className="skills">
-              <h4>Qualification </h4>
+              <h4>EDUCATION </h4>
               <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.Qualification : "No Qualification added")}</p>
             </div>
 
             <div className="skills">
-              <h4>College</h4>
+              <h4>COLLEGE</h4>
               <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.college : "No College added")}</p>
             </div>
 
