@@ -202,7 +202,7 @@ const saveMicrosoft=(e)=>{
               let result = response.data
               let token = result.token
               let GuserId = result.id
-              console.log("response after calling",result)
+              // console.log("response after calling",result)
               if (result.action == "registered") {
               alert("Registered Successfully")
               }else if(result.action == "login"){
@@ -292,7 +292,7 @@ alert("Invalid Primary email id")
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     // e.preventDefault()
-    await axios.post(`/StudentProfile/JobseekerRegister`, {
+    await axios.post(`/StudentProfile/updatProfile/`, {
       name, email, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
       ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college
     }, { headers })
