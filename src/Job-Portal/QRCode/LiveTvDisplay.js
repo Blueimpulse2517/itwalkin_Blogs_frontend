@@ -68,7 +68,7 @@ async function postJob() {
       if (uniqueList.length === 0) {
         setPageLoader(false);
       }
-      setJobSeekerList(uniqueList);
+      // setJobSeekerList(uniqueList);
 
       //---------------hr table details--------------
         const listofhrscanned  = result.HRCabin.map(item => ({
@@ -78,14 +78,31 @@ async function postJob() {
           updatedDateTime: new Date(item.updatedDateTime),
         }));
         
+        const invalidJobSeekerIds = [
+          ...new Set(
+            listofhrscanned
+              .filter(item => isNaN(item.createdDateTime.getTime())) // invalid date
+              .map(item => item.jobSeekerId) // take only jobSeekerId
+          )
+        ];
+        
+        console.log("Invalid job seeker IDs:", invalidJobSeekerIds);
 
-  
+        const filteredUniqueList = uniqueList.filter(
+          jobSeeker => !invalidJobSeekerIds.includes(jobSeeker.jobSeekerId)
+        );
+              console.log("filtered unique list",filteredUniqueList)
+              if (filteredUniqueList.length === 0) {
+                setPageLoader(false);
+              }
+            setJobSeekerList(filteredUniqueList)
+
         if (listofhrscanned.length > 0) {
           // Find the latest record by createdDateTime
           const latestRecord = listofhrscanned.reduce((latest, current) =>
             current.updatedDateTime > latest.updatedDateTime ? current : latest
           );
-          console.log("latest-",latestRecord)
+          // console.log("latest-",latestRecord)
           // if (latestRecord.createdDateTime && !isNaN(new Date(latestRecord.createdDateTime).getTime())) {
             setJobseeker(latestRecord);
             return latestRecord
@@ -107,7 +124,7 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{
-  console.log("jsl",jobSeekerList)
+  console.log("jslist",jobSeekerList)
 },[jobSeekerList])
 
 const[pageLoader1,setPageLoader1]=useState(true)

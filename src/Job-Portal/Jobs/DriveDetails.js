@@ -788,9 +788,45 @@ const [PageLoader, setPageLoader] = useState(false)
             
             <div className={styles.ApplyPackage} style={{justifyContent:"space-between"}}>
             <p className={styles.salaryRange} style={{marginLeft:"16px"}} >{jobs.salaryRange==="Not disclosed" ||jobs.salaryRange===""  ? "Not Disclosed":<><span>&#8377;</span>{jobs.salaryRange} LPA</>}</p>        
-
-
             {
+              jobs?.jobSeekerId?.find((jobseeker) => {
+                return (
+                  jobseeker.jobSeekerId == jobSeekerId
+                )
+              })?
+              <button onClick={() => deregister(jobs._id)}  class={styles.jobdetailApplyBtn} style={{backgroundColor:"green", height:"32px"}}>
+           <div style={{fontSize:"12px", fontWeight:"800px"}}>Registered <span style={{ fontSize: '15px' }}>&#10004;</span>
+           <span className={styles.Loader}>
+      {Loader && jobs._id === clickedJobId ? (
+        <TailSpin color="white" height={16} width={16} />
+      ) : null}
+    </span>
+           </div>
+           </button>
+           :  
+           (
+            !EmployeeAuth&&
+               
+           <button style={{height:"32px"}} className={styles.jobdetailApplyBtn} onClick={() => applyforJob(jobs._id)}>
+  <div style={{
+    fontSize: "12px",
+    fontWeight: 600,          // corrected "800px" to 800
+    display: "flex",
+    alignItems: "center",
+    gap: "6px"                // spacing between text and spinner
+  }}>
+   Register
+    <span className={styles.Loader}>
+      {Loader && jobs._id === clickedJobId ? (
+        <TailSpin color="white" height={16} width={16} />
+      ) : null}
+    </span>
+  </div>
+</button>
+ ) 
+          }
+
+            {/* {
     jobSeekerId?
 (
             jobseekerid.find((jobseeker) => {
@@ -800,34 +836,27 @@ const [PageLoader, setPageLoader] = useState(false)
 }) ?
   <button className={styles.MobileAppliedButton}  > Applied <span style={{ fontSize: '13.8px', marginBottom:"3px", marginLeft:"2px" }}>&#10004;</span></button>
   
-  // job .isApproved?
 
     :
-  // <button className={styles.ApplyMobile} onClick={() => { applyforJob(jobs._id) }}>Apply
-  <button className={styles.ApplyMobile} onClick={()=>applyforJobasjobseeker(jobs._id,jobs.SourceLink)}>Apply
+  <button className={styles.ApplyMobile} onClick={()=>applyforJobasjobseeker(jobs._id,jobs.SourceLink)}>Register
     <span className={styles.Loader} >{Loader && jobs._id == clickedJobId ?
       <TailSpin color="white" height={20} />
       : ""}</span></button>
 )
       :
       empId?
-
-  // <div className={styles.ApplyPackage}>
-  //      <span className={styles.salaryRange} style={{ marginLeft: "10px" }}><span>&#8377;</span>{job.salaryRange}</span>
           <div className={Styles.MobileAcbuttons} style={{width:"auto", marginRight:"16px",marginLeft:"0px"}}>
           <button style={{marginTop:"-10px"}} onClick={() => { update(jobs._id) }} className={` ${Styles.MobileUpdate}`}>update</button>
           <button style={{marginTop:"-10px",marginLeft:"4%"}} onClick={() => { deletejob(jobs._id) }} className={` ${Styles.MobileDelete}`}>delete</button>
                </div>
-        // </div>
+ 
         :  jobs.SourceLink?
         <button  className={styles.ApplyMobile} onClick={() =>
           applyforJobasjobseeker(jobs._id,jobs.SourceLink)}>Apply</button>
           :
       <button className={styles.ApplyMobile} onClick={() => { navigate("/JobSeekerLogin") }}><b>Register</b></button>
-   
-      
 
-}
+} */}
                   </div>
             <p className={styles.jobDescriptionHeading} style={{marginTop:"12px"}}>Job Description:</p>
             <p className={styles.jobDescription} style={{marginTop:"2px"}}> 

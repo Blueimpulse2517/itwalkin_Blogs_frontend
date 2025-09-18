@@ -961,9 +961,10 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
         
         > 
         <strong style={{color:"red", textAlign:"center", fontSize:"14px"}}>NOTICE</strong><br></br>
-          ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
+          ITWALKIN.com  never charges fees for walkin drives.
+          If you encounter misuse or payment requests, report it through our website.<br></br>
           <br></br>
-          You will be redirected to the career page of        {
+          You will be redirected to the walkin drive  page of company name.  {
                           !items.Source ?
 
                             <span>
@@ -977,7 +978,7 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
                             </span>
 
                         }. 
-          ITwalkin is not the authorised partner of this company
+         ITwalkin is not responsible for any misconduct that may arise during the walkin drive
           {/* <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website. */}
 
           <div ref={alertRef} style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>

@@ -35,8 +35,8 @@ const Magnifier = ({ src, alt, className }) => {
       position: 'absolute',
       top: `${top}px`,
       left: `${left}px`,
-      width: '400px',
-      height: '350px',
+      width: '700px',
+      height: '400px',
       backgroundImage: `url(${src})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '500% 500%',
@@ -67,7 +67,8 @@ const Magnifier = ({ src, alt, className }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+           
           }}>+</span>
         </div>
       )}
@@ -117,6 +118,7 @@ const TemplateGallery = ({ onSelect }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+          
           }}
         >
           <div
@@ -132,6 +134,7 @@ const TemplateGallery = ({ onSelect }) => {
               zIndex: 9999,
               boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
               textAlign: 'center',
+             
             }}
           >
             Ensure your profile is fully completed
@@ -149,6 +152,7 @@ const TemplateGallery = ({ onSelect }) => {
                   borderRadius: '5px',
                   fontSize: '12px',
                   cursor: 'pointer',
+                 
                 }}
               >
                Continue to Edit profile
@@ -166,6 +170,7 @@ const TemplateGallery = ({ onSelect }) => {
                   borderRadius: '5px',
                   fontSize: '12px',
                   cursor: 'pointer',
+                   
                   
                 }}
               >
