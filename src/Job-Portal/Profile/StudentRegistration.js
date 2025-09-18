@@ -202,7 +202,7 @@ const saveMicrosoft=(e)=>{
               let result = response.data
               let token = result.token
               let GuserId = result.id
-              // console.log(result)
+              console.log("response after calling",result)
               if (result.action == "registered") {
               alert("Registered Successfully")
               }else if(result.action == "login"){
@@ -796,9 +796,9 @@ const qualifications = [
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(()=>{
-    console.log("employer",employers)
-  })
+  // useEffect(()=>{
+  //   console.log("employer",employers)
+  // })
 
   
 

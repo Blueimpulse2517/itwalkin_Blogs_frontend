@@ -255,7 +255,7 @@ const TemplateOne = () => {
             </div>
 
             <div className="skills">
-              <h4>LANGUAGES </h4>
+              {/* <h4>LANGUAGES </h4> */}
               {pageLoader?<p>Loading...</p>:(profileData && profileData.languages && profileData.languages.length > 0 ? (
   profileData.languages.map((group, i) => (
     <div className="skill-section" key={i}>

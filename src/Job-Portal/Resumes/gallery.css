@@ -20,13 +20,13 @@
   } */
   
   .blurred {
-    width: 125%;
+    width: 250%;
     height: 80%;
     border-radius: 10px;
     /* filter: blur(1px); */
     border: 1px solid #ccc;
     margin-top: -24px;
-    margin-left: -39px;
+    margin-left: -193px;
   }
   
 

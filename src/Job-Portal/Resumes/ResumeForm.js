@@ -272,7 +272,24 @@ const ResumeForm = () => {
       .then((res) => {
         let result = (res.data)
         if (result === "success") {
-          setSuccessMessage("Success!Resume Form successfully submitted")
+          setSuccessMessage(
+            <span
+              style={{
+                color: "green",
+                fontWeight: "400",   // normal weight for body
+                fontStyle: "normal",
+                // fontFamily: "Arial, Helvetica, sans-serif"
+              }}
+            >
+              <span style={{ fontWeight: "800" }}>
+                Complete Your Resume for a Stronger First Impression
+              </span>
+              <br />
+              Your current resume is missing key details that recruiters look for. Add more
+              information—like your skills, experience, and education—to make your resume
+              stand out and increase your chances of landing interviews.
+            </span>
+          );
         }
         else if (result === "field are missing") {
           setSuccessMessage("Alert!... all fields must be filled")
