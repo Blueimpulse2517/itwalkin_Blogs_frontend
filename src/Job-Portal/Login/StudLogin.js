@@ -287,12 +287,12 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* <div className={styles.signUpWrapper}  >
+       <div className={styles.signUpWrapper}  >
         <div className={styles.both}>
           <img className={styles.google} src={linkedIn} />
           <span className={styles.signUpwrap} >Continue with Linkedin</span>
         </div>
-      </div> */}
+      </div> 
 
 
       {/* <div className={styles.signUpWrapper}  >
