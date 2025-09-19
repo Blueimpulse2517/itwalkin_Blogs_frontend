@@ -78,19 +78,26 @@ async function postJob() {
           updatedDateTime: new Date(item.updatedDateTime),
         }));
         
-        const invalidJobSeekerIds = [
-          ...new Set(
-            listofhrscanned
-              .filter(item => isNaN(item.createdDateTime.getTime())) // invalid date
-              .map(item => item.jobSeekerId) // take only jobSeekerId
-          )
-        ];
+        // const invalidJobSeekerIds = [
+        //   ...new Set(
+        //     listofhrscanned
+        //       .filter(item => isNaN(item.createdDateTime.getTime())) 
+        //       .map(item => item.jobSeekerId) 
+        //   )
+        // ];
         
-        console.log("Invalid job seeker IDs:", invalidJobSeekerIds);
+        // console.log("listofhrscanned:", listofhrscanned);
+        // console.log("uniqueList:", uniqueList);
 
-        const filteredUniqueList = uniqueList.filter(
-          jobSeeker => !invalidJobSeekerIds.includes(jobSeeker.jobSeekerId)
-        );
+            const hrScannedIds = listofhrscanned.map(item => item.jobSeekerId);
+            
+            
+            const filteredUniqueList = uniqueList.filter(
+              jobSeeker => !hrScannedIds.includes(jobSeeker.jobSeekerId)
+            );
+
+             console.log("filteredUniqueList:", filteredUniqueList);
+
               console.log("filtered unique list",filteredUniqueList)
               if (filteredUniqueList.length === 0) {
                 setPageLoader(false);

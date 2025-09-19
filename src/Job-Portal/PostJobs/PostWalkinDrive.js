@@ -688,6 +688,7 @@ const [EndTime, setEndTime] = useState("");
                                             className={Style.DriveDate}
                                             type="date" 
                                             value={selectedDate} 
+                                            min={new Date().toISOString().split("T")[0]} 
                                             onChange={(e) => setSelectedDate(e.target.value)} 
                                           />
                                           </div>

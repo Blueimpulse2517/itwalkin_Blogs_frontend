@@ -193,17 +193,18 @@ const saveMicrosoft=(e)=>{
           // let image= res.data.picture
   
           // console.log("decoded name :", gemail)
-          // console.log(" decoded id :", gname)
+          console.log(" decoded id :", phoneNumber,Aadhar)
              
           await axios.post("/StudentProfile/Glogin", {
              ipAddress, userId, email, name, gtoken, isApproved, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
-             ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college})
+             ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college, tenth,twelfth,degree , employers})
             .then((response) => {
               let result = response.data
               let token = result.token
               let GuserId = result.id
               // console.log("response after calling",result)
               if (result.action == "registered") {
+                // saveUpdate();
               alert("Registered Successfully")
               }else if(result.action == "login"){
                 alert("Primary email id is already registered please try different email id")
@@ -288,17 +289,20 @@ alert("Invalid Primary email id")
 }
 
 
+
   async function saveUpdate(e) {
+    console.log("update is executing")
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     // e.preventDefault()
-    await axios.post(`/StudentProfile/updatProfile/`, {
+    console.log(" decoded id :", phoneNumber,Aadhar)
+    await axios.put(`/StudentProfile/updatProfile/${studId}`, {
       name, email, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
-      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college
+      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college, tenth, twelfth, degree, employers
     }, { headers })
       .then(async (res) => {
         let result = res.data
-        // console.log(result)
+        console.log("result of executing update api -",result)
         if (result == "success") {
           settopMessage("Success! Profile Registered successfully")
         } else if (result == "feilds are missing") {
@@ -508,10 +512,10 @@ if(confirm){
   const currentEmpInputRef = useRef(null);
 
   
-  const[tenth, setTenth]=useState("");
-  const[twelfth, setTwelfth]=useState("");
-  const[degree, setDegree]=useState("");
-  const[currentEmp, setCurrentEmp]=useState("");
+  const[tenth, setTenth]=useState("abc");
+  const[twelfth, setTwelfth]=useState("abc");
+  const[degree, setDegree]=useState("abc");
+  const[currentEmp, setCurrentEmp]=useState("abc");
   // const[currentEmpTenure, setCurrentEmpTenure]=useState("");
 
   const addEmployer = () => {
@@ -1209,9 +1213,9 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
               </label>
             </div>
 
-              <div style={{width:"50%"}}>
+              <div style={{width:"50%",height:"70%"}}>
                  <h4>School/College:</h4>
-                <div style={{display:"flex", alignItems:"center", gap:"20px"}}>                 
+                <div style={{display:"flex", alignItems:"center", gap:"20px" }}>                 
                   <h4>10th:</h4> 
                   <label className={styles.inputName}>
                   <input
@@ -1220,12 +1224,13 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    value={tenth}
                    onChange={(e) => setTenth(e.target.value)}
                    className={styles.input}
-                   style={{ width: "130%", marginLeft: "31px" }}
+                   style={{ width: "130%", marginLeft: "31px", }}
                    placeholder="Search your School"
                  />
                  </label>
+                 
                </div>
-               <div style={{display:"flex", alignItems:"center", gap:"20px"}}>  
+               <div style={{display:"flex", alignItems:"center", gap:"20px",}}>  
                  <h4>12th:</h4>
               <label className={styles.inputName}>
                  <input
@@ -1234,7 +1239,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    value={twelfth}
                    onChange={(e) => setTwelfth(e.target.value)}
                    className={styles.input}
-                   style={{ width: "130%", marginLeft: "31px" }}
+                   style={{ width: "130%", marginLeft: "31px", }}
                    placeholder="Search your School/College"
                  />
                  
@@ -1253,14 +1258,14 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    value={degree}
                    onChange={(e) => setDegree(e.target.value)}
                    className={styles.input}
-                   style={{ width: "130%", marginLeft: "2px" }}
+                   style={{ width: "130%", marginLeft: "2px"}}
                    placeholder="Search Degree/Diploma College"
                  />
                  
                </label>
                </div>
 
-               <div style={{display:"flex", alignItems:"center"}}>  
+               <div style={{display:"flex", alignItems:"center",}}>  
                  <h4>Masters:</h4>
                <label className={styles.inputName}>
                  <input
@@ -1269,7 +1274,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    value={college}
                    onChange={(e) => setcollege(e.target.value)}
                    className={styles.input}
-                   style={{ width: "130%", marginLeft: "51px" }}
+                   style={{ width: "130%", marginLeft: "51px", }}
                    placeholder="Search  your Masters college"
                  />
                  
