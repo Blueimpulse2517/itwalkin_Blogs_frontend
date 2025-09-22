@@ -303,7 +303,7 @@ function AppliedUserProfile() {
 
     return (
         <>
-            <h4 style={{ marginTop: "10px", marginLeft: "6%" }}>Total {AppliedUser.length} Job Seekers have Applied</h4>
+            <h4 style={{ marginTop: "10px", marginLeft: "6%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"} have Applied</h4>
             {screenSize.width > 850 ?
 <>
                     <div style={{ display: "flex", justifyContent: "space-between"}}>

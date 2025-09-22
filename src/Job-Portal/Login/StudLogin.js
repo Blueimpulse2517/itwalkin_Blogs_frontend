@@ -242,6 +242,13 @@ useEffect(() => {
 <div className={styles.BothsignUpWrapper}>
 <p className={styles.Loginpage}> Job Seeker Login page  </p>
 
+{/* <div className={styles.signUpWrapper}  >
+        <div className={styles.both}>
+          <img className={styles.google} src={linkedIn} />
+          <span className={styles.signUpwrap} >Continue with Linkedin</span>
+        </div>
+      </div>  */}
+
           {/* <input maxLength="10" className={styles.inputs} type="number" placeholder='enter phone Number'
             value={PhoneNumber} autoComplete="on" onChange={(e) => { setPhoneNumber(e.target.value) }} />
 
