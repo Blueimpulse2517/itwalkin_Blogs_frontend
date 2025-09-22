@@ -146,7 +146,7 @@ let navigate = useNavigate()
              profileData.length>0?<button style={{height:"31px",paddingTop:"7px"}} className={styles.updateProfileStd} onClick={updateprofile}>Update Profile</button>:""
           }
           </div>
-          <div style={{position:"flex"}}>
+          {/* <div style={{position:"flex"}}>
             <div style={{ position: "relative" }}>
             <div
             ref={tooltipBtnRef}
@@ -188,10 +188,10 @@ let navigate = useNavigate()
          The background verification feature on ITWALKIN.COM allows employers to authenticate your profile using the details provided in the profile section. By opting in, you grant consent to ITWALKIN.COM to perform background checks based on the information shared on this platform and other relevant source.
         </div>
       )}
-      </div>
+      </div> */}
       
             
-            <button ref={consentBtnRef} onClick={toggleConsent} className={`${styles.updateProfileStd} ${styles.bgvBtn}`}  >Enroll for Background Check</button>
+            {/* <button ref={consentBtnRef} onClick={toggleConsent} className={`${styles.updateProfileStd} ${styles.bgvBtn}`}  >Enroll for Background Check</button> */}
             
       {showConsent && (
         <div
@@ -241,8 +241,8 @@ let navigate = useNavigate()
       )}
       </div>
           </div>
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
         
          {/* {
 
@@ -264,13 +264,16 @@ profileData.map((item, i) => {
                 <li className={styles.li}><b>Name </b></li>
                 <li className={styles.li}><b>Email Address</b></li>
                 <li className={styles.li}><b>City</b></li>
+                <li className={styles.li}><b>Country</b></li>
                 <li className={styles.li}><b>Phone Number</b></li>
                 <li className={styles.li}><b>Aadhaar Id</b></li>
                 <li className={styles.li}><b>Pan Card Id</b></li>
                 <li className={styles.li}><b>Age</b></li>
                 <li className={styles.li}><b>Notice  Period</b></li>
                 <li className={styles.li}><b>Expected  Salary</b></li>
+                <li className={styles.li}><b>Current  Employer</b></li>
                 <li className={styles.li}><b>Current  CTC</b></li>
+                <li className={styles.li}><b>Previous  Employer</b></li>
                 <li className={styles.li}><b>Qualification</b></li>
                 <li className={styles.li}><b>10th School</b></li>
                 <li className={styles.li}><b>12th School/College</b></li>
@@ -299,13 +302,22 @@ profileData.map((item, i) => {
                       {item.name?         <li className={` ${styles.Hli}`}>{item.name}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.email?         <li className={` ${styles.Hli}`}>{item.email}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.city?         <li className={` ${styles.Hli}`}>{item.city.value}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                      {item.city?         <li className={` ${styles.Hli}`}>India</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.phoneNumber?         <li className={` ${styles.Hli}`}>{item.phoneNumber}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.Aadhar?           <li className={` ${styles.Hli}`}>{item.Aadhar}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.panCard?          <li className={` ${styles.Hli}`}>{item.panCard}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.age?              <li className={` ${styles.Hli}`}>{item.age}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.NoticePeriod?     <li className={` ${styles.Hli}`}>{item.NoticePeriod} Days</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.ExpectedSalary?  <li className={` ${styles.Hli}`}>{item.ExpectedSalary} LPA</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.currentEmp?       <li className={` ${styles.Hli}`}>{item.currentEmp} </li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.currentCTC?       <li className={` ${styles.Hli}`}>{item.currentCTC} LPA</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                         {item.employers && item.employers.length > 0 ? (
+  <li className={styles.Hli}>
+    {item.employers.map(emp => emp.name).join(", ")}
+  </li>
+) : (
+  <li className={`${styles.Hli} ${styles.Nli}`}>########</li>
+)}
                          {item.Qualification?    <li className={` ${styles.Hli}`}>{item.Qualification}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.tenth?    <li className={` ${styles.Hli}`}>{item.tenth}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.twelfth?    <li className={` ${styles.Hli}`}>{item.twelfth}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}

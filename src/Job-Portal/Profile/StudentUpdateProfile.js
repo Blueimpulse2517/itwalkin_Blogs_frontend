@@ -141,13 +141,40 @@ function StudentUpdateProfile(props) {
      const tenthInputRef = useRef(null);
      const twelfthInputRef = useRef(null);
      const DegreeInputRef = useRef(null);
-       const inputRefs = useRef(null);
+       const inputRefs = useRef([]);
        const[tenth, setTenth]=useState("");
        const[twelfth, setTwelfth]=useState("");
        const[degree, setDegree]=useState("");
      const [Resulttag, setResulttagTag] = useState()
      const [Skills, setSkills] = useState([])
-     console.log(Skills)
+
+
+
+  const[currentEmp, setCurrentEmp]=useState("");
+      const currentEmpInputRef = useRef(null);
+      //--------------- Current emp----------
+        useEffect(() => {
+          if (currentEmpInputRef.current && !currentEmpInputRef.current.autocomplete) {
+            const autocomplete = new window.google.maps.places.Autocomplete(currentEmpInputRef.current, {
+              fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+            });
+        
+            autocomplete.addListener("place_changed", () => {
+              const place = autocomplete.getPlace();
+              if (place && place.formatted_address) {
+                const displayValue =
+                  place.name && place.name !== place.formatted_address
+                    ? `${place.name}, ${place.formatted_address}`
+                    : place.formatted_address;
+        
+                setCurrentEmp(displayValue);
+              }
+            });
+        
+            currentEmpInputRef.current.autocomplete = autocomplete; // attach instance
+          }
+        }, []);
+    //  console.log(Skills)
     function handleTags(key){
       // setTag(tag)   
       const isIndex=Tags.findIndex((present)=>{
@@ -175,6 +202,7 @@ function StudentUpdateProfile(props) {
       setcollege(tag)      
   }  
     const [city, setcity] = useState([])
+    const [selectedCountry, setSelectedCountry] = useState("India");
 
     const CTags=[{value:'Bangalore', label: 'Bangalore'},{value:'Chennai', label:'Chennai' },
       {value:'Hyderabad', label: 'Hyderabad'}, {value:'Delhi', label: 'Delhi'},{value:'Mumbai', label: 'Mumbai' }]
@@ -189,6 +217,59 @@ function StudentUpdateProfile(props) {
 
   const [topMessage, settopMessage] = useState("")
   const [stuId, setstuId] = useState()
+
+    const [employers, setEmployers] = useState([]);
+const addEmployer = () => {
+    if (employers.length < 3) {
+      setEmployers([...employers, { name: "" }]);
+    }
+  };
+
+  const removeEmployer = (index) => {
+    const updatedEmployers = [...employers];
+    updatedEmployers.splice(index, 1);
+    setEmployers(updatedEmployers);
+    inputRefs.current.splice(index, 1); // also remove ref
+  };
+
+  const handleEmployerChange = (index, field, value) => {
+    const updated = [...employers];
+    updated[index][field] = value;
+    setEmployers(updated);
+  };
+  
+  // Hook up Google Places Autocomplete
+  useEffect(() => {
+    employers.forEach((_, index) => {
+      if (inputRefs.current[index] && !inputRefs.current[index].autocomplete) {
+        const autocomplete = new window.google.maps.places.Autocomplete(
+          inputRefs.current[index],
+          {
+            fields: ["formatted_address", "geometry", "address_components", "place_id", "name"],
+          }
+        );
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          // console.log("Selected Place:", place);
+        
+          if (place && place.formatted_address) {
+            const displayValue = place.name && place.name !== place.formatted_address
+              ? `${place.name}, ${place.formatted_address}`
+              : place.formatted_address;
+        
+              if (employers[index]?.name !== displayValue) {
+                handleEmployerChange(index, "name", displayValue);
+              }
+          }
+        });
+ 
+        inputRefs.current[index].autocomplete = autocomplete;
+      }
+    });
+
+    // console.log()
+  }, [employers]);
 
   async function getUser() {
     let userid = JSON.parse(localStorage.getItem("StudId"))
@@ -220,6 +301,8 @@ function StudentUpdateProfile(props) {
           setage(result.age)
           setTag(result.Tags)
           setstuId(result._id)
+          setCurrentEmp(result.currentEmp)
+          setEmployers(result.employers)
         }
       }).catch((err) => {
         alert("server issue occured", err)
@@ -245,10 +328,10 @@ function StudentUpdateProfile(props) {
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     // e.preventDefault()
-    // console.log("tenth",tenth)
+    console.log("tenth",currentEmp)
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
       name, email, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
-      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, tenth,twelfth,degree, college
+      ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, tenth,twelfth,degree, college,currentEmp, employers
     }, { headers })
       .then(async (res) => {
         let result = res.data
@@ -482,6 +565,52 @@ if(confirm){
                   tenthInputRef.current.autocomplete = autocomplete; // attach instance
                 }
               }, []);
+
+              const qualifications = [
+                {
+                  main: "BE / B.Tech",
+                  subs: ["Computer Science", "Electronics", "Mechanical", "Civil"],
+                },
+                {
+                  main: "ME / M.Tech",
+                  subs: ["Computer Science", "Embedded Systems", "Power Systems", "Thermal Engineering"],
+                },
+                {
+                  main: "BCA",
+                  subs: ["General", "Data Science", "Cloud Computing"],
+                },
+                {
+                  main: "MCA",
+                  subs: ["General", "AI & ML", "Cyber Security"],
+                },
+              ];
+              const [menuOpen, setMenuOpen] = useState(false);
+                const [openIndex, setOpenIndex] = useState(null);
+                const [selected, setSelected] = useState("");
+                const containerRef = useRef(null);
+              
+                const toggleMain = (index) => {
+                  setOpenIndex(openIndex === index ? null : index);
+                };
+              
+                const handleSelect = (value) => {
+                  // setSelected(value);
+                  setQualification(value)
+                  setMenuOpen(false);
+                  setOpenIndex(null);
+                };
+              
+                // Handle outside click
+                useEffect(() => {
+                  const handleClickOutside = (e) => {
+                    if (containerRef.current && !containerRef.current.contains(e.target)) {
+                      setMenuOpen(false);
+                      setOpenIndex(null);
+                    }
+                  };
+                  document.addEventListener("mousedown", handleClickOutside);
+                  return () => document.removeEventListener("mousedown", handleClickOutside);
+                }, []);
   return (
     <>
 
@@ -531,6 +660,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
               <label className={styles.inputName}>
                 <h4>Email Address:**</h4>
                 <input maxLength="25" className={styles.input} value={email} disabled onChange={(e) => { setemail(e.target.value) }} type="text" />
+               <br></br> ( only gmail or microsoft outlook accepted for account creation)
               </label>
               <label className={styles.inputName}>
                 <h4>City: 
@@ -547,6 +677,145 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                          </div>
             
               </label>
+              <label className={styles.inputName}>
+                <h4>Country:</h4>
+                {/* <select className={styles.input} style={{height:"34px"}}  value={selectedCountry} onChange={handleCountryChange}>
+                <option value="" >Select a country</option>
+                {countries.map((country, index) => (
+                  <option key={index} value={country}>{country}</option>
+                ))}
+              </select> */}
+              <input className={styles.input}disabled value={selectedCountry} ></input>
+
+             </label>
+
+             <label className={styles.inputName}>
+                <h4>Current Employer:</h4>
+                 <input
+                   type="text"
+                   ref={currentEmpInputRef}  
+                   value={currentEmp}
+                   onChange={(e) => setCurrentEmp(e.target.value)}
+                   className={styles.input}
+                   style={{ width: "80%",}}
+                   placeholder="Search your Current Employer"
+                 />      
+               </label>
+               <label className={styles.inputName}>
+                {/* <h4>Experience: &nbsp;<span className={styles.hint}>(e.g 3Y or 10Y)</span></h4> */}
+                <h4>Total years of Experience:</h4>
+                <input maxLength="3" className={styles.input} value={Experiance} onChange={(e) => { handleExperiance(e) }} type="text" />
+              </label>
+
+              <div style={{display:"flex", flexDirection:"column", alignItems:"start", width:"100%", marginLeft: "3%"}}>        
+<div
+      style={{
+        maxWidth: "400px",
+        width: "40%",
+        padding: "10px",
+        display: "flex",
+        justifyContent: "flex-end",
+        flexDirection: "column",
+        marginTop:"20px"
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          gap: "16px",
+          justifyContent: "start",
+          marginleft:"2%"
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "13px",
+            marginBottom: "10px",
+            marginTop: "15px",
+          }}
+        >
+          Previous Employers
+        </h2>
+        <div style={{ display: "flex" }}>
+          {employers.length < 3 ? (
+            <button
+              onClick={addEmployer}
+              style={{
+                marginTop: "11px",
+                backgroundColor: "rgb(40,4,99)",
+                color: "white",
+                border: "none",
+                padding: "1px 6px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontSize: "16px",
+                width: "30px",
+                height: "20px",
+              }}
+            >
+              +
+            </button>
+          ) : (
+            <div style={{ width: "36px", height: "36px", marginTop: "10px" }} />
+          )}
+
+          <div className={styles.tooltipWrapper}>
+            <span className={styles.tooltipIcon}>i</span>
+            <span className={styles.tooltipText}>
+              You can fill this field later.
+              <br /> It's not required during registration
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {employers.map((employer, index) => (
+        <div
+          key={index}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+            marginBottom: "12px",
+            marginLeft:"-5%"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "72px" }}>
+              <h4>Prev Emp {index + 1}:</h4>
+              <input
+                type="text"
+                placeholder={`Employer ${index + 1}`}
+                value={employer.name}
+                onChange={(e) =>
+                  handleEmployerChange(index, "name", e.target.value)
+                }
+                ref={(el) => (inputRefs.current[index] = el)}
+                style={{
+                  flex: 1,
+                  padding: "8px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginLeft: "20px" }}>
+              <button
+                onClick={() => removeEmployer(index)}
+                className={styles.minusbtn}
+              >
+                -
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+       
+            </div>
+
 
               <label className={styles.inputName}>
                 <h4>Age:</h4>
@@ -583,15 +852,87 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input maxLength="3" className={styles.input} value={currentCTC} onChange={(e) => {handleCurrentCTC(e)}} type="text" />
               </label>
 
-              <label className={styles.inputName}>
+              {/* <label className={styles.inputName}>
                 <h4>Qualification:</h4>
                 <input maxLength="6" className={styles.input} value={Qualification} onChange={(e) => {handleQualification(e) }} type="text" />
-              </label>
+              </label> */}
+               <div ref={containerRef} style={{ position: "relative",}} className={styles.inputName}>
+                
+                <h4>Qualification:</h4>
+                {/* Clickable Select Box */}
+                 <div  onClick={() => setMenuOpen((prev) => !prev)} style={{cursor: "pointer", marginTop:"-10px", display:"flex", alignItems:"center"}} className={styles.input}>
+                    <div style={{paddingLeft:"7px"}}>
+                    {Qualification? `${Qualification}` : "Select your qualification"}
+                 </div>
+                </div>
 
-              <label className={styles.inputName}>
-                <h4>Experience: &nbsp;<span className={styles.hint}>(e.g 3Y or 10Y)</span></h4>
-                <input maxLength="3" className={styles.input} value={Experiance} onChange={(e) => { handleExperiance(e) }} type="text" />
-              </label>
+               {/* Menu Dropdown */}
+                {menuOpen && (
+                   <div
+                     style={{
+                       marginTop: "10px",
+                       marginLeft:"7px",
+                       border: "1px solid #ddd",
+                       borderRadius: "6px",
+                       padding: "10px",
+                       background: "#fff",
+                       position: "absolute",
+                       width: "81%",
+                       zIndex: 10,
+                       maxHeight:"200px",
+                       overflowY: "auto",
+                     }}
+                   >
+                  {qualifications.map((item, index) => (
+                    <div key={index} style={{ marginBottom: "10px" }}>
+                      <button
+                        onClick={() => toggleMain(index)}
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          textAlign: "left",
+                          background: "#f0f0f0",
+                          border: "none",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "16px",
+                        }}
+                      >
+                      <span>{item.main}</span>
+                          </button>
+
+                  {openIndex === index && (
+                    <div style={{ marginTop: "6px", marginLeft: "16px" }}>
+                      {item.subs.map((sub, i) => (
+                        <div
+                          key={i}
+                          onClick={() => handleSelect(`${item.main} - ${sub}`)}
+                          style={{
+                            padding: "8px 12px",
+                            cursor: "pointer",
+                            background: "#e9f3ff",
+                            borderRadius: "4px",
+                            marginBottom: "4px",
+                            fontSize: "15px",
+                          }}
+                          onMouseEnter={(e) => (e.target.style.background = "#cde6ff")}
+                          onMouseLeave={(e) => (e.target.style.background = "#e9f3ff")}
+                        >
+                          {sub}
+                        </div>
+                      ))}
+                    </div>
+                    )}
+                </div>
+               ))}
+           </div>
+           )}
+         </div>
+
+
+              
 
               <label className={styles.inputName}>
                 <h4>Skill Tags: </h4>

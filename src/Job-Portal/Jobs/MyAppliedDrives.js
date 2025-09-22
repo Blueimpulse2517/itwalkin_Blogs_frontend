@@ -282,7 +282,7 @@ console.log(records)
 
 <p className={styles.h2} style={{ textAlign: "center",fontSize:"26px" }}><b>My Registered Walkin Drives</b></p>
 {MyAppliedjob.length>0&&
-<p className={styles.h3}><b>You’ve successfully submitted applications for {MyAppliedjob.length} positions.Stay tuned for updates.  </b></p>
+<p className={styles.h3}><b>You’ve successfully submitted applications for {MyAppliedjob.length} {MyAppliedjob.length>1?"positions":"position"}.Stay tuned for updates.  </b></p>
 }
       {/* <button onClick={()=>{navigate("/MyCareer-Applied-Jobs")}} style={{ backgroundColor:"rgb(40, 4, 99)",
          marginLeft:"10px", fontWeight:600, color:"white", border:"none",

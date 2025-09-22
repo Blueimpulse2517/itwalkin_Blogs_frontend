@@ -275,7 +275,7 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 				zIndex:100
 			}}
 		> */}
-			<div className={styles.ModelWrapper} >
+			<div style={{height:"150px"}} className={styles.ModelWrapper} >
 				<p onClick={onClose} style={
 					{ position: "absolute", marginLeft: "85%", marginTop: "0px", cursor: "pointer", display: "inline" }}>
 
@@ -326,12 +326,18 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 								<span className={styles.signUpwrap} >Continue with Microsoft</span>
 							</div>
 						</div>
+						<div className={styles.signUpWrapper}>
+							<div className={styles.both}>
+								<img className={styles.google} src={linkedIn} />
+								<span className={styles.signUpwrap} >Continue with Linkedin</span>
+					  </div>
+					  </div>
 
 						{/* <div className={styles.signUpWrapper}>
 							<div className={styles.both}>
 								<img className={styles.google} src={linkedIn} />
 								<span className={styles.signUpwrap} >Continue with Linkedin</span>
-							</div>
+							// </div>
 						</div>
 
 

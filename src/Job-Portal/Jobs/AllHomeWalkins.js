@@ -964,7 +964,7 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
           ITWALKIN.com  never charges fees for walkin drives.
           If you encounter misuse or payment requests, report it through our website.<br></br>
           <br></br>
-          You will be redirected to the walkin drive  page of company name.  {
+          You will be redirected to the walkin drive  page of   {
                           !items.Source ?
 
                             <span>

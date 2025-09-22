@@ -197,7 +197,7 @@ const saveMicrosoft=(e)=>{
              
           await axios.post("/StudentProfile/Glogin", {
              ipAddress, userId, email, name, gtoken, isApproved, phoneNumber, Aadhar, panCard, city, NoticePeriod, 
-             ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college, tenth,twelfth,degree , employers})
+             ExpectedSalary, currentCTC, age, Qualification, Skills, Experiance, Tags, college, tenth,twelfth,degree,employers,currentEmp,})
             .then((response) => {
               let result = response.data
               let token = result.token
@@ -205,6 +205,24 @@ const saveMicrosoft=(e)=>{
               // console.log("response after calling",result)
               if (result.action == "registered") {
                 // saveUpdate();
+                setname("")
+                setemail("")
+                setCurrentEmp("")
+                setExperiance("")
+                setEmployers("")
+                setage("")
+                setphoneNumber("")
+                setAadhar("")
+                setpanCard("")
+                setNoticePeriod("")
+                setExpectedSalary("")
+                setcurrentCTC("")
+                setQualification("")
+                setTag("")
+                setTenth("")
+                setTwelfth("")
+                setDegree("")
+                setcollege("")
               alert("Registered Successfully")
               }else if(result.action == "login"){
                 alert("Primary email id is already registered please try different email id")
@@ -512,10 +530,10 @@ if(confirm){
   const currentEmpInputRef = useRef(null);
 
   
-  const[tenth, setTenth]=useState("abc");
-  const[twelfth, setTwelfth]=useState("abc");
-  const[degree, setDegree]=useState("abc");
-  const[currentEmp, setCurrentEmp]=useState("abc");
+  const[tenth, setTenth]=useState("");
+  const[twelfth, setTwelfth]=useState("");
+  const[degree, setDegree]=useState("");
+  const[currentEmp, setCurrentEmp]=useState("");
   // const[currentEmpTenure, setCurrentEmpTenure]=useState("");
 
   const addEmployer = () => {

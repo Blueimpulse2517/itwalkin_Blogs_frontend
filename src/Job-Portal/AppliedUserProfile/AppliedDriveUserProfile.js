@@ -316,7 +316,7 @@ function AppliedDriveUserProfile() {
   </button>
       
 
-            <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} Job Seekers have Applied</h4>
+            <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"}  have Applied</h4>
             
          
             {screenSize.width > 850 ?
