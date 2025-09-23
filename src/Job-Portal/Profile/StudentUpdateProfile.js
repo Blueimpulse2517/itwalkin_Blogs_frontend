@@ -204,8 +204,7 @@ function StudentUpdateProfile(props) {
     const [city, setcity] = useState([])
     const [selectedCountry, setSelectedCountry] = useState("India");
 
-    const CTags=[{value:'Bangalore', label: 'Bangalore'},{value:'Chennai', label:'Chennai' },
-      {value:'Hyderabad', label: 'Hyderabad'}, {value:'Delhi', label: 'Delhi'},{value:'Mumbai', label: 'Mumbai' }]
+    const CTags=[{value:'Bangalore'}]
     
       function handleChangeCityTag(tag){
       setcity(tag)   

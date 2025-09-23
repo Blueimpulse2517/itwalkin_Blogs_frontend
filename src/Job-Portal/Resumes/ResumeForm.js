@@ -35,7 +35,7 @@ const ResumeForm = () => {
       try {
         const res =   await axios.get(`/StudentProfile/viewProfile/${studId}`)
         const result = res.data.result;
-        console.log("result",result)
+        // console.log("result",result)
         setProfileData([result]);
 
         setFormData(prev => ({
@@ -73,9 +73,9 @@ const ResumeForm = () => {
     fetchProfile();
   }, [studId]);
 
-  useEffect(() => {
-    console.log("profile", profileData)
-  }, [profileData])
+  // useEffect(() => {
+  //   console.log("profile", profileData)
+  // }, [profileData])
 
   const containerStyle = {
     maxWidth: '900px',
@@ -271,6 +271,7 @@ const ResumeForm = () => {
     }, { headers })
       .then((res) => {
         let result = (res.data)
+        console.log("error in posting: - ",res.data)
         if (result === "success") {
           setSuccessMessage(
             <span
@@ -441,14 +442,14 @@ return () => clearInterval(interval);
       <button style={buttonStyle} type="button" onClick={addSkillSection}>Add Skill Section</button>
 
       {/* LANGUAGES */}
-      <h2>Languages</h2>
+      {/* <h2>Languages</h2>
       {formData.languages.map((lang, i) => (
         <div key={i}>
           <input style={inputStyle} placeholder={`Language ${i + 1}`} value={lang} onChange={(e) => handleLanguageChange(i, e.target.value)} />
           <button style={buttonStyle} type="button" onClick={() => removeLanguage(i)}>Remove Language</button>
         </div>
       ))}
-      <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button>
+      <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button> */}
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button style={{ ...buttonStyle, marginTop: '20px',width:'156px' }} type="submit" onClick={handleSubmit}>Submit</button>

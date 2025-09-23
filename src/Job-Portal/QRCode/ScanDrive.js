@@ -167,11 +167,12 @@ const[allWalkinDrive, setAllWalkinDrive]=useState([])
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
       interview: [
         {
-          tokenNo: tokenNo,
-          driveId: driveId,
-          scannedDateTime: new Date()
+          tokenNo: { value: tokenNo },
+          driveId: { value: driveId },
+          scannedDateTime: { value: new Date() }
         }
       ]
+      
     }, { headers })
       .then(async (res) => {
         let result = res.data
