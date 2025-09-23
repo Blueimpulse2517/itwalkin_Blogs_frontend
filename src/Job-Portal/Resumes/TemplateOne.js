@@ -106,10 +106,10 @@ const TemplateOne = () => {
         title: 'REST API Test Tools',
         skills: ['Postman', 'REST Client'],
       },
-      {
-        title: 'Languages',
-        skills: ['Java', 'Python', 'VBA', 'C++'],
-      },
+      // {
+      //   title: 'Languages',
+      //   skills: ['Java', 'Python', 'VBA', 'C++'],
+      // },
     ],
   };
 
@@ -151,19 +151,21 @@ const TemplateOne = () => {
           <div className="header-right">
             <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.address : "No Address added")}</p>
             <p className="email">{pageLoader?<p>Loading...</p>:(profileData ? profileData.email : "No email added")}</p>
-            <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.phoneNumber : "No phone added")}</p>
+            <p style={{marginTop:"-7px"}}>{pageLoader?<p>Loading...</p>:(profileData ? profileData.phoneNumber : "No phone added")}</p>
           </div>
         </div>
 
         {/* Body */}
-        <div className="resume-body">
+        <div  style={{marginTop:"-24px"}} className="resume-body">
           {/* Left Section */}
           <div className="left-section">
-            <h2 style={{fontWeight:"700"}} className="section-title">EXPERIENCE</h2>
-            <div className="total-exp" style={{display:"flex", alignItems:"center"}}>
-            <div><h4>TOTAL EXPERIENCE</h4></div>
-            <span><pre> - </pre> </span>
-              <div><pre>{profileData ? `${profileData.Experiance}Years` : "Loading..."}</pre></div>
+            <div style={{display:"flex", alignItems:"center"}}>
+            <h2 style={{fontWeight:"700"}} className="section-title">EXPERIENCE </h2>
+            <div className="total-exp" style={{display:"flex", alignItems:"center", marginTop:"-2px"}}>
+            <div><h4>( TOTAL EXPERIENCE</h4></div>
+            <span><pre style={{color:"#007bff",fontWeight:"bold"}}> - </pre> </span>
+              <div ><pre style={{color:"#007bff",fontWeight:"bold"}}>{profileData ? `${profileData.Experiance}Years )` : "Loading..."}</pre></div>
+            </div>
             </div>
             {pageLoader ? (
   <p>Loading...</p>
@@ -218,17 +220,23 @@ const TemplateOne = () => {
           </div>
 
           {/* Right Section */}
+          
           <div className="right-section">
-            <div className="certification">
-              <h4>CERTIFICATION</h4>
-              {pageLoader ? (
-  <p>Loading...</p>
-) : profileData ? (
-  <p>{profileData.certifications}</p>
-) : (
-  <p>No certification added</p>
-)}
-            </div>
+          <div style={{ marginLeft: "28px" }} className="certification">
+  <h4 style={{ marginLeft: "-19px" }}>CERTIFICATION</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.certifications ? (
+    <ul style={{ paddingLeft: "20px" }}>
+      {profileData.certifications.map((cert, index) => (
+        <li key={index}>{cert.trim()}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No certification added</p>
+  )}
+</div>
+
 
             {/* <div className="total-exp">
               <h4>Total Experience</h4>
@@ -236,10 +244,10 @@ const TemplateOne = () => {
             </div> */}
 
             <div className="skills">
-              <h4>CORE TECHNICAL SKILLS</h4>
+              <h4 style={{marginLeft:"8px"}}>CORE TECHNICAL SKILLS</h4>
               {pageLoader?<p>Loading...</p>:(profileData && profileData.skills && profileData.skills.length > 0 ? (
   profileData.skills.map((group, i) => (
-    <div className="skill-section" key={i}>
+    <div style={{marginLeft:"32px"}} className="skill-section" key={i}>
       <h5>{group.heading}</h5>
       <ul>
         {group.items&& group.items.map((skill, j) => (
@@ -255,21 +263,24 @@ const TemplateOne = () => {
             </div>
 
             <div className="skills">
-              {/* <h4>LANGUAGES </h4> */}
-              {pageLoader?<p>Loading...</p>:(profileData && profileData.languages && profileData.languages.length > 0 ? (
-  profileData.languages.map((group, i) => (
-    <div className="skill-section" key={i}>
-      <ul>
-        {/* {group.items&& group.items.map((skill, j) => ( */}
-          <li key={i}>{group}</li>
-        {/* ))} */}
-      </ul>
-    </div>
-  ))
-) : (
-  <p>No languages added</p>
-))}
-            </div>
+  {/* <h4>LANGUAGES </h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : (
+    profileData && profileData.languages && profileData.languages.length > 0 ? (
+      profileData.languages.map((group, i) => (
+        <div className="skill-section" key={i}>
+          <ul>
+            <li key={i}>{group}</li>
+          </ul>
+        </div>
+      ))
+    ) : (
+      <p>No languages added</p>
+    )
+  )}
+</div> */}
+</div>
           
 
           <div className="skills">
@@ -284,6 +295,7 @@ const TemplateOne = () => {
 
             
           </div>
+          <div></div>
         </div>
       </div>
 

@@ -1113,7 +1113,7 @@ function Nav(props) {
         
         > 
         
-        Login to  fill Fraud report form!
+        Login to report Fraud
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
               onClick={() => {navigate("/JobSeekerLogin"); setfraudAlert(false)}}

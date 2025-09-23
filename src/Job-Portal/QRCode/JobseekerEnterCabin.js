@@ -24,8 +24,8 @@ export default function JobseekerEnterCabin() {
             .then((res) => {
                 let result = res.data.result
                 console.log(result)
-                setdriveId(result.interview[0].driveId)
-                setTokenNo(result.interview[0].tokenNo)
+                setdriveId(result.interview[0]?.driveId)
+                setTokenNo(result.interview[0]?.tokenNo)
                 setPageLoader(false)
 
             }).catch((err) => {
@@ -43,7 +43,7 @@ export default function JobseekerEnterCabin() {
   
    let jobSeekerId = JSON.parse(localStorage.getItem("StudId"))
    const headers = { authorization: 'BlueItImpulseWalkinIn' };
-   console.log()
+  //  console.log("driveid", driveId)
    await axios.put(`walkinRoute/updatPostedwalkin/${driveId}`,
      {
       HRCabin: [
