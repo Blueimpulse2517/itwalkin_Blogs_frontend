@@ -9,36 +9,15 @@ const LiveTvDisplay = () => {
   const [allCandidates, setAllCandidates] =useState([]);
   const [jobSeekerList, setJobSeekerList] = useState([]);
   const [pageLoader, setPageLoader]=useState(true);
+const[pageLoader1,setPageLoader1]=useState(true)
   const[jobSeekerId, setJobSeekerIds]=useState([]);
 let params = useParams();
 
-//   async function postJob() {
-//     const headers = { authorization: 'BlueItImpulseWalkinIn' };
-//     await axios.get(`/walkinRoute/walkindetails/${atob(params.id)}`,{headers}) 
-//         .then((res) => {
-//             let result = (res.data)
-//             console.log(result)
-//             if (result) {
-//               const list = result.WaitingArea.map(item => ({
-//                 jobSeekerId: item.jobSeekerId[0]?.jobSeekerId,
-//                 tokenNo: item.tokenNo[0],
-//                 createdDateTime:item.createdDateTime,
-//                 updatedDateTime:item.updatedDateTime,
-//               }));
-//               setJobSeekerList(list);
-//             }
-//             else if (result == "field are missing") {
-//               console.log("failed to fetch data")
-//             }
-            
-//         }).catch((err) => {
-//             alert("server issue occured", err)
-//         })
-
-// }
   const [jobseeker, setJobseeker] = useState(null);
 
 async function postJob() {
+  // setPageLoader(true)
+  // setPageLoader1(true)
   const headers = { authorization: 'BlueItImpulseWalkinIn' };
   try {
     const res = await axios.get(`/walkinRoute/walkindetails/${atob(params.id)}`, { headers });
@@ -65,10 +44,9 @@ async function postJob() {
 
       // Convert map back to array
       const uniqueList = Array.from(uniqueMap.values());
-      if (uniqueList.length === 0) {
-        setPageLoader(false);
-      }
-      // setJobSeekerList(uniqueList);
+      // if (uniqueList.length === 0) {
+      //   setPageLoader(false);
+      // }
 
       //---------------hr table details--------------
         const listofhrscanned  = result.HRCabin.map(item => ({
@@ -77,31 +55,19 @@ async function postJob() {
           createdDateTime: new Date(item.createdDateTime),
           updatedDateTime: new Date(item.updatedDateTime),
         }));
-        
-        // const invalidJobSeekerIds = [
-        //   ...new Set(
-        //     listofhrscanned
-        //       .filter(item => isNaN(item.createdDateTime.getTime())) 
-        //       .map(item => item.jobSeekerId) 
-        //   )
-        // ];
-        
-        // console.log("listofhrscanned:", listofhrscanned);
-        // console.log("uniqueList:", uniqueList);
-
+ 
             const hrScannedIds = listofhrscanned.map(item => item.jobSeekerId);
-            
-            
+ 
             const filteredUniqueList = uniqueList.filter(
               jobSeeker => !hrScannedIds.includes(jobSeeker.jobSeekerId)
             );
 
-             console.log("filteredUniqueList:", filteredUniqueList);
-
-              console.log("filtered unique list",filteredUniqueList)
               if (filteredUniqueList.length === 0) {
                 setPageLoader(false);
               }
+              // console.log("ull",uniqueList)
+              // console.log("ful-wav",hrScannedIds)
+              console.log("filtered",listofhrscanned)
             setJobSeekerList(filteredUniqueList)
 
         if (listofhrscanned.length > 0) {
@@ -109,12 +75,13 @@ async function postJob() {
           const latestRecord = listofhrscanned.reduce((latest, current) =>
             current.updatedDateTime > latest.updatedDateTime ? current : latest
           );
-          // console.log("latest-",latestRecord)
-          // if (latestRecord.createdDateTime && !isNaN(new Date(latestRecord.createdDateTime).getTime())) {
+
             setJobseeker(latestRecord);
             return latestRecord
         }
-
+        else{
+          setPageLoader1(false)
+        }
 
     } else if (result === "field are missing") {
       console.log("failed to fetch data");
@@ -130,15 +97,25 @@ useEffect(()=>{
     postJob()
 },[])
 
-useEffect(()=>{
-  console.log("jslist",jobSeekerList)
-},[jobSeekerList])
-
-const[pageLoader1,setPageLoader1]=useState(true)
 
 useEffect(()=>{
-   console.log("scanned hr qr code ids", jobseeker)
-   if (
+  //  console.log("scanned hr qr code ids", jobseeker)
+  //  if (
+  //   !jobseeker ||
+  //   !jobseeker.createdDateTime ||
+  //   isNaN(new Date(jobseeker.createdDateTime).getTime())
+  // ) {
+  //   setPageLoader1(false)  
+  //   return;
+  // }
+  if(jobseeker)
+   getProfileHRQR();
+},[jobseeker])
+
+const[profileData1,setProfileData1]=useState([])
+
+async function getProfileHRQR() {
+  if (
     !jobseeker ||
     !jobseeker.createdDateTime ||
     isNaN(new Date(jobseeker.createdDateTime).getTime())
@@ -146,24 +123,10 @@ useEffect(()=>{
     setPageLoader1(false)  
     return;
   }
-   getProfileHRQR();
-},[jobseeker])
-
-const[profileData1,setProfileData1]=useState([])
-async function getProfileHRQR() {
-     
-  // if (!latestJobseeker) {
-  //   console.log("js",latestJobseeker)
-  //   setNoData(true);
-  //   setInterviewstarted(false);
+  // if (!(jobseeker.createdDateTime && !isNaN(new Date(jobseeker.createdDateTime).getTime()))) {
+  //   setPageLoader1(false)
   //   return;
   // }
-
-
-  if (!(jobseeker.createdDateTime && !isNaN(new Date(jobseeker.createdDateTime).getTime()))) {
-    setPageLoader1(false)
-    return;
-  }
 
 const studId=jobseeker?.jobSeekerId;
 if (!studId) {
@@ -181,31 +144,23 @@ if (!studId) {
 
       }).catch((err) => {
           alert("some thing went wrong")
+          setPageLoader1(false)
       })
 }
 
-useEffect(()=>{
-console.log("fetching succesful",profileData1)
-},[profileData1])
-
-
-
-
 
 async function findList() {
-  setPageLoader(true)
   try {
-    // create an array of requests for all job seekers
-    console.log("jobseekerlist",jobSeekerList)
     const requests = jobSeekerList.map((job) =>
       axios.get(`/StudentProfile/viewProfile/${job.jobSeekerId}`)
     );
 
     const responses = await Promise.all(requests);
-
+    console.log("responses:", responses); 
     // combine with jobSeekerList details
     const result = responses.map((res, index) => {
-      const profile = res.data.result; // adjust based on your actual API
+      const profile = res.data.result;
+      console.log("responses:", res);  // adjust based on your actual API
       return {
         jobSeekerId: jobSeekerList[index].jobSeekerId,
         tokenNo: jobSeekerList[index].tokenNo,
@@ -221,11 +176,8 @@ async function findList() {
   }
 }
 
-
-
-
-
 useEffect(() => {
+  
   if (jobSeekerList.length > 0) {
     findList();
   }
@@ -340,7 +292,7 @@ useEffect(()=>{
             </tr>
           </thead>
           <tbody>
-            {pageLoader ? (
+            {pageLoader1 ? (
     <tr>
       <td colSpan="3" style={{ textAlign: "center" }}>Data Loading...</td>
     </tr>

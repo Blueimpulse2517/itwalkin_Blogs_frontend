@@ -17,21 +17,38 @@ export default function JobseekerEnterCabin() {
   useEffect(() => {
     let studId = JSON.parse(localStorage.getItem("StudId"))
     async function getProfile() {
-        let userid = JSON.parse(localStorage.getItem("StudId"))
-        const headers = { authorization: userid +" "+ atob(JSON.parse(localStorage.getItem("StudLog"))) };
-        setPageLoader(true)
-        await axios.get(`/StudentProfile/viewProfile/${studId}`)
-            .then((res) => {
-                let result = res.data.result
-                console.log(result)
-                setdriveId(result.interview[0]?.driveId)
-                setTokenNo(result.interview[0]?.tokenNo)
-                setPageLoader(false)
-
-            }).catch((err) => {
-                alert("some thing went wrong")
-            })
-    }
+      const studId = JSON.parse(localStorage.getItem("StudId"));
+      const headers = { 
+          authorization: studId + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) 
+      };
+      
+      setPageLoader(true);
+  
+      try {
+          const res = await axios.get(`/StudentProfile/viewProfile/${studId}`, { headers });
+          const result = res.data.result;
+  
+          if (result.interview && result.interview.length > 0) {
+              // Find the interview with the latest scannedDateTime
+              const latestInterview = result.interview.reduce((latest, current) => {
+                  return new Date(current.scannedDateTime) > new Date(latest.scannedDateTime) ? current : latest;
+              }, result.interview[0]);
+  
+              setdriveId(latestInterview.driveId);
+              setTokenNo(latestInterview.tokenNo);
+          } else {
+              // No interviews found
+              setdriveId(null);
+              setTokenNo(null);
+          }
+  
+          setPageLoader(false);
+      } catch (err) {
+          alert("Something went wrong");
+          setPageLoader(false);
+      }
+  }
+  
    
     getProfile();
     
@@ -43,9 +60,9 @@ export default function JobseekerEnterCabin() {
   
    let jobSeekerId = JSON.parse(localStorage.getItem("StudId"))
    const headers = { authorization: 'BlueItImpulseWalkinIn' };
-  //  console.log("driveid", driveId)
+   console.log("driveid", driveId)
    await axios.put(`walkinRoute/updatPostedwalkin/${driveId}`,
-     {
+    {
       HRCabin: [
          {
            jobSeekerId: [{ jobSeekerId: jobSeekerId }],  // <-- wrap properly
@@ -54,7 +71,7 @@ export default function JobseekerEnterCabin() {
            updatedDateTime: new Date()
          }
        ]
-      
+      // applyLink:"itwalkin.com"
      }, 
    { headers })
      .then(async (res) => {
