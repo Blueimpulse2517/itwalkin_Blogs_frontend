@@ -163,8 +163,18 @@ const TemplateOne = () => {
             <h2 style={{fontWeight:"700"}} className="section-title">EXPERIENCE </h2>
             <div className="total-exp" style={{display:"flex", alignItems:"center", marginTop:"-2px"}}>
             <div><h4>( TOTAL EXPERIENCE</h4></div>
-            <span><pre style={{color:"#007bff",fontWeight:"bold"}}> - </pre> </span>
-              <div ><pre style={{color:"#007bff",fontWeight:"bold"}}>{profileData ? `${profileData.Experiance}Years )` : "Loading..."}</pre></div>
+            <span><pre style={{color:"#007bff",fontWeight:"900"}}> - </pre> </span>
+            <div>
+  <pre style={{
+    color: "#007bff",
+    fontWeight: "900",
+    fontFamily: "Arial, sans-serif", // or another font that supports bold
+    whiteSpace: "pre-wrap" // keeps formatting like <pre>
+  }}>
+    {profileData ? `${profileData.Experiance} Years` : "Loading..."})
+  </pre>
+</div>
+
             </div>
             </div>
             {pageLoader ? (
@@ -222,12 +232,12 @@ const TemplateOne = () => {
           {/* Right Section */}
           
           <div className="right-section">
-          <div style={{ marginLeft: "28px" }} className="certification">
+          {/* <div style={{ marginLeft: "28px" }} className="certification">
   <h4 style={{ marginLeft: "-19px" }}>CERTIFICATION</h4>
   {pageLoader ? (
     <p>Loading...</p>
   ) : profileData && profileData.certifications ? (
-    <ul style={{ paddingLeft: "20px" }}>
+    <ul style={{ paddingLeft: "20px" ,marginTop:"-15px"}}>
       {profileData.certifications.map((cert, index) => (
         <li key={index}>{cert.trim()}</li>
       ))}
@@ -235,7 +245,7 @@ const TemplateOne = () => {
   ) : (
     <p>No certification added</p>
   )}
-</div>
+</div> */}
 
 
             {/* <div className="total-exp">
@@ -261,7 +271,20 @@ const TemplateOne = () => {
 ))}
 
             </div>
-
+            <div style={{ marginLeft: "28px" }} className="certification">
+  <h4 style={{ marginLeft: "-19px" }}>CERTIFICATION</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.certifications ? (
+    <ul style={{ paddingLeft: "20px" ,marginTop:"-15px"}}>
+      {profileData.certifications.map((cert, index) => (
+        <li key={index}>{cert.trim()}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No certification added</p>
+  )}
+</div>
             <div className="skills">
   {/* <h4>LANGUAGES </h4>
   {pageLoader ? (
@@ -285,14 +308,15 @@ const TemplateOne = () => {
 
           <div className="skills">
               <h4>EDUCATION </h4>
-              <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.Qualification : "No Qualification added")}</p>
+              <p style={{marginLeft:"50px"}}> {pageLoader?<p>Loading...</p>:(profileData ? profileData.Qualification : "No Qualification added")}</p>
             </div>
 
             <div className="skills">
               <h4>COLLEGE</h4>
-              <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.college : "No College added")}</p>
+              <p style={{marginLeft:"50px"}}>{pageLoader?<p>Loading...</p>:(profileData ? profileData.college : "No College added")}</p>
             </div>
-
+             
+           
             
           </div>
           <div></div>

@@ -340,19 +340,31 @@ const handleHRGenerateQR = (driveId) => {
 
   return (
     <>
- 
+ <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
+      
  {screenSize.width > 850 ?
         <>
-          <div className={styles.searchBothForNavWrapper}>
+          {/* <div className={styles.searchBothForNavWrapper}>
             <input className={styles.inputboxsearchNav} type="text" placeholder='Search for a Job / Skills / Location / Experience' onChange={(e) => { search(e) }} />
 
             <i style={{ color: "rgb(40, 4, 99)", fontSize: "18px", cursor: "pointer" }} onClick={() => { searchIcon(searchKey) }}
               class="fa fa-search" ></i>
-          </div>
-          {Result ?
+          </div> */}
+          {/* {Result ?
             <h4 style={{ marginLeft: "40%", marginTop: "20px" }}> {myjobs.length} matching Result Found  </h4>
             : ""
-          }
+          } */}
         </>
         : ""
       }      
@@ -363,7 +375,7 @@ const handleHRGenerateQR = (driveId) => {
     {/* <button className={styles.searchButton} onClick={() => {
           navigate("/Search-Candidate")
         }}>Search Candidate</button> */}
-        <p style={{marginLeft:"38%", marginTop:"30px", fontSize:"large", fontWeight:"bold"}}>My Posted Walkin Drives</p>
+        <p style={{marginLeft:"38%", marginTop:"-13px", fontSize:"large", fontWeight:"bold",}}>My Posted Walkin Drives</p>
         </div>
 
         <div style={{display:"flex", justifyContent:"space-between"}}>
