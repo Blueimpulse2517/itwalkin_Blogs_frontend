@@ -61,12 +61,13 @@ function EmpLogin(props) {
         let email = res.data.email
         let name = res.data.name
         let isApproved = false
+        let Gpicture = res.data.picture
         // let image= res.data.picture
 
         // console.log("decoded name :", gemail)
         // console.log(" decoded id :", gname)
 
-        await axios.post("/EmpProfile/Glogin", { ipAddress, userId, email, name, gtoken, isApproved })
+        await axios.post("/EmpProfile/Glogin", { ipAddress, userId, email,Gpicture, name, gtoken, isApproved })
           .then((response) => {
             let result = response.data
             let token = result.token

@@ -171,7 +171,7 @@ const TemplateOne = () => {
     fontFamily: "Arial, sans-serif", // or another font that supports bold
     whiteSpace: "pre-wrap" // keeps formatting like <pre>
   }}>
-    {profileData ? `${profileData.Experiance} Years` : "Loading..."})
+    {profileData ? `${profileData.Experiance} Years` : "Loading..."} )
   </pre>
 </div>
 

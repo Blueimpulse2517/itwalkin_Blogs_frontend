@@ -76,11 +76,11 @@ const Modal = ({ isOpen, onClose, children }) => {
 		  let name = res.data.name
 		  let isApproved = false
 		  // let image= res.data.picture
-  
+		  let Gpicture = res.data.picture
 		  // console.log("decoded name :", gemail)
 		  // console.log(" decoded id :", gname)
   
-		  await axios.post("/EmpProfile/Glogin", { ipAddress, userId, email, name, gtoken, isApproved })
+		  await axios.post("/EmpProfile/Glogin", { ipAddress, userId, Gpicture, email, name, gtoken, isApproved })
 			.then((response) => {
 			  let result = response.data
 			  let token = result.token

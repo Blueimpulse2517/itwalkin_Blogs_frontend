@@ -75,7 +75,7 @@ profileData.map((item, i) => {
     return (
         <div key={i} style={{}}>
             {console.log(profileData)}
-        <img style={{}} className={styles.EmpImage} src={item.image?item.image : Companylogo}/>
+        <img style={{}} className={styles.EmpImage} src={item.Gpicture?item.Gpicture : Companylogo}/>
         
         </div>
     )
