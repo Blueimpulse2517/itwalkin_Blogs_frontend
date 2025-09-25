@@ -28,5 +28,15 @@
     margin-top: -24px;
     margin-left: -193px;
   }
-  
+  @media screen and (max-width: 768px) {
+    .blurred {
+        width: 100%;        /* Make it fit screen width */
+        height: auto;       /* Let height adjust naturally */
+        border-radius: 8px; /* Slightly smaller radius for mobile */
+        border: 1px solid #ccc;
+        margin-top: -10px;  /* Reduce negative margin */
+        margin-left: 0;     /* Remove horizontal shift */
+    }
+}
+
 

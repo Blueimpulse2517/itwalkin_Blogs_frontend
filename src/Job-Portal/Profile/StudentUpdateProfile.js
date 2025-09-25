@@ -201,7 +201,7 @@ function StudentUpdateProfile(props) {
     function handleCollege(tag){
       setcollege(tag)      
   }  
-    const [city, setcity] = useState([])
+    const [city, setcity] =  useState("Banglore")
     const [selectedCountry, setSelectedCountry] = useState("India");
 
     const CTags=[{value:'Bangalore'}]
@@ -281,12 +281,12 @@ const addEmployer = () => {
           setResulttagTag(result.Tags)
           setname(result.name)
           setemail(result.email)
-          setimage(result.image)
+          setimage(result.Gpicture)
           setimmage(result.image)
           setphoneNumber(result.phoneNumber)
           setAadhar(result.Aadhar)
           setpanCard(result.panCard)
-          setcity(result.city)    
+          // setcity(result.city)    
           setTenth(result.tenth)    
           setTwelfth(result.twelfth)  
           setDegree(result.degree)
@@ -418,16 +418,25 @@ if(confirm){
   }
   }
 
+  // function handlePhoneNumber(e){
+  //   if (e.target.value.length>10){
+  //     return false
+  // }else{
+  // setphoneNumber(e.target.value)
+  // }
+  // }
   function handlePhoneNumber(e){
-    if (e.target.value.length>10){
-      return false
-  }else{
-  setphoneNumber(e.target.value)
-  }
-  }
+    const value = e.target.value;
 
+    // Prevent removing "+91"
+    if (!value.startsWith('+91')) return;
+
+    // Only allow digits after +91
+    const digits = value.slice(3).replace(/\D/g, '');
+    setphoneNumber('+91' + digits);
+  }
   const AadharhandleChange = (event) => {
-    if (event.target.value.length>12){
+    if (event.target.value.length>14){
       return false
   }else{
    
@@ -666,15 +675,14 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                   {/* <span style={{color:"blue"}}>{city}</span> */}
                 </h4>
                 {/* <input maxLength="15" className={styles.input} value={city} onChange={(e) => { setCity(e.target.value) }} type="text" /> */}
-                <div style={{marginTop:"-7px", width:"81%", marginLeft:"18px"}}>
+                {/* <div style={{marginTop:"-7px", width:"81%", marginLeft:"18px"}}>
                            <CreatableSelect  
-                  // isMulti={true}
                           options={CTags}
                           value={city}
                           onChange={handleChangeCityTag}     
                         />
-                         </div>
-            
+                         </div> */}
+            <input className={styles.input}disabled value={city} ></input>
               </label>
               <label className={styles.inputName}>
                 <h4>Country:</h4>
@@ -823,12 +831,24 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.inputName}>
                 <h4>Phone number:</h4>
-                <input maxLength="15" className={styles.input} value={phoneNumber} onChange={(e) => { handlePhoneNumber(e) }} type="number" />
+                <input
+        maxLength="13"
+        className={styles.input}
+        type="text"
+        value={phoneNumber}
+        onChange={handlePhoneNumber}
+        onFocus={(e) => {
+          if (!e.target.value.startsWith('+91')) {
+            setphoneNumber('+91');
+          }
+        }}
+      />
+                {/* <input maxLength="15" className={styles.input} value={phoneNumber} onChange={(e) => { handlePhoneNumber(e) }} type="number" /> */}
               </label>
 
               <label className={styles.inputName}>
                 <h4>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.input} value={Aadhar} onChange={(e) => { AadharhandleChange(e) }} type="number" />
+                <input maxLength="12" className={styles.input} value={Aadhar.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.inputName}>

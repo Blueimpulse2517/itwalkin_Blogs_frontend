@@ -124,7 +124,7 @@ let navigate = useNavigate()
               profileData.map((item, i) => {
                return (
                  <div key={i}>
-                   <img className={styles.imageV} src={item.image?item.image : profileDp}/>
+                   <img className={styles.imageV} src={item.Gpicture?item.Gpicture: profileDp}/>
                  </div>
               )})
              }
@@ -301,7 +301,7 @@ profileData.map((item, i) => {
                             <li className={`${styles.Hli}`}>{item.email}</li> */}
                       {item.name?         <li className={` ${styles.Hli}`}>{item.name}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.email?         <li className={` ${styles.Hli}`}>{item.email}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
-                      {item.city?         <li className={` ${styles.Hli}`}>{item.city.value}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
+                      {item.city?         <li className={` ${styles.Hli}`}>Bangalore</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.city?         <li className={` ${styles.Hli}`}>India</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                       {item.phoneNumber?         <li className={` ${styles.Hli}`}>{item.phoneNumber}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
                          {item.Aadhar?           <li className={` ${styles.Hli}`}>{item.Aadhar}</li>: <li className={` ${styles.Hli} ${styles.Nli}`}>########</li>}
