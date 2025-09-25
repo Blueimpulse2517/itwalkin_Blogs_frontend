@@ -326,7 +326,7 @@ const ResumeForm = () => {
           setSuccessMessage(
             <span style={{ color: "green" }}>
               <span style={{ fontWeight: "800" }}>
-                Complete Your Resume for a Stronger First Impression
+                Complete your resume for a stronger first impression
               </span>
               <br />
               Your current resume is missing key details. Add more
@@ -421,7 +421,7 @@ const ResumeForm = () => {
               <tr key={i}>
                 <td><input style={inputStyles} placeholder="Degree" value={q.degree} onChange={(e) => handleQualificationChange(i, "degree", e.target.value)} /></td>
                 <td><input style={inputStyles} placeholder="% or CGPA" value={q.score} onChange={(e) => handleQualificationChange(i, "score", e.target.value)} /></td>
-                <td><input style={inputStyles} placeholder="College Name" value={q.collegeName} onChange={(e) => handleQualificationChange(i, "collegeName", e.target.value)} /></td>
+                <td><input maxLength={20} style={inputStyles} placeholder="College Name" value={q.collegeName} onChange={(e) => handleQualificationChange(i, "collegeName", e.target.value)} /></td>
                 <td><input style={inputStyles} placeholder="State Code" value={q.stateCode} onChange={(e) => handleQualificationChange(i, "stateCode", e.target.value)} /></td>
                 <td><input style={inputStyles} placeholder="Country Code" value={q.countryCode} onChange={(e) => handleQualificationChange(i, "countryCode", e.target.value)} /></td>
                 <td>
@@ -453,6 +453,7 @@ const ResumeForm = () => {
     <input
       style={{ ...inputStyle, flex: "1 1 200px" }}
       placeholder="College Name"
+      maxLength={20}
       value={q.collegeName}
       onChange={(e) => handleQualificationChange(i, "collegeName", e.target.value)}
     />

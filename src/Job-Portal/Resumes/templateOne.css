@@ -1,4 +1,4 @@
-/* Container */
+
 .resume-container {
   width: 100%;
   padding: 20px;
@@ -7,6 +7,43 @@
   justify-content: center;
   flex-direction: column;
 }
+.education-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin-left:7%;
+}
+
+.education-info span {
+  margin: 1px;
+  margin-left: 3px;
+}
+
+.degree {
+  font-weight: bold;
+}
+
+.percentage {
+  color: #007BFF;
+  font-weight: 500;
+}
+
+.college {
+  /* font-style: italic; */
+}
+
+.location,
+.country {
+  text-transform: uppercase;
+}
+
+.separator {
+  margin: 0;
+}
+
 
 /* A4 size for large screens */
 .template-one {
@@ -146,6 +183,11 @@
   background: #0056b3;
 }
 
+.texp{
+  color: #007bff;
+  font-weight: 900;
+  margin-left: 8px;
+}
 
 /* Responsive */
 @media (max-width: 992px) {
@@ -193,6 +235,10 @@
   }
   .skill-section ul {
     font-size: 12px;
+  }
+  .texp{
+    margin-top: -13px;
+    margin-left: 0%;
   }
 }
 /* Force A4 size for PDF export */
