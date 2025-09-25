@@ -136,9 +136,6 @@ const TemplateOne = () => {
     }, 300);
   };
   
-
-
-
   return (
     <div className="resume-container">
       <div id="template-one" className="template-one">
@@ -159,24 +156,19 @@ const TemplateOne = () => {
         <div  style={{marginTop:"-24px"}} className="resume-body">
           {/* Left Section */}
           <div className="left-section">
-            <div style={{display:"flex", alignItems:"center"}}>
-            <h2 style={{fontWeight:"700"}} className="section-title">EXPERIENCE </h2>
-            <div className="total-exp" style={{display:"flex", alignItems:"center", marginTop:"-2px"}}>
-            <div><h4>( TOTAL EXPERIENCE</h4></div>
-            <span><pre style={{color:"#007bff",fontWeight:"900"}}> - </pre> </span>
+          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
             <div>
-  <pre style={{
-    color: "#007bff",
-    fontWeight: "900",
-    fontFamily: "Arial, sans-serif", // or another font that supports bold
-    whiteSpace: "pre-wrap" // keeps formatting like <pre>
-  }}>
-    {profileData ? `${profileData.Experiance} Years` : "Loading..."} )
-  </pre>
+  <h2 style={{ fontWeight: "700" }} className="section-title">
+    EXPERIENCE
+  </h2>
+  </div>
+  <div>
+  <h4  className='texp'>
+    ( TOTAL EXPERIENCE - {profileData ? `${profileData.Experiance} Years )` : "Loading..."} 
+  </h4>
+  </div>
 </div>
 
-            </div>
-            </div>
             {pageLoader ? (
   <p>Loading...</p>
 ) : (
@@ -304,19 +296,31 @@ const TemplateOne = () => {
   )}
 </div> */}
 </div>
-          
+<div className="certification">
+  <h4 style={{color:"#007bff",fontWeight:"900",marginBottom:"4px"}}>QUALIFICATION:</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.qualificationDetails && profileData.qualificationDetails.length > 0 ? (
+    profileData.qualificationDetails.map((qual, index) => (
+      <div className="education-info" key={index}>
+        <span>{index+1}.</span>
+        <span className="degree">{qual.degree || "-"}</span>
+        <span className="separator">,</span>
+        <span className="percentage">{qual.score || "-"}</span>
+        <span className="separator">,</span>
+        <span className="college">{qual.collegeName || "-"}</span>
+        <span className="separator">,</span>
+        <span className="location">{qual.stateCode || "-"}</span>
+        <span className="separator">,</span>
+        <span className="country">{qual.countryCode || "-"}</span>
+      </div>
+    ))
+  ) : (
+    <p>No Qualification added</p>
+  )}
+</div>
 
-          <div className="skills">
-              <h4>EDUCATION </h4>
-              <p style={{marginLeft:"50px"}}> {pageLoader?<p>Loading...</p>:(profileData ? profileData.Qualification : "No Qualification added")}</p>
-            </div>
-
-            <div className="skills">
-              <h4>COLLEGE</h4>
-              <p style={{marginLeft:"50px"}}>{pageLoader?<p>Loading...</p>:(profileData ? profileData.college : "No College added")}</p>
-            </div>
-             
-           
+        
             
           </div>
           <div></div>
