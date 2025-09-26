@@ -320,6 +320,12 @@ const Modal = ({ isOpen, onClose, children }) => {
             <p className={styles.signUpwrap} >Continue with Microsoft</p>
           </div>
         </div>
+		<div className={styles.signUpWrapper}  >
+          <div className={styles.both}>
+            <img className={styles.google} src={linkedIn} />
+            <p className={styles.signUpwrap} >Continue with Linkedin</p>
+          </div>
+        </div>
         {/* <div className={styles.signUpWrapper}  >
           <div className={styles.both}>
             <img className={styles.google} src={linkedIn} />

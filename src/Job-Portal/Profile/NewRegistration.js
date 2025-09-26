@@ -16,6 +16,8 @@ import Footer from '../Footer/Footer';
 import STyles from "../Login/login.module.css"
 import GoogleImage from "../img/icons8-google-48.png"
 import MicosoftImage from "../img/icons8-windows-10-48.png"
+import linkedIn from "../img/icons8-linked-in-48.png"
+
 // import { TailSpin, Puff } from "react-loader-spinner"
 import { useGoogleLogin } from '@react-oauth/google';
 
@@ -790,18 +792,27 @@ const helpData = [
             {/* 
 
             <button className={styles.cancel} onClick={() => { navigate(-1) }} >cancel</button> */}
-        <div className={STyles.signUpWrapper} style={{marginLeft:"20px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
+       <div style={{display:"flex"}}>
+        <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
           <div className={STyles.both}>
             <img className={STyles.google} src={ MicosoftImage}/> 
             <p className={STyles.signUpwrap} >Register with Microsoft</p>
           </div>
         </div>
 
-            <div className={STyles.signUpWrapper} style={{marginLeft:"50px", marginBottom:"20px"}} onClick={!email? NoEmailAlert : emailError? InvalidEmailAlert :login}>
+            <div className={STyles.signUpWrapper} style={{marginLeft:"4px", marginBottom:"20px"}} onClick={!email? NoEmailAlert : emailError? InvalidEmailAlert :login}>
           <div className={STyles.both}>
             <img className={STyles.google} src={GoogleImage} />
             <p className={STyles.signUpwrap} >Register with Google</p>
           </div>
+        </div>
+
+        <div className={STyles.signUpWrapper} style={{marginLeft:"4px", marginBottom:"20px"}} >
+          <div className={STyles.both}>
+            <img className={STyles.google} src={linkedIn} />
+            <p className={STyles.signUpwrap} >Register with Linkedin</p>
+          </div>
+        </div>
         </div>
         </>
         :<div style={{margin:"auto", marginTop:"80px", marginBottom:"300px"}}><TailSpin color="blue" height={100} /></div>}
@@ -978,7 +989,7 @@ const helpData = [
 <CustomTextEditor ref={editor}  value={AboutCompany.toString()} onChange={(e)=>{setAboutCompany(e)}} ></CustomTextEditor>
 </div>
 </div>
-
+         
             <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
           <div className={STyles.both}>
             <img className={STyles.google} src={ MicosoftImage}/> 
@@ -992,6 +1003,14 @@ const helpData = [
             <p className={STyles.signUpwrap} >Continue with Google</p>
           </div>
         </div>
+
+        <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} >
+          <div className={STyles.both}>
+            <img className={STyles.google} src={linkedIn} />
+            <p className={STyles.signUpwrap} >Continue with Linkedin</p>
+          </div>
+        </div>
+        
 
             <div style={{marginTop:"60px"}}>
           <Footer/>
