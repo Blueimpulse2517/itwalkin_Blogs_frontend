@@ -358,7 +358,7 @@ async function UndoOnHold(id) {
 }
 
 function NoticeAscendingOrder() {
-    let newjob = [...AppliedUser]
+    // let newjob = [...AppliedUser]
     const collator = new Intl.Collator(undefined, {
         numeric: true,
         sensitivity: 'base'
@@ -366,7 +366,7 @@ function NoticeAscendingOrder() {
     const sorted = newjob.sort((a, b) => {
         return collator.compare(b.NoticePeriod, a.NoticePeriod)
     })
-    setAppliedUser(sorted)
+    // setAppliedUser(sorted)
 }
 
 
