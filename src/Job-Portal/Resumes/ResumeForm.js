@@ -30,6 +30,12 @@ const ResumeForm = () => {
   const [profileData, setProfileData] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   let studId = JSON.parse(localStorage.getItem("StudId"));
+  const [imageConsent, setImageConsent] = useState(null); // null initially
+
+  const handleConscentChange = (value) => {
+    setImageConsent(value);
+  };
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -42,7 +48,8 @@ const ResumeForm = () => {
         const res =   await axios.get(`/StudentProfile/viewProfile/${studId}`)
         const result = res.data.result;
         setProfileData([result]);
-
+        console.log("pd",result)
+        setImageConsent(result.imageConsent)  
         setFormData(prev => ({
           ...prev,
           name: result.name || "",
@@ -86,6 +93,10 @@ const ResumeForm = () => {
 
     fetchProfile();
   }, [studId]);
+
+  useEffect(()=>{
+console.log(imageConsent)
+  },[imageConsent])
 
   const containerStyle = {
     maxWidth: '900px',
@@ -315,10 +326,10 @@ const ResumeForm = () => {
       setSuccessMessage("Please make sure to fill in all required details");
       return;
     }
-    // console.log("hshs",qualificationDetails)
+    // console.log("hshs",imageConsent)
     const Experiance=totalExperience;
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
-      name, email,Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails
+      name, email,Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails,imageConsent
     }, { headers })
       .then((res) => {
         let result = (res.data)
@@ -395,7 +406,7 @@ const ResumeForm = () => {
 
         <input style={inputStyle} disabled placeholder="Name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} />
         <textarea style={inputStyle} placeholder="Profile Summary" value={formData.profileSummary} onChange={(e) => handleChange('profileSummary', e.target.value)} />
-        <input type="text" ref={venueInputRef} value={formData.address} onChange={(e) => handleChange('address', e.target.value)} style={inputStyle} placeholder="Search Address" />
+        <input type="text" ref={venueInputRef} value={formData.address} onChange={(e) => handleChange('address', e.target.value)} style={inputStyle} placeholder="Current Address" />
         <input style={inputStyle} disabled placeholder="Email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
         <input style={inputStyle} disabled placeholder="Total Experience" value={formData.totalExperience} onChange={(e) => handleChange('totalExperience', e.target.value)} />
         <input style={inputStyle} disabled placeholder="Qualification" value={formData.qualification} />
@@ -535,7 +546,34 @@ const ResumeForm = () => {
           </div>
         ))}
         <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button>
+        <div style={{ padding: "10px", fontFamily: "Arial" }}>
+      <p style={{ fontWeight: "bold" }}>
+        Would you like to include a photo from Google in your resume?
+      </p>
 
+      <label style={{ display: "block", margin: "5px 0" }}>
+        <input
+          type="radio"
+          name="imageConsent"
+          value="true"
+          checked={imageConsent === true}
+          onChange={() => handleConscentChange(true)}
+        />{" "}
+        Yes, I give my consent
+      </label>
+
+      <label style={{ display: "block", margin: "5px 0" }}>
+        <input
+          type="radio"
+          name="imageConsent"
+          value="false"
+          checked={imageConsent === false}
+          onChange={() => handleConscentChange(false)}
+        />{" "}
+        No, I do not wish
+      </label>
+
+      </div>
         <button style={{ ...buttonStyle, display: 'block', marginTop: '20px' }} onClick={handleSubmit}>Save Resume</button>
       </div>
     </div>

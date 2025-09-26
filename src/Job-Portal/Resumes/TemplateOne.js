@@ -142,7 +142,26 @@ const TemplateOne = () => {
         {/* Header */}
         <div className="resume-header">
           <div className="header-left">
-            <h1 className="resume-name">{profileData ? profileData.name : "Loading..."}</h1>
+            <div style={{display:"flex"}}>
+            <div >
+            {console.log("Image URL:", profileData?.Gpicture)}
+            {profileData? (
+              (profileData?.imageConsent === true && (
+                <img
+                  src={profileData.Gpicture}
+                  alt="Candidate"
+                  style={{ borderRadius: "47%" }}
+                />
+              ))
+          ) : (
+          <p>Loading...</p>
+         )}
+
+              
+            </div>
+              <div><h1 style={{marginTop:"21%"}} className="resume-name">{profileData ? profileData.name : "Loading..."}</h1></div>
+              
+            </div>
             <p className="summary">{pageLoader?<p>Loading...</p>:(profileData ? profileData.profileSummary : "No profile summary added")}</p>
           </div>
           <div className="header-right">
