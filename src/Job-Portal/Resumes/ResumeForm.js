@@ -501,10 +501,10 @@ console.log(imageConsent)
             {exp.descriptions.map((desc, j) => (
               <div key={j}>
                 <textarea style={inputStyle} placeholder={`Role Description ${j + 1}`} value={desc} onChange={(e) => handleRoleDescriptionChange(i, j, e.target.value)} />
-                <button style={buttonStyle} type="button" onClick={() => removeRoleDescription(i, j)}>Remove Description</button>
+                <button style={buttonStyle} type="button" onClick={() => removeRoleDescription(i, j)}>Remove Row</button>
               </div>
             ))}
-            <button style={buttonStyle} type="button" onClick={() => addRoleDescription(i)}>Add Description</button>
+            <button style={buttonStyle} type="button" onClick={() => addRoleDescription(i)}> Add Row</button>
             <button style={{ ...buttonStyle, marginLeft: "2px" }} type="button" onClick={() => removeExperience(i)}>Remove Experience</button>
           </div>
         ))}
@@ -514,7 +514,7 @@ console.log(imageConsent)
         <h2>Certifications</h2>
         {formData.certifications.map((cert, i) => (
           <div key={i}>
-            <input style={inputStyle} placeholder="Certification" value={cert} onChange={(e) => handleCertificationChange(i, e.target.value)} />
+            <input style={inputStyle} placeholder="Enter Certification" value={cert} onChange={(e) => handleCertificationChange(i, e.target.value)} />
             <button style={buttonStyle} type="button" onClick={() => removeCertification(i)}>Remove</button>
           </div>
         ))}
@@ -524,28 +524,28 @@ console.log(imageConsent)
         <h2>Skills</h2>
         {formData.skills.map((skill, i) => (
           <div key={i} style={sectionStyle}>
-            <input style={inputStyle} placeholder="Skill Heading" value={skill.heading} onChange={(e) => handleSkillChange(i, 'heading', e.target.value)} />
+            <input style={inputStyle} placeholder="Enter Skill Subheading Frontend/Backend" value={skill.heading} onChange={(e) => handleSkillChange(i, 'heading', e.target.value)} />
             {skill.items.map((item, j) => (
               <div key={j}>
-                <input style={inputStyle} placeholder={`Skill ${j + 1}`} value={item} onChange={(e) => handleSkillItemChange(i, j, e.target.value)} />
-                <button style={buttonStyle} type="button" onClick={() => removeSkillItem(i, j)}>Remove Item</button>
+                <input style={inputStyle} placeholder={`Skill ${j + 1}. HTML/CSS/Js/React.js,Java etc`} value={item} onChange={(e) => handleSkillItemChange(i, j, e.target.value)} />
+                <button style={buttonStyle} type="button" onClick={() => removeSkillItem(i, j)}>Remove Skill</button>
               </div>
             ))}
-            <button style={buttonStyle} type="button" onClick={() => addSkillItem(i)}>Add Item</button>
+            <button style={buttonStyle} type="button" onClick={() => addSkillItem(i)}>Add Skill</button>
             <button style={{ ...buttonStyle, marginLeft: "2px" }} type="button" onClick={() => removeSkillSection(i)}>Remove Section</button>
           </div>
         ))}
         <button style={buttonStyle} type="button" onClick={addSkillSection}>Add Skill Section</button>
 
         {/* LANGUAGES */}
-        <h2>Languages</h2>
+        {/* <h2>Languages</h2>
         {formData.languages.map((lang, i) => (
           <div key={i}>
             <input style={inputStyle} placeholder="Language" value={lang} onChange={(e) => handleLanguageChange(i, e.target.value)} />
             <button style={buttonStyle} type="button" onClick={() => removeLanguage(i)}>Remove</button>
           </div>
         ))}
-        <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button>
+        <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button> */}
         <div style={{ padding: "10px", fontFamily: "Arial" }}>
       <p style={{ fontWeight: "bold" }}>
         Would you like to include a photo from Google in your resume?
@@ -574,7 +574,7 @@ console.log(imageConsent)
       </label>
 
       </div>
-        <button style={{ ...buttonStyle, display: 'block', marginTop: '20px' }} onClick={handleSubmit}>Save Resume</button>
+        <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Submit Resume</button>
       </div>
     </div>
   );

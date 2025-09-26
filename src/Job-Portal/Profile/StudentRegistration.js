@@ -6,6 +6,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import validator from "validator";
 import MicosoftImage from "../img/icons8-windows-10-48.png"
 import imageCompression from 'browser-image-compression';
+import linkedIn from "../img/icons8-linked-in-48.png"
 import axios from 'axios';
 import logo from "../img/Blue.jpg"
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -1225,7 +1226,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    onChange={(e) => setTenth(e.target.value)}
                    className={styles.input}
                    style={{ width: "130%", marginLeft: "31px", }}
-                   placeholder="Search your School"
+                   placeholder="Enter your school name"
                  />
                  </label>
                  
@@ -1240,7 +1241,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    onChange={(e) => setTwelfth(e.target.value)}
                    className={styles.input}
                    style={{ width: "130%", marginLeft: "31px", }}
-                   placeholder="Search your School/College"
+                   placeholder="Enter your School/College"
                  />
                  
                </label>
@@ -1259,7 +1260,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    onChange={(e) => setDegree(e.target.value)}
                    className={styles.input}
                    style={{ width: "130%", marginLeft: "2px"}}
-                   placeholder="Search Degree/Diploma College"
+                   placeholder="Enter your College Name"
                  />
                  
                </label>
@@ -1275,7 +1276,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                    onChange={(e) => setcollege(e.target.value)}
                    className={styles.input}
                    style={{ width: "130%", marginLeft: "51px", }}
-                   placeholder="Search  your Masters college"
+                   placeholder="Enter your College Name"
                  />
                  
                </label>
@@ -1528,7 +1529,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
         <div style={{display:"flex"}}>
 
-        <div className={STyles.signUpWrapper} style={{marginRight:"45px", marginBottom:"20px"}} 
+        <div className={STyles.signUpWrapper} style={{marginRight:"25px", marginBottom:"20px"}} 
               onClick={(!name || !email || !age || !phoneNumber ||!Aadhar ||!panCard ||!NoticePeriod ||!ExpectedSalary ||!currentCTC ||!Qualification ||!Experiance ||
                 !tenth||!twelfth ||!degree ||!college||!Tags)
       ? NoEmailAlert : emailError? InvalidEmailAlert :login}>
@@ -1538,10 +1539,17 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
           </div>
           </div>
           
-          <div className={STyles.signUpWrapper} style={{marginLeft:"20px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
+          <div className={STyles.signUpWrapper} style={{marginLeft:"-20px", marginBottom:"20px"}}  >
           <div className={STyles.both}>
             <img className={STyles.google} src={ MicosoftImage}/> 
             <p className={STyles.signUpwrap} >Register with Microsoft</p>
+          </div>
+        </div>
+
+        <div className={STyles.signUpWrapper} style={{marginLeft:"4px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
+          <div className={STyles.both}>
+            <img className={STyles.google} src={linkedIn}/> 
+            <p className={STyles.signUpwrap} >Register with Linkedin</p>
           </div>
         </div>
 
@@ -1953,7 +1961,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
     onChange={(e) => setTenth(e.target.value)}
     className={styles.input}
     style={{ width: "81%", marginLeft: "18px" }}
-    placeholder="Search your School"
+    placeholder="Enter your school name"
   />
 </label>
 
@@ -1966,7 +1974,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
     onChange={(e) => setTwelfth(e.target.value)}
     className={styles.input}
     style={{ width: "81%", marginLeft: "18px" }}
-    placeholder="Search your School/College"
+    placeholder=" Enter your School/College"
   />
 </label>
 
@@ -1979,7 +1987,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
     onChange={(e) => setDegree(e.target.value)}
     className={styles.input}
     style={{ width: "81%", marginLeft: "18px" }}
-    placeholder="Search your Degree college"
+    placeholder="Enter your College Name"
   />
 </label>
 
@@ -1992,7 +2000,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
     onChange={(e) => setcollege(e.target.value)}
     className={styles.input}
     style={{ width: "81%", marginLeft: "18px" }}
-    placeholder="Search your masters college"
+    placeholder="Enter your College Name"
   />
 </label>
 
@@ -2091,6 +2099,12 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
           <div className={STyles.both}>
             <img className={STyles.google} src={ MicosoftImage}/> 
             <p className={STyles.signUpwrap} >Register with Microsoft</p>
+          </div>
+        </div>
+        <div className={STyles.signUpWrapper} style={{marginLeft:"20px", marginBottom:"20px"}}  >
+          <div className={STyles.both}>
+            <img className={STyles.google} src={ linkedIn}/> 
+            <p className={STyles.signUpwrap} >Register with Linkedin</p>
           </div>
         </div>
           <Footer/>
