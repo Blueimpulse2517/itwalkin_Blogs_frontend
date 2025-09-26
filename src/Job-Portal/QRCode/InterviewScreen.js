@@ -357,17 +357,17 @@ async function UndoOnHold(id) {
         })
 }
 
-function NoticeAscendingOrder() {
+// function NoticeAscendingOrder() {
     // let newjob = [...AppliedUser]
-    const collator = new Intl.Collator(undefined, {
-        numeric: true,
-        sensitivity: 'base'
-    });
-    const sorted = newjob.sort((a, b) => {
-        return collator.compare(b.NoticePeriod, a.NoticePeriod)
-    })
+    // const collator = new Intl.Collator(undefined, {
+    //     numeric: true,
+    //     sensitivity: 'base'
+    // });
+    // const sorted = newjob.sort((a, b) => {
+    //     return collator.compare(b.NoticePeriod, a.NoticePeriod)
+    // })
     // setAppliedUser(sorted)
-}
+// }
 
 
 
