@@ -56,7 +56,9 @@ const InterviewScreen = () => {
   const [pageLoader, setPageLoader]=useState(false);
   const[profileData,setProfileData]=useState([]);
   const [noData, setNoData] = useState(false);
+
    let params = useParams();
+   const job_id=atob(params.id)
   async function getJobseekerId() {
     const headers = { authorization: 'BlueItImpulseWalkinIn' };
     try {
@@ -157,7 +159,7 @@ const InterviewScreen = () => {
                 
                 setProfileData([result])
                 setLoading(false)
-                setComments(result.message)
+                // setComments(result.message)
 
             }).catch((err) => {
                 alert("some thing went wrong")
@@ -172,7 +174,11 @@ const InterviewScreen = () => {
   
  const[interviewStatusmessage, setinterviewStatusmessage]=useState("")
   async function sendMessage() {
-    const message=comments;
+    let message=profileData[0]?.message
+    if(comments!=""){
+        message=comments 
+    }
+    console.log("fm",message)
     const id=jobseeker?.jobSeekerId;
     await axios.put(`/StudentProfile/sendMessage/${id}`, { message })
       .then((res) => {
@@ -235,6 +241,133 @@ const InterviewScreen = () => {
         alert("some thing went wrong")
       })
   }
+
+    const [OperationalAppliedUser, setOperationalAppliedUser] = useState()
+
+  async function getAppliedUserIds(OId) {
+    setPageLoader(true)
+
+    await axios.get(`/walkinRoute/getAppliedUserIds/${OId}`)
+        .then(async (res) => {
+            let AppliedUserIds = res.data.jobSeekerId
+            let appliedUserIds = AppliedUserIds.map((ids) => {
+                return (
+                    ids.jobSeekerId
+                )
+            })
+          console.log("applied user ids",appliedUserIds)
+            setOperationalAppliedUser([res.data])
+            
+            // await axios.get(`/StudentProfile/getAppliedProfileByIds/${appliedUserIds}`)
+            //     .then((res) => {
+            //         console.log("total profile fetched",res.data)
+            //         setAppliedUser(res.data)
+            //         setPageLoader(false)
+            //     }).catch((err) => {
+            //         alert("server error occured")
+            //     })
+        }).catch((err) => {
+            alert("server error occured")
+        })
+}
+
+useEffect(() => {
+    getAppliedUserIds(atob(params.id))
+}, [])
+
+
+  async function Select(id, status) {
+    let slectedJobseker = id;
+    await axios.put(`walkinRoute/status/${atob(params.id)}`, { slectedJobseker })
+        .then((res) => {
+          getAppliedUserIds(atob(params.id))
+
+        }).catch((err) => {
+            alert("server error occured")
+        })
+}
+async function Reject(id, status) {
+    let rejectedJobseker = id
+    await axios.put(`walkinRoute/status/${atob(params.id)}`, { rejectedJobseker })
+        .then((res) => {
+          getAppliedUserIds(atob(params.id))
+
+        }).catch((err) => {
+            alert("server error occured")
+        })
+}
+async function onHold(id, status) {
+    console.log("onhold")
+    let onHoldJobseker = id
+    await axios.put(`walkinRoute/status/${atob(params.id)}`, { onHoldJobseker })
+        .then((res) => {
+            console.log("abc",res)
+            getAppliedUserIds(atob(params.id))
+
+        }).catch((err) => {
+            alert("server error occured")
+        })
+}
+
+async function UndoSelect(id) {
+    let userid = JSON.parse(localStorage.getItem("StudId"))
+    const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
+
+    let slectedJobseker = id
+
+    await axios.put(`walkinRoute/updatforUndoWalkinApplied/${atob(params.id)}`, { slectedJobseker }, { headers })
+        .then((res) => {
+          getAppliedUserIds(atob(params.id))
+        }).catch((err) => {
+
+            alert("server error occured")
+        })
+
+}
+
+async function UndoReject(id) {
+
+    let userid = JSON.parse(localStorage.getItem("StudId"))
+    const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
+
+    let rejectedJobseker = id
+
+    await axios.put(`walkinRoute/updatforUndoWalkinApplied/${atob(params.id)}`, { rejectedJobseker }, { headers })
+        .then((res) => {
+          getAppliedUserIds(atob(params.id))
+        }).catch((err) => {
+
+            alert("server error occured")
+        })
+
+}
+
+async function UndoOnHold(id) {
+    let userid = JSON.parse(localStorage.getItem("StudId"))
+    const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
+
+    let onHoldJobseker = id
+
+    await axios.put(`walkinRoute/updatforUndoWalkinApplied/${atob(params.id)}`, { onHoldJobseker }, { headers })
+        .then((res) => {
+            getAppliedUserIds(atob(params.id))
+        }).catch((err) => {
+
+            alert("server error occured")
+        })
+}
+
+function NoticeAscendingOrder() {
+    let newjob = [...AppliedUser]
+    const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: 'base'
+    });
+    const sorted = newjob.sort((a, b) => {
+        return collator.compare(b.NoticePeriod, a.NoticePeriod)
+    })
+    setAppliedUser(sorted)
+}
 
 
 
@@ -300,7 +433,8 @@ const InterviewScreen = () => {
               <tbody>
                 <tr><td>Name</td><td>{profileData[0]?.name?profileData[0]?.name:<p style={{color:"red"}}>Not updated</p>}</td></tr>
                 <tr><td>Email Address</td><td>{profileData[0]?.email?profileData[0]?.email:<p style={{color:"red"}}>Not updated</p>}</td></tr>
-                <tr><td>City</td><td>{profileData[0]?.city?profileData[0]?.city.value:<p style={{color:"red"}}>Not updated</p>}</td></tr>
+                {/* <tr><td>City</td><td>{profileData[0]?.city?profileData[0]?.city.value:<p style={{color:"red"}}>Not updated</p>}</td></tr> */}
+                <tr><td>City</td><td>Bangalore</td></tr>
                 <tr><td>Phone Number</td><td>{profileData[0]?.phoneNumber?profileData[0]?.phoneNumber:<p style={{color:"red"}}>Not updated</p>}</td></tr>
                 <tr><td>Qualification</td><td>{profileData[0]?.Qualification?profileData[0]?.Qualification:<p style={{color:"red"}}>Not updated</p>}</td></tr>
                 <tr><td>Skills</td><td>{profileData[0]?.Skills?profileData[0]?.Skills:<p style={{color:"red"}}>Not updated</p>}</td></tr>
@@ -316,6 +450,7 @@ const InterviewScreen = () => {
                 <tr><td>HR Feedback</td><td>{profileData[0]?.message?profileData[0]?.message:<p style={{color:"red"}}>No Feedback</p>}</td></tr>
                 <tr><td>Comments</td><td>
                    <textarea
+                     required 
                      value={comments}
                      onChange={(e) => setComments(e.target.value)}
                      className={styles.commentBox}
@@ -338,10 +473,86 @@ const InterviewScreen = () => {
         >
           {profileData.length>0 ? "Scan Progress" : "Scan"}
         </button>
+        <div>
+          <div style={{display:"flex", flexDirection:"column"}} >
+          {
+                                            OperationalAppliedUser?.map((operationl) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            operationl.slectedJobseker?.find((jobseekerid) => {
+                                                                return (
+                                                                    jobseekerid == jobseeker?.jobSeekerId
+                                                                )
+                                                            }) ?
+                                                                <>  <div style={{display:"flex", flexDirection:"column", marginLeft:"-27%"}}>
+                                                                    
+                                                                    <button  onClick={() => { UndoSelect(jobseeker?.jobSeekerId, "selected") }} style={{
+                                                                        marginLeft: "27%", background: "rgb(24, 175, 24)", color: "white",
+                                                                        border: "solid",  height: "30px", fontWeight: "bold",cursor:"pointer"
+                                                                    }} title="Click to Undo Select">Selected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br>
+                                                                    
+                                                                    </div>
+                                                                </>
+                                                                
+                                                                :
 
+                                                                (operationl.rejectedJobseker?.find((jobseekerid) => {
+                                                                    return (
+                                                                        jobseekerid == jobseeker?.jobSeekerId
+                                                                    )
+                                                                })) ?
+                                                                    <>
+                                                                        <button onClick={() => { UndoReject(jobseeker?.jobSeekerId, "selected") }} style={{
+                                                                            marginLeft: "27%", background: "red", color: "white",
+                                                                            border: "solid",  height: "30px", fontWeight: "bold",cursor:"pointer"
+                                                                        }} title="Click to Undo Reject">Rejected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br></>
+                                                                    :
+
+                                                                    (operationl.onHoldJobseker?.find((jobseekerid) => {
+                                                                        return (
+                                                                            jobseekerid == jobseeker?.jobSeekerId
+                                                                        )
+                                                                    })) ?
+                                                                        <>
+                                                                            <button onClick={() => { UndoOnHold(jobseeker?.jobSeekerId, "selected") }} style={{
+                                                                                marginLeft: "27%", background: "blue", color: "white",
+                                                                                border: "solid",  height: "30px", fontWeight: "bold",cursor:"pointer"
+                                                                            }} title="Click to Undo On Hold">OnHold<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br></>
+                                                                        :
+                                                                        <>
+                                                                            <div style={{ display: "flex", flexDirection:"column", marginLeft: "-1%" }}>
+                                                                                <button style={{
+                                                                                    marginLeft: "2%",  backgroundColor: jobseeker?.jobSeekerId == null ? "grey" : "rgb(40, 4, 99)", color: "white", border: "solid",
+                                                                                    height: "30px", fontWeight: "bold",  cursor: jobseeker?.jobSeekerId == null ? "not-allowed" : "pointer"
+                                                                                }} onClick={() => { Select(jobseeker?.jobSeekerId, "selected") }}>Select</button><br></br>
+                                                                                <button style={{
+                                                                                    marginLeft: "2%", backgroundColor: jobseeker?.jobSeekerId == null ? "grey" : "rgb(40, 4, 99)", color: "white", border: "solid",
+                                                                                     height: "30px", fontWeight: "bold",  cursor: jobseeker?.jobSeekerId == null ? "not-allowed" : "pointer"
+                                                                                }} onClick={() => { Reject(jobseeker?.jobSeekerId, "Rejected") }}>Reject</button><br></br>
+                                                                                <button style={{
+                                                                                    marginLeft: "2%", backgroundColor: jobseeker?.jobSeekerId == null ? "grey" : "rgb(40, 4, 99)", color: "white", border: "solid",
+                                                                                    height: "30px", fontWeight: "bold",  cursor: jobseeker?.jobSeekerId == null ? "not-allowed" : "pointer"
+                                                                                }} onClick={() => { onHold(jobseeker?.jobSeekerId, "OhHold") }}>OnHold</button><br></br>
+                                                                                {/* <li className={`${styles.li} ${styles.Status}`} style={{border:"none"}}> */}
+                                      
+                                                                            </div>
+                                                                            
+                                                                        </>
+
+                                                        }
+                                                        
+                                                    </>
+                                                )
+                                            })
+                                            
+                                        }
+           
+          </div>
         <button className={styles.endBtn} onClick={handleEndInterview}>
           End Interview
         </button>
+        </div>
       </div>
     </div>
   );

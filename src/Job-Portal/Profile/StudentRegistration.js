@@ -512,10 +512,10 @@ if(confirm){
   const currentEmpInputRef = useRef(null);
 
   
-  const[tenth, setTenth]=useState("abc");
-  const[twelfth, setTwelfth]=useState("abc");
-  const[degree, setDegree]=useState("abc");
-  const[currentEmp, setCurrentEmp]=useState("abc");
+  const[tenth, setTenth]=useState("");
+  const[twelfth, setTwelfth]=useState("");
+  const[degree, setDegree]=useState("");
+  const[currentEmp, setCurrentEmp]=useState("");
   // const[currentEmpTenure, setCurrentEmpTenure]=useState("");
 
   const addEmployer = () => {

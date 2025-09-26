@@ -89,7 +89,7 @@
 /* Buttons */
 .scanBtn,
 .endBtn {
-  width: 90%;
+  width: 100%;
   padding: 12px;
   font-size: 16px;
   font-weight: bold;
@@ -223,12 +223,15 @@
 
   .rightBox {
     flex-direction: column;
-    align-items: stretch;
+    /* align-items: stretch; */
+    width: 84%;
+    margin-left: 5px;
   }
 
   .scanBtn,
   .endBtn {
-    width: 100%;
+    width: 200px;
     margin-bottom: 10px;
+
   }
 }
