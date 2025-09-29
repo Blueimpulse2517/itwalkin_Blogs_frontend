@@ -712,7 +712,7 @@ const helpData = [
             </label>
 
             <label className={styles.inputName}>
-              <h4>Primary User Name : <span style={{fontWeight:800, fontSize:"medium"}} title='(primary user will have the admin right for your
+              <h4>Primary User Name : <span style={{fontWeight:800, fontSize:"medium", marginLeft:"-17px"}} title='(primary user will have the admin right for your
                 company, primary user can add or remove multiple secondary user)'><i class="fa-solid fa-circle-info"></i></span></h4>
               <input maxLength="40" className={styles.input}  value={name}  onChange={(e) => { setname(e.target.value) }} type="text" />
             </label>
@@ -876,7 +876,7 @@ const helpData = [
             </label>
 
             <label className={styles.MobileinputName}>
-              <h4 className={styles.MobileName}>Primary User Name : <span style={{fontWeight:800, fontSize:"medium"}} title='(primary user will have the admin right for your
+              <h4 className={styles.MobileName}>Primary User Name : <span style={{fontWeight:800, fontSize:"medium",}} title='(primary user will have the admin right for your
                 company, primary user can add or remove multiple secondary user)'><i class="fa-solid fa-circle-info"></i></span></h4>
               <input maxLength="40" className={styles.Mobileinput}  value={name}  onChange={(e) => { setname(e.target.value) }} type="text" />
             </label>
@@ -989,7 +989,9 @@ const helpData = [
 <CustomTextEditor ref={editor}  value={AboutCompany.toString()} onChange={(e)=>{setAboutCompany(e)}} ></CustomTextEditor>
 </div>
 </div>
-         
+
+         <div style={{ display: "flex", flexWrap: "wrap" }}>
+
             <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} onClick={(e) => { saveMicrosoft(e) }} >
           <div className={STyles.both}>
             <img className={STyles.google} src={ MicosoftImage}/> 
@@ -1009,6 +1011,7 @@ const helpData = [
             <img className={STyles.google} src={linkedIn} />
             <p className={STyles.signUpwrap} >Continue with Linkedin</p>
           </div>
+        </div>
         </div>
         
 

@@ -143,7 +143,29 @@ const TemplateOne = () => {
         <div className="resume-header">
           <div className="header-left">
             <div style={{display:"flex"}}>
-            <div >
+            {/* <div >
+            {console.log("Image URL:", profileData?.Gpicture)}
+            {profileData? (
+              (profileData?.imageConsent === true && (
+                <img
+                  src={profileData.Gpicture}
+                  alt="Candidate"
+                  style={{ borderRadius: "47%" }}
+                />
+              ))
+          ) : (
+          <p>Loading...</p>
+         )}
+
+              
+            </div> */}
+              <div><h1 style={{marginTop:"21%"}} className="resume-name">{profileData ? profileData.name : "Loading..."}</h1></div>
+              
+            </div>
+            <p className="summary">{pageLoader?<p>Loading...</p>:(profileData ? profileData.profileSummary : "No profile summary added")}</p>
+          </div>
+          <div className="header-right">
+          <div >
             {console.log("Image URL:", profileData?.Gpicture)}
             {profileData? (
               (profileData?.imageConsent === true && (
@@ -159,12 +181,6 @@ const TemplateOne = () => {
 
               
             </div>
-              <div><h1 style={{marginTop:"21%"}} className="resume-name">{profileData ? profileData.name : "Loading..."}</h1></div>
-              
-            </div>
-            <p className="summary">{pageLoader?<p>Loading...</p>:(profileData ? profileData.profileSummary : "No profile summary added")}</p>
-          </div>
-          <div className="header-right">
             <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.address : "No Address added")}</p>
             <p className="email">{pageLoader?<p>Loading...</p>:(profileData ? profileData.email : "No email added")}</p>
             <p style={{marginTop:"-7px"}}>{pageLoader?<p>Loading...</p>:(profileData ? profileData.phoneNumber : "No phone added")}</p>

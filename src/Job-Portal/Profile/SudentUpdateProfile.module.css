@@ -1,4 +1,11 @@
-
+@media (max-width: 768px) {
+    .signUpWrapper {
+      margin-left: 5px !important;
+      margin-bottom: 10px !important;
+    }
+  }
+  
+  
 .minusbtn{
     background: red;
     color: rgb(255, 255, 255);

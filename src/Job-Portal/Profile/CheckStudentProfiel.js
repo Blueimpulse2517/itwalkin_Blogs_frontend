@@ -100,7 +100,7 @@ useEffect(() => {
     await axios.put(`/StudentProfile/sendMessage/${id}`, { message })
       .then((res) => {
         if (res.data) {         
-            setCommentmessage("feedback has been submitted Successfully")
+            setCommentmessage("Feedback has been submitted successfully")
             setMessage("")
         }
       })
@@ -116,14 +116,26 @@ useEffect(() => {
     return (
         <>
 <div style={{display:"flex"}}>
-                             <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
-             width:"28px"}} onClick={()=>{navigate("/Search-Candidate")}}  src={Arrowimage} />
+<button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/posteddrives");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
+                             {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
+             width:"28px"}} onClick={()=>{navigate("/Search-Candidate")}}  src={Arrowimage} /> */}
     <p style={{marginLeft:"40%"}}><b>JobSeeker Profile </b></p>
     </div>
     <div style={{marginLeft:"4%"}}>
     {commentmessage&&
     <>
-        {commentmessage==="feedback has been submitted Successfully"?
+        {commentmessage==="Feedback has been submitted successfully"?
             <p style={{color:"green"}}>{commentmessage}</p>    :
             <p style={{color:"red"}}>{commentmessage}</p>                          
         }

@@ -1,3 +1,23 @@
+@media (max-width: 768px) {
+  .signUpContainer {
+    flex-direction: column;   /* stack vertically */
+    align-items: stretch;     /* make full width */
+  }
+
+  .signUpWrapper {
+    flex: 1 1 100%;           /* take full available width */
+    max-width: 100%;
+    margin-left: 0 !important; /* remove extra margin */
+  }
+
+  .both {
+    justify-content: center;  /* center icon + text */
+  }
+
+  .signUpwrap {
+    text-align: center;
+  }
+}
 .suffix {
     position: absolute;
     left: 26px;

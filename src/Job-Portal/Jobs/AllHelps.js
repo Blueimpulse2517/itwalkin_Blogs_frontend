@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import HTMLReactParser from "html-react-parser";
@@ -7,15 +7,14 @@ import useScreenSize from "../SizeHook";
 import styles from "./Allobs.module.css"
 import { useNavigate } from "react-router-dom";
 import {jobTags} from '../Tags'
-import { Puff } from "react-loader-spinner";
 
-function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageFilter,setNoPageFilter
+function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,currentPage,setCurrentPage,
+  recordsPerPage, setrecordsPerPage,nopageFilter,setNoPageFilter
 }) {
   const [Contact, setContact] = useState([]);
   const screenSize = useScreenSize();
   const[jobsPerPageValue,setJobsPerPageValue]=useState(10);
-  const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage, setrecordsPerPage] = useState(10)
+
   const lastIndex = currentPage * recordsPerPage //10
   const firstIndex = lastIndex - recordsPerPage //5
   // const records = jobs.slice(firstIndex, lastIndex)//0,5
@@ -23,16 +22,12 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
   const npage=1;
   const number = [...Array(npage + 1).keys()].slice(1)
   const navigate = useNavigate();
-//  let recordsperpage = JSON.parse(sessionStorage.getItem("recordsperpageSearchHome"))
-
-
-
 
   function handleRecordchange(e) {
-    // sessionStorage.setItem("recordsperpageHome", JSON.stringify(e.target.value));
-    // let recordsperpage = JSON.parse(sessionStorage.getItem("recordsperpageHome"))
+    sessionStorage.setItem("recordsperpageHome", JSON.stringify(e.target.value));
+    let recordsperpage = JSON.parse(sessionStorage.getItem("recordsperpageHome"))
     setJobsPerPageValue(Number(e.target.value));
-    setrecordsPerPage(Number(e.target.value))
+    setrecordsPerPage(recordsperpage)
     setCurrentPage(1)
   }
 
@@ -67,34 +62,28 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
     getContact();
   }, []);
 
-
-  const[helpData, setHelpData]=useState([])
-    const [PageLoader, setPageLoader] = useState(false)
-    //  async function getjobs() {
-    //   setPageLoader(true)
-    //   await axios.get("/QuestionRoute/getQuestions")
-    //     .then((res) => {
-    //       let result = (res.data)
-    //       let sortedate = result.sort(function (a, b) {
-    //         return new Date(b.createdAt) - new Date(a.createdAt);
-    //       });
-        
-    //       setHelpData(sortedate);
-    //       setPageLoader(false)
-    //     }).catch((err) => {
-    //       console.log(err)
-    //       alert("some thing went wrong")
-    //     })
-    // }
-  
-    // useEffect(()=>{
-    //   getjobs()
-    // },[]) 
-
-
-
-
-
+  const helpData = [
+    { 
+      id: 1, 
+      question: "How to Register as an Employer?", 
+      source: "ITWalkin", 
+      companyName: "ITWalkin", 
+      postedby: "ITWalkin", 
+      postedDate: "20-03-2025", 
+      view: "View",
+      details: "1. To register as an employer, follow these steps:\n2. Click on the 'Open an Account' menu in the navigation bar.\n3. A submenu will appear—select 'Employer Registration' from the list.\n4. The Employer Registration Form will open in a new window.\n5. Fill in all the required details in the given fields.\n6. Choose to register using either Microsoft or Google.\n7. Once completed, your registration will be successful."
+  },
+  { 
+    id: 2, 
+    question: "How to Register as a Jobseeker?", 
+    source: "ITWalkin", 
+    companyName: "ITWalkin", 
+    postedby: "ITWalkin", 
+    postedDate: "20-03-2025", 
+    view: "View",
+    details: "1. To register as a Jobseeker, follow these steps:\n2. Click on the 'Open an Account' menu in the navigation bar.\n3. A submenu will appear—select 'Jobseeker Registration' from the list.\n4. The jobseeker Registration Form will open in a new window.\n5. Fill in all the required details in the given fields.\n6. Choose to register using either Microsoft or Google.\n7. Once completed, your registration will be successful."
+},
+     ];
 
      async function filterByJobTitle(key) {
 
@@ -136,10 +125,6 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
       
     }
 
-    const selectedTag=useRef("")
-      const updateTag=(tag)=>{
-        selectedTag.current=tag
-      }
 
   return (
     <>
@@ -174,10 +159,10 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
 
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {nopageFilter ?
-              <p style={{ fontWeight: 400, marginLeft: "10px" }}><span style={{ color: "blue" }}></span>Showing 1 to 10 latest Help Questions
+              <p style={{ fontWeight: 400, marginLeft: "10px" }}>Displaying <span style={{ color: "blue" }}>{helpData.length} </span>Help questions with following matching tags:
               <span style={{ color: "blue" }}>{Active.toString()}</span></p>
               :
-              <p style={{ fontWeight: 400, marginLeft: "10px" }}>showing {firstIndex + 1} to {lastIndex} latest Helps Questions</p>
+              <p style={{ fontWeight: 400, marginLeft: "10px" }}>showing {firstIndex + 1} to {lastIndex} latest helps</p>
             }
             <div className={styles.navigationWrapper}>
               <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={firstPage}>
@@ -217,54 +202,24 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
               <li style={{ backgroundColor: " rgb(40, 4, 99)" }} className={`${styles.li} ${styles.BlogApply}`}>View Answer</li>
 
             </ul>
-              
-            {PageLoader ? (
-        <p>Loading...</p>
-      ) : helpData.length > 0 ? (
-        helpData.map((item, i) => (
-          <ul key={item._id || i} className={styles.ul}>
-            <li className={`${styles.li} ${styles.BlogJtitle}`}>
-              {item.jobTitle}
-            </li>
-            <li className={`${styles.li} ${styles.BlogSource}`}>ITwalkin</li>
-            <li className={`${styles.li} ${styles.BlogCompanyName}`}>
-              {item.companyName}
-            </li>
-            <li className={`${styles.li} ${styles.BlogCompanyName}`}>
-              {item.name}
-            </li>
-            <li className={`${styles.li} ${styles.Blogdate}`}>
-              {new Date(item.createdAt).toLocaleDateString("en-IN")}
-            </li>
-            <li className={`${styles.li} ${styles.BlogApply}`}>
-              <button
-                onClick={() =>
-                  navigate(`/support/help/${btoa(item._id)}?index=${i}`, {
-                    state: { selectedTag: null },
-                  })
-                }
-                style={{
-                  cursor: "pointer",
-                  padding: "5px 10px",
-                  background: "#280463",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "4px",
-                }}
-              >
-                View
-              </button>
-            </li>
-          </ul>
-        ))
-      ) : (
-        <div style={{display:"flex", justifyContent:"center"}}>
-        <p style={{color:"red"}}>No Record Found...</p>
-        </div>
-      )}
+
+            {helpData.map((item) => (
+             <ul key={item.id} className={styles.ul}>
+               <li className={`${styles.li} ${styles.BlogJtitle}`} onClick={()=>navigate(`/support/help/Mg==`)} >{item.question}</li>
+               <li className={`${styles.li} ${styles.BlogSource}`}>{item.source}</li>
+               <li className={`${styles.li} ${styles.BlogCompanyName}`}>{item.companyName}</li>
+               <li className={`${styles.li} ${styles.BlogCompanyName}`}>{item.postedby}</li>
+               <li className={`${styles.li} ${styles.Blogdate}`}>{item.postedDate}</li>
+               <li className={`${styles.li} ${styles.BlogApply}`}>
+                 <button   onClick={() => navigate(`/support/help/${btoa(item.id)}`, { state: { helpItem: item } })
+}  style={{ cursor: "pointer", padding: "5px 10px", background: "#280463", color: "white", border: "none", borderRadius: "4px" }}>
+                   {item.view}
+                 </button>
+              </li>
+         </ul>
+  ))}
            
      </div>
-     
      <div style={{display:"flex",marginTop:"30px",justifyContent:"space-between"}}>
      
       <div style={{ marginBottom: "5px", marginTop: "0px", marginLeft: "10px" }}>
@@ -318,8 +273,6 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
               })
             }
           </div>
-          <p style={{ fontWeight: 400, marginLeft: "10px" }}><span style={{ color: "blue" }}></span>Showing 1 to 10 latest Help Questions
-              <span style={{ color: "blue" }}>{Active.toString()}</span></p>
           <div style={{ marginBottom: "5px", marginTop: "10px", marginLeft: "10px" }}>
             Show  <select onChange={(e) => { handleRecordchange(e) }}>
               
@@ -397,5 +350,4 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,nopageF
 }
 
 export default AllHelps;
-
 

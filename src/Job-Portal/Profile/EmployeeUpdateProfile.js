@@ -78,7 +78,8 @@ const [immage, setimmage] = useState()
           setname(result.name)
           setemail(result.email)
           // result.image? setimage(result.image):setimage(Companylogo)
-          setimage(result.image)
+          // setimage(result.image)
+          setimage(result.Gpicture)
           setimmage(result.image)
           setphoneNumber(result.phoneNumber)
           setAadhar(result.Aadhar)
@@ -473,22 +474,20 @@ const [immage, setimmage] = useState()
         {/* <h3 style={{color:"rgb(40, 4, 99)", marginLeft:"2%"}}>Update your Profi</h3> */}
 
 
-          <div className={styles.EmpimageViewWrapper} style={{height:"76px",width:"94px"}}>
-            {file?"":<img className={styles.EmpimageView} src={image ? image : Companylogo} />}
-            {file?<img className={styles.EmpfileView} src={file} />:""}
+          <div className={styles.EmpimageViewWrapper} style={{height:"76px",width:"94px", marginBottom:"70px"}}>
+            {file?"":<img className={styles.imageView}  src={image ? image : Companylogo} />}
+            {/* {file?<img className={styles.EmpfileView} src={file} />:""} */}
 
-            <div className={styles.EmpaddfileDiconwrapper}>
+            {/* <div className={styles.EmpaddfileDiconwrapper}>
               <input className={`${styles.addfile} ${styles.EmpaddfileD}`} type="file" accept='.png, .jpg, .jpeg' onChange={prevewImage} />
               <div className={styles.Emploader}> {loader ? <TailSpin height={"40px"} /> : ""} </div>
-
-              {/* <img style ={{color:"blue" , marginTop:"4px", width:"15%"}} src={delet} onClick={deletePic}/> */}
-            </div>
+            </div> */}
 
           </div>
-          <div className={styles.saveDelete}>
+          {/* <div className={styles.saveDelete}>
             {file && !loader ? <button className={styles.EmpsaveImage} onClick={uploadImage}>Save</button> : ""}
             {immage ? <button className={styles.EmpDeleteImage} onClick={deletePic}>Delete</button> : ""}
-          </div>
+          </div> */}
 
           <p style={{ fontStyle: "italic", color: "green" }}>{topMessage}</p>
 {screenSize.width>850?
