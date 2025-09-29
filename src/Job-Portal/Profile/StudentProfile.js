@@ -467,37 +467,58 @@ profileData.map((item, i) => {
 
         <div className={styles.LeftTable}>
                         <span className={styles.span}>Name :  </span> <br></br>
-                        <span className={styles.span}>Age :</span><br></br>
                         <span className={styles.span}> Email Id :</span><br></br>
+                        <span className={styles.span}> City :</span><br></br>
+                        <span className={styles.span}> County :</span><br></br>
                         <span className={styles.span}> Phone number :</span><br></br>
                         <span className={styles.span}> Aadhar Id :</span><br></br>
                         <span className={styles.span}> Pan Card Id :</span><br></br>
+                        <span className={styles.span}>Age :</span><br></br>
                         <span className={styles.span}> Notice Period :</span><br></br>
-                        <span className={styles.span}>Qualification :</span><br></br>
-                        <span className={styles.span}>Experience : </span><br></br>
-                        <span className={styles.span}> Current CTC :</span><br></br>
                         <span className={styles.span}>Expected CTC : </span><br></br>
+                        <span className={styles.span}>Current Emp: </span><br></br>
+                        <span className={styles.span}> Current CTC :</span><br></br>
+                        <span className={styles.span}> Previous Emp :</span><br></br>
+                        <span className={styles.span}>Experience : </span><br></br>
+                        <span className={styles.span}>Qualification :</span><br></br>
                         
                     </div>
             
                     <div className={styles.RightTable}>
-                    <span className={styles.span}><span style={{color:"blue"}}  >{job.name}</span></span><br></br>      
-                    <span className={styles.span}>{job.age? <span style={{ color: "blue" }}>{job.age} </span>:<span style={{color:"red"}}>Not updated</span> }</span><br></br>
+                    <span className={styles.span}><span style={{color:"blue"}}  >{job.name}</span></span><br></br>  
                     <span className={styles.span}> {job.email?<span style={{ color: "blue" }}>{job.email} </span>: <span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                    <span className={styles.span} style={{ color: "blue" }}>Bangalore</span><br></br>
+                    <span className={styles.span} style={{ color: "blue" }}>India</span><br></br>    
                     <span className={styles.span}> {job.phoneNumber?<span style={{ color: "blue" }}>{job.phoneNumber} </span>: <span style={{color:"red"}}>Not updated</span>}</span><br></br>
                     <span className={styles.span}> {job.Aadhar?<span style={{ color: "blue" }}>{job.Aadhar} </span>: <span style={{color:"red"}}>Not updated</span>}</span><br></br>
                     <span className={styles.span}> {job.panCard?<span style={{ color: "blue" }}>{job.panCard} </span>: <span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                    <span className={styles.span}>{job.age? <span style={{ color: "blue" }}>{job.age} </span>:<span style={{color:"red"}}>Not updated</span> }</span><br></br>
                     <span className={styles.span}> {job.NoticePeriod?<span style={{ color: "blue" }}>{job.NoticePeriod} </span>: <span style={{color:"red"}}>Not updated</span>}</span><br></br>
-                    <span className={styles.span}> {job.Qualification?<span style={{ color: "blue" }}>{job.Qualification} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
-                    <span className={styles.span}> {job.Experiance?<span style={{ color: "blue" }}>{job.Experiance} </span>:<span style={{color:"red"}}>Not updated</span>}   </span><br></br>
+                    <span className={styles.span}> {job.ExpectedSalary?<span style={{ color: "blue" }}>{job.ExpectedSalary} LPA </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>  
+                    <span className={styles.span}> {job.currentEmp?<span style={{ color: "blue" }}>{job.currentEmp}</span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>  
                     <span className={styles.span}>{job.currentCTC?<span style={{ color: "blue" }}>{job.currentCTC} </span>:<span style={{color:"red"}}>Not updated</span>} </span><br></br>
-                    <span className={styles.span}> {job.ExpectedSalary?<span style={{ color: "blue" }}>{job.ExpectedSalary} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>  
-
+                    <span className={styles.span}>
+  {job.employers && job.employers.length > 0 ? (
+    <span style={{ color: "blue" }}>
+      {job.employers.map(emp => emp.name).join(", ")}
+    </span>
+  ) : (
+    <span style={{ color: "red" }}>Not updated</span>
+  )}
+</span>
+<br />      
+<span className={styles.span}> {job.Experiance?<span style={{ color: "blue" }}>{job.Experiance} {job.Experiance>1?"Years":"Year"} </span>:<span style={{color:"red"}}>Not updated</span>}   </span><br></br>
+              <span className={styles.span}> {job.Qualification?<span style={{ color: "blue" }}>{job.Qualification} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                    
                     </div>
             
                   </div>
 
                   <div className={styles.Down} style={{marginLeft:"6px"}}>
+                  <span className={styles.span}>10th : {job.tenth?<span style={{ color: "blue" }}>{job.tenth} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                  <span className={styles.span}>12th : {job.twelfth?<span style={{ color: "blue" }}>{job.twelfth} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                  <span className={styles.span}>Degree/Diploma : {job.degree?<span style={{ color: "blue" }}>{job.degree} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
+                  <span className={styles.span}>College: {job.college?<span style={{ color: "blue" }}>{job.twelfth} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
                   <span className={styles.span}> Skills : {job.Skills?<span style={{ color: "blue" }}>{job.Skills} </span>:<span style={{color:"red"}}>Not updated</span>}</span><br></br>
                   <span className={styles.span}> Account Status:  {job.isApproved ? <span style={{ color: "blue" }}> Congrats ! Your account has been Approved</span> : <span style={{ color: "red" }}>"Your account is under Verfication process"</span>}</span><br></br>
                   {job.message?<span style={{}} className={styles.span}> HR/Employer Feedback :<span style={{color:"red"}}> {job.message}! </span></span>:""}
