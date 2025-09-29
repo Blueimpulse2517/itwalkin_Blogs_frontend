@@ -1084,20 +1084,146 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Email Address:</h4>
                 <input maxLength="25" className={styles.Mobileinput} disabled value={email} onChange={(e) => { setemail(e.target.value) }} type="text" />
+                <br></br> ( only gmail or microsoft outlook accepted for account creation)
               </label>
 
               <label className={styles.MobileinputName}>
                 <h4>City: </h4>
-                <div style={{ width:"88%", marginLeft:"10px"}}>
-
-                <CreatableSelect  
+                <input className={styles.Mobileinput} disabled value={city} ></input>
+                {/* <CreatableSelect  
                   // isMulti={true}
                           options={CTags}
                           value={city}
                           onChange={handleChangeCityTag}     
-                        />
-                        </div>
+                        /> */}
               </label>
+
+              <label className={styles.MobileinputName}>
+                <h4>Country: </h4>
+                <input className={styles.Mobileinput} disabled value={selectedCountry} ></input>
+              </label>
+
+              <label className={styles.MobileinputName}>
+                <h4 className={styles.MobileName}>Current Employer:</h4>
+                <input
+                   type="text"
+                   ref={currentEmpInputRef}  
+                   value={currentEmp}
+                   onChange={(e) => setCurrentEmp(e.target.value)}
+                   className={styles.Mobileinput}
+                   placeholder="Search your Current Employer"
+                 />               </label>
+
+
+              <label className={styles.MobileinputName}>
+                <h4 className={styles.MobileName}>Total Experience:</h4>
+                <input maxLength="3" className={styles.Mobileinput} value={Experiance} onChange={(e) => { handleExperiance(e) }} type="text" />
+              </label>
+
+              <div style={{display:"flex", flexDirection:"column", alignItems:"start", width:"100%", marginLeft: "3%"}}>        
+<div
+      style={{
+        // maxWidth: "400px",
+        width: "100%",
+        padding: "10px",
+        display: "flex",
+        justifyContent: "flex-end",
+        flexDirection: "column",
+        marginTop:"20px"
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          gap: "16px",
+          justifyContent: "start",
+          marginleft:"2%"
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "13px",
+            marginBottom: "10px",
+            marginTop: "15px",
+          }}
+        >
+          Previous Employers
+        </h2>
+        <div style={{ display: "flex" }}>
+          {employers.length < 3 ? (
+            <button
+              onClick={addEmployer}
+              style={{
+                marginTop: "11px",
+                backgroundColor: "rgb(40,4,99)",
+                color: "white",
+                border: "none",
+                padding: "1px 6px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontSize: "16px",
+                width: "30px",
+                height: "20px",
+              }}
+            >
+              +
+            </button>
+          ) : (
+            <div style={{ width: "36px", height: "36px", marginTop: "10px" }} />
+          )}
+
+          <div className={styles.tooltipWrapper}>
+            <span className={styles.tooltipIcon}>i</span>
+            <span className={styles.tooltipText}>
+              You can fill this field later.
+              <br /> It's not required during registration
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {employers.map((employer, index) => (
+        <div
+          key={index}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+            marginBottom: "12px",
+            marginLeft:"-5%"
+          }}
+        >
+          <div >
+            <label >
+              <h4>Prev Emp {index + 1}:</h4>
+              <input
+                type="text"
+                placeholder={`Employer ${index + 1}`}
+                value={employer.name}
+                onChange={(e) =>
+                  handleEmployerChange(index, "name", e.target.value)
+                }
+                ref={(el) => (inputRefs.current[index] = el)}
+                className={styles.Mobileinput}
+              />
+            </label>
+
+            <div style={{ marginLeft: "20px" }}>
+              <button
+                onClick={() => removeEmployer(index)}
+                className={styles.minusbtn}
+              >
+                -
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+       
+            </div>
+
 
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Age:</h4>
@@ -1111,7 +1237,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.Mobileinput} value={Aadhar} onChange={(e) => { AadharhandleChange(e) }} type="number" />
+                <input maxLength="12" className={styles.Mobileinput} value={Aadhar.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.MobileinputName}>
@@ -1134,20 +1260,150 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input maxLength="3" className={styles.Mobileinput} value={currentCTC} onChange={(e) => { handleCurrentCTC(e) }} type="text" />
               </label>
 
-              <label className={styles.MobileinputName}>
+              {/* <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Qualification:</h4>
                 <input maxLength="10" className={styles.Mobileinput} value={Qualification} onChange={(e) => { handleQualification(e) }} type="text" />
-              </label>
+              </label> */}
+<div ref={containerRef} style={{ position: "relative",}} className={styles.MobileinputName}>
+                
+                <h4 className={styles.MobileName}>Qualification:</h4>
+                {/* Clickable Select Box */}
+                 <div  onClick={() => setMenuOpen((prev) => !prev)} style={{cursor: "pointer", display:"flex", alignItems:"center"}} className={styles.Mobileinput}>
+                    <div style={{paddingLeft:"7px"}}>
+                    {Qualification? `${Qualification}` : "Select your qualification"}
+                 </div>
+                </div>
 
+               {/* Menu Dropdown */}
+                {menuOpen && (
+                   <div
+                     style={{
+                       marginTop: "10px",
+                       marginLeft:"7px",
+                       border: "1px solid #ddd",
+                       borderRadius: "6px",
+                       padding: "10px",
+                       background: "#fff",
+                       position: "absolute",
+                       width: "81%",
+                       zIndex: 10,
+                       maxHeight:"200px",
+                       overflowY: "auto",
+                     }}
+                   >
+                  {qualifications.map((item, index) => (
+                    <div key={index} style={{ marginBottom: "10px" }}>
+                      <button
+                        onClick={() => toggleMain(index)}
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          textAlign: "left",
+                          background: "#f0f0f0",
+                          border: "none",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "16px",
+                        }}
+                      >
+                      <span>{item.main}</span>
+                          </button>
+
+                  {openIndex === index && (
+                    <div style={{ marginTop: "6px", marginLeft: "16px" }}>
+                      {item.subs.map((sub, i) => (
+                        <div
+                          key={i}
+                          onClick={() => handleSelect(`${item.main} - ${sub}`)}
+                          style={{
+                            padding: "8px 12px",
+                            cursor: "pointer",
+                            background: "#e9f3ff",
+                            borderRadius: "4px",
+                            marginBottom: "4px",
+                            fontSize: "15px",
+                          }}
+                          onMouseEnter={(e) => (e.target.style.background = "#cde6ff")}
+                          onMouseLeave={(e) => (e.target.style.background = "#e9f3ff")}
+                        >
+                          {sub}
+                        </div>
+                      ))}
+                    </div>
+                    )}
+                </div>
+               ))}
+           </div>
+           )}
+         </div>
               {/* <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>College:</h4>
                 <input maxLength="100" className={styles.Mobileinput}   type="text" />
               </label> */}
 
-              <label className={styles.MobileinputName}>
+<div style={{width:"100%"}}>
+                 <h4 className={styles.MobileName}>School/College:</h4>
+                 <label className={styles.MobileinputName}>
+                 <h4>10th:</h4> 
+                  <label className={styles.MobileinputName}>
+                  <input
+                   type="text"
+                   ref={tenthInputRef}
+                   value={tenth}
+                   onChange={(e) => setTenth(e.target.value)}
+                   className={styles.Mobileinput}
+                   style={{marginTop:"-11px"}}
+                   placeholder="Search your School"
+                 />
+                 </label>
+               </label>
+
+               <label className={styles.MobileinputName}>
+               <h4>12th:</h4>
+                 <input
+                   type="text"
+                   ref={twelfthInputRef}
+                   value={twelfth}
+                   onChange={(e) => setTwelfth(e.target.value)}
+                   className={styles.Mobileinput}
+                   style={{marginTop:"-11px"}}
+                   placeholder="Search your School/College"
+                 />
+               </label>
+
+               <label className={styles.MobileinputName}>
+               <h4>Degree/Diploma:</h4>
+                 <input
+                   type="text"
+                   ref={DegreeInputRef}
+                   value={degree}
+                   onChange={(e) => setDegree(e.target.value)}
+                   className={styles.Mobileinput}
+                   style={{marginTop:"-11px"}}
+                   placeholder="Search Degree/Diploma College"
+                 />
+               </label>
+
+               <label className={styles.MobileinputName}>
+               <h4>Masters:</h4>
+                 <input
+                   type="text"
+                   ref={collegeInputRef}
+                   value={college}
+                   onChange={(e) => setcollege(e.target.value)}
+                   className={styles.Mobileinput}
+                   style={{marginTop:"-11px"}}
+                   placeholder="Search  your Masters college"
+                 />
+
+               </label>
+           </div>
+              {/* <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Experience: &nbsp;<span className={styles.hint}>(e.g 2Y or 10Y)</span> </h4>
                 <input maxLength="3" className={styles.Mobileinput} value={Experiance} onChange={(e) => { handleExperiance(e) }} type="text" />
-              </label>
+              </label> */}
                {/* <label className={styles.inputName}>
                 <h4 className={styles.MobileName}>Skill Tags:</h4>
                 <div style={{ width:"88%", marginLeft:"10px"}}>
@@ -1185,7 +1441,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
             }
           </div>
 
-               <label className={styles.inputName}>
+               {/* <label className={styles.inputName}>
                 <h4 className={styles.MobileName}>College:</h4>
                 <div style={{ width:"88%", marginLeft:"10px"}}>
                 <CreatableSelect  
@@ -1194,7 +1450,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                   onChange={handleCollege}   
                 />
                          </div>
-              </label>
+              </label> */}
 
 <div style={{marginTop:"10px"}}>
               <button className={styles.MobileSave} onClick={(e) => { saveUpdate(e) }}>Save</button>

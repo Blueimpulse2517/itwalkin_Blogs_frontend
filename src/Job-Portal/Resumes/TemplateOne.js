@@ -10,22 +10,44 @@ const TemplateOne = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      setPageLoader(true)
+      setPageLoader(true);
       const userid = JSON.parse(localStorage.getItem("StudId"));
-      const headers = {
-        authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog")))
-      };
       try {
-        const res =await axios.get(`/StudentProfile/viewProfile/${studId}`)
+        const res = await axios.get(`/StudentProfile/viewProfile/${studId}`);
         setProfileData(res.data.result);
-        console.log("response",res.data.result)
-        setPageLoader(false)
+        console.log("response", res.data.result);
+  
+        // Store profile image as Base64 to avoid CORS issues later
+        if (res.data.result?.Gpicture) {
+          try {
+            const base64 = await toDataURL(res.data.result.Gpicture);
+            localStorage.setItem("profileImageBase64", base64);
+          } catch (err) {
+            console.error("Image conversion failed:", err);
+          }
+        }
+  
+        setPageLoader(false);
       } catch (err) {
         alert("Something went wrong while fetching profile");
+        setPageLoader(false);
       }
     };
+  
+    // Helper function to convert image to Base64
+    const toDataURL = async (url) => {
+      const res = await fetch(url, { mode: "cors" });
+      const blob = await res.blob();
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    };
+  
     fetchProfile();
   }, [studId]);
+  
 
   const data = {
     summary:

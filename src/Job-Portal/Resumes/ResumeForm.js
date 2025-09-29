@@ -155,7 +155,7 @@ console.log(imageConsent)
   // ---------- BASIC INPUT CHANGE ----------
   const handleChange = (field, value) => {
     let charLimit = null;
-    if (field === "profileSummary") charLimit = 200;   
+    if (field === "profileSummary") charLimit = 400;   
     if (field === "address") charLimit = 200;      
     if (field === "name") charLimit = 50;    
     if (field === "email") charLimit = 200;
