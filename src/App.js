@@ -1127,7 +1127,27 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
              gettotalcount={gettotalcount}
              searchIcon={searchIcon}
             />} />
-
+            <Route path="/support/help" element={<AllHelps   
+            showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
+            ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}
+            searchClick={searchClick} setSearchClick={setSearchClick} 
+             nopageFilter={nopageFilter} setNoPageFilter={setNoPageFilter} 
+             searchKey={searchKey} setsearchKey={setsearchKey}
+             Filtereredjobs={Filtereredjobs} setFiltereredjobs={setFiltereredjobs}
+             Result={Result} setResult={setResult}
+             Filterjobs={Filterjobs} setFilterjobs={setFilterjobs}
+             jobs={jobs} setJobs={setJobs}
+             count={count} setCount={setCount}
+             Active={Active} setActive={setActive}
+             jobTagsIds={jobTagsIds} setJobTagsIds={setJobTagsIds}
+             PageLoader={PageLoader} setPageLoader={setPageLoader}
+             totalCount={totalCount} settotalCount={settotalCount}
+             search={search}
+             getjobs={getjobs}
+             gettotalcount={gettotalcount}
+             searchIcon={searchIcon}
+            />} />
+            <Route path="/support/help/:id" element={<HelpDetails/>} />
               <Route path="/Updatepostedjobs" element={<UpdatePostedJobs url={axios.defaults.baseURL} />} />
             {/* ..........Employee Private component i,e can not search in URL......... */}
             <Route element={<EmpPrivate />}>
@@ -1301,13 +1321,13 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
               gettotalcount={gettotalcount}
               searchIcon={searchIcon} />} />
             <Route path="/AboutUs" element={<AboutUs />} />
-            <Route path="/support/help" element={<AllHelps   
+            {/* <Route path="/support/help" element={<AllHelps   
             Active={Active} setActive={setActive} 
             getjobs={getjobs}  setJobs={setJobs} 
             count={count} setCount={setCount}
             nopageFilter={nopageFilter} setNoPageFilter={setNoPageFilter}
-            />} />
-            <Route path="/support/help/:id" element={<HelpDetails/>} />
+            />} /> */}
+            {/* <Route path="/support/help/:id" element={<HelpDetails/>} /> */}
             <Route path="/Services" element={<Services />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/TermsAndCondition" element={<TermsAndCondition />} />

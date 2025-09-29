@@ -83,7 +83,7 @@ function AskQuestion(props) {
     async function getProfile() {
         let userid = JSON.parse(localStorage.getItem("StudId"))
         const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
-    await axios.get(`/StudentProfile/getProfile/${studId}`, {headers})
+        await axios.get(`/StudentProfile/viewProfile/${studId}`)
             .then((res) => {
                 let result = res.data.result
                 let name = res.data.result.name

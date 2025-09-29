@@ -630,7 +630,7 @@ if(confirm){
           <div className={styles.imageViewWrapper}>
 
             <img className={styles.imageView} src={image ? image : profileDp} />
-            <img className={styles.fileView} src={file} />
+            {/* <img className={styles.fileView} src={file} /> */}
             <div style={{position:"absolute", marginLeft:"50%", marginTop:"40px"}}>
               <input type='checkbox' onClick={()=>{setShowdelete(prev=>!prev)}} />
              <span>delete Profile</span><br></br>
@@ -642,18 +642,16 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               </div>
 
-            <div className={styles.addfileDiconwrapper}>
+            {/* <div className={styles.addfileDiconwrapper}>
               <input className={`${styles.addfile} ${styles.addfileD}`} type="file" accept='.png, .jpg, .jpeg' onChange={prevewImage} />
               <div className={styles.loader}> {loader ? <TailSpin height={"40px"} /> : ""} </div>
-
-              {/* <img style ={{color:"blue" , marginTop:"4px", width:"15%"}} src={delet} onClick={deletePic}/> */}
-            </div>
+            </div> */}
 
           </div>
-          <div className={styles.saveDelete}>
+          {/* <div className={styles.saveDelete}>
             {file && !loader ? <button className={styles.saveImage} onClick={uploadImage}>Save</button> : ""}
             {immage ? <button className={styles.DeleteImage} onClick={deletePic}>Delete</button> : ""}
-          </div>
+          </div> */}
 
           <p style={{ fontStyle: "italic", color: "green" }}>{topMessage}</p>
           {screenSize.width > 850 ?

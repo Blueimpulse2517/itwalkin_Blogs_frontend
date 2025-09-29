@@ -13,6 +13,7 @@ function AppliedDriveUserProfile() {
     let JobId = atob(params.jid)
 
     let navigate = useNavigate()
+    
 
     const [AppliedUser, setAppliedUser] = useState([])
     const [OperationalAppliedUser, setOperationalAppliedUser] = useState()
@@ -316,7 +317,7 @@ function AppliedDriveUserProfile() {
   </button>
       
 
-            <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"}  have Applied</h4>
+            <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"}  have applied</h4>
             
          
             {screenSize.width > 850 ?
@@ -406,17 +407,17 @@ function AppliedDriveUserProfile() {
                                         {Applieduser.name ? <a className={styles.namelink} title="Click to check the Contact Details">
                                             {Applieduser.name}</a> : <li className={styles.Nli}>N/A</li>} </li>
                                     <li className={`${styles.li} ${styles.NoticePeriod}`}> {Applieduser.NoticePeriod ?
-                                        Applieduser.NoticePeriod : <li className={styles.Nli}>N/A</li>} </li>
+                                        Applieduser.NoticePeriod : <li className={styles.Nli}>N/A</li>}days </li>
                                     <li className={`${styles.li} ${styles.age}`}> {Applieduser.age ?
                                         Applieduser.age : <li className={styles.Nli}>N/A</li>} </li>
                                     <li className={`${styles.li} ${styles.Qualification}`}> {Applieduser.Qualification ?
                                         Applieduser.Qualification : <li className={styles.Nli}>N/A</li>} </li>
                                     <li className={`${styles.li} ${styles.Experiance}`}> {Applieduser.Experiance ?
-                                        Applieduser.Experiance : <li className={styles.Nli}>N/A</li>} </li>
+                                        Applieduser.Experiance : <li className={styles.Nli}>N/A</li>}Yrs </li>
                                     <li className={`${styles.li} ${styles.Skills}`}> {Applieduser.Skills ?
                                         Applieduser.Skills : <li className={styles.Nli}>N/A</li>} </li>
                                     <li className={`${styles.li} ${styles.currentCTC}`}> {Applieduser.currentCTC ?
-                                        Applieduser.currentCTC : <li className={styles.Nli}>N/A</li>} </li>
+                                        Applieduser.currentCTC : <li className={styles.Nli}>N/A</li>}LPA </li>
                                     <li className={`${styles.li} ${styles.ExpectedSalary}`}> {Applieduser.ExpectedSalary ?
                                         Applieduser.ExpectedSalary : <li className={styles.Nli}>N/A</li>} </li>
                                     {/* <li  className={`${styles.li} ${styles.checkProfile}`}><button onClick={()=>{CheckProfile(Applieduser._id)}} className={`${styles.ViewProfile}`}>{Applieduser.name}</button> </li> */}
@@ -486,11 +487,11 @@ function AppliedDriveUserProfile() {
                                             }
                                         </div>
                                     </li>
-                                    <li className={`${styles.li} ${styles.Status}`}>
+                                    {/* <li className={`${styles.li} ${styles.Status}`}>
                                       <button style={{marginLeft: "2%", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
                                         Background Check</button>
-                                    </li>
+                                    </li> */}
 
                                 </ul>
 

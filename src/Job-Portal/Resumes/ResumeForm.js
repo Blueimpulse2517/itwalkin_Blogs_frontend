@@ -4,6 +4,7 @@ import styles from "./ResumeForm.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import useScreenSize from '../SizeHook';
 
+
 const ResumeForm = () => {
   const initialState = {
     name: '',
@@ -403,6 +404,48 @@ console.log(imageConsent)
         </div>
 
         {successMessage && <p>{successMessage}</p>}
+        <div >
+        {console.log("pd",profileData[0]?.Gpicture )}
+            {profileData? (
+              // console.log("pd",profileData[0]?.Gpicture )
+                <img
+                  src={profileData[0]?.Gpicture}
+                  alt="Candidate"
+                  style={{ borderRadius: "47%" }}
+                />
+          ) : (
+          <p>Loading...</p>
+         )}
+<div style={{ padding: "10px", fontFamily: "Arial" }}>
+      <p style={{ fontWeight: "bold" }}>
+        Would you like to include a photo from Google in your resume?
+      </p>
+
+      <label style={{ display: "block", margin: "5px 0" }}>
+        <input
+          type="radio"
+          name="imageConsent"
+          value="true"
+          checked={imageConsent === true}
+          onChange={() => handleConscentChange(true)}
+        />{" "}
+        Yes, I give my consent
+      </label>
+
+      <label style={{ display: "block", margin: "5px 0" }}>
+        <input
+          type="radio"
+          name="imageConsent"
+          value="false"
+          checked={imageConsent === false}
+          onChange={() => handleConscentChange(false)}
+        />{" "}
+        No, I do not wish
+      </label>
+
+      </div>
+              
+            </div>
 
         <input style={inputStyle} disabled placeholder="Name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} />
         <textarea style={inputStyle} placeholder="Profile Summary" value={formData.profileSummary} onChange={(e) => handleChange('profileSummary', e.target.value)} />
@@ -546,12 +589,12 @@ console.log(imageConsent)
           </div>
         ))}
         <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button> */}
-        <div style={{ padding: "10px", fontFamily: "Arial" }}>
+        {/* <div style={{ padding: "10px", fontFamily: "Arial" }}>
       <p style={{ fontWeight: "bold" }}>
         Would you like to include a photo from Google in your resume?
-      </p>
+      </p> */}
 
-      <label style={{ display: "block", margin: "5px 0" }}>
+      {/* <label style={{ display: "block", margin: "5px 0" }}>
         <input
           type="radio"
           name="imageConsent"
@@ -573,8 +616,8 @@ console.log(imageConsent)
         No, I do not wish
       </label>
 
-      </div>
-        <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Submit Resume</button>
+      </div> */}
+        <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Save</button>
       </div>
     </div>
   );
