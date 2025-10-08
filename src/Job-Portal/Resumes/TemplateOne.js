@@ -49,92 +49,6 @@ const TemplateOne = () => {
   }, [studId]);
   
 
-  const data = {
-    summary:
-      'Experienced QA Team Lead with proven track record of building Automation Frameworks for Web, App and REST API from scratch, Mentoring, Grooming, Guiding and getting Tasks Accomplished by the Team on or before given timeline.',
-    address:
-      'Flat No. 305, Lakeview Residency, 3rd Cross, HSR Layout, Bangalore, Karnataka - 560102',
-    totalExperience: '7 years 6 months',
-    certification: 'ISTQB Certified Test Engineer',
-    experience: [
-      {
-        company: 'InvariaTech',
-        location: 'Bangalore',
-        title: 'QA Lead',
-        date: 'Dec 2016 - PRESENT',
-        details: [
-          'QA Lead for App(Android/IOS), Web, API and Hardware Testing.',
-          'Designing and Implementing Automation Framework, Interacting with ARM processor using TERMIOS.',
-          'Involved in Requirement analysis, Creation of Test Plan, Test Strategy.',
-          'Travelled on-site(USA).',
-        ],
-      },
-      {
-        company: 'Rodmart',
-        location: 'Bangalore',
-        title: 'Senior QA Engineer',
-        date: 'Aug 2015 - Oct 2016',
-        details: [
-          'Worked on Web and REST API Test Case automation verifying against Results present in MongoDB.',
-          'Performance testing and JVM profiling.',
-          'Travelled on-site(Singapore).',
-        ],
-      },
-      {
-        company: 'Energyquote',
-        location: 'Bangalore',
-        title: 'QA Engineer',
-        date: 'Nov 2012 - May 2015',
-        details: [
-          'Worked on Framework creation and Automation Scripting of Web applications and Load testing using JMeter.',
-          'Writing, Reviewing and Executing Test cases.',
-          'Mentoring Interns.',
-        ],
-      },
-      {
-        company: 'Kilmist InfoTech',
-        location: 'Bangalore',
-        title: 'Trainee Test Engineer',
-        date: 'Nov 2011 - Oct 2012',
-        details: [
-          'Testing Web application.',
-          'Writing and reviewing test cases for the automation Framework.',
-          'Writing Automation scripts for the websites.',
-        ],
-      },
-    ],
-    technicalSkills: [
-      {
-        title: 'Automation Tool',
-        skills: ['Selenium', 'Appium', 'REST-Assured', 'Test Partner'],
-      },
-      {
-        title: 'Unit Test Framework',
-        skills: ['TestNG', 'Junit'],
-      },
-      {
-        title: 'Design Pattern',
-        skills: ['Page Object Model'],
-      },
-      {
-        title: 'Performance Test Tools',
-        skills: ['JMeter', 'JProfiler'],
-      },
-      {
-        title: 'Frameworks Implemented',
-        skills: ['Data Driven', 'Module Based', 'Hybrid'],
-      },
-      {
-        title: 'REST API Test Tools',
-        skills: ['Postman', 'REST Client'],
-      },
-      // {
-      //   title: 'Languages',
-      //   skills: ['Java', 'Python', 'VBA', 'C++'],
-      // },
-    ],
-  };
-
   // This ensures A4 format even on mobile when downloading
   const handleDownloadPDF = () => {
     const resumeElement = document.getElementById('template-one');
@@ -160,6 +74,7 @@ const TemplateOne = () => {
   
   return (
     <div className="resume-container">
+      
       <div id="template-one" className="template-one">
         {/* Header */}
         <div className="resume-header">

@@ -345,12 +345,12 @@ function EmpLogin(props) {
             <p className={styles.signUpwrap} >Continue with Microsoft</p>
           </div>
         </div>
-        {/* <div className={styles.signUpWrapper}  >
+         <div className={styles.signUpWrapper}  >
           <div className={styles.both}>
             <img className={styles.google} src={linkedIn} />
             <span className={styles.signUpwrap} >Continue with Linkedin</span>
           </div>
-        </div> */}
+        </div> 
 
 
         {/* <div className={styles.signUpWrapper} >
@@ -366,7 +366,7 @@ function EmpLogin(props) {
         // </div>
         ""
         :
-        <div style={{ marginTop: "50px", }}>
+        <div style={{ marginTop: "206px",height:"183px" }}>
 
           <Footer />
         </div>

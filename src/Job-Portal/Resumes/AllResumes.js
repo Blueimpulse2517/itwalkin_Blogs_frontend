@@ -4,6 +4,7 @@ import TemplateTwo from './TemplateTwo';
 import TemplateGallery from './TemplateGallery';
 import axios from 'axios';
 import styles from "../Jobs/Allobs.module.css"
+import Style from "./AllResumes.module.css"
 import { Navigate, useNavigate } from 'react-router-dom';
 
   
@@ -57,20 +58,20 @@ function AllResumes() {
         <div style={{ padding: '20px' }}>
           <div style={{display:"flex"}}>
           <button
-  class={styles.jobdetailBackBtn }
+  class={Style.jobdetailBackBtnContainer }
   onClick={() => {
     setSelectedTemplate(null); // First reset the template view
     
   }}
 >
-  <div style={{ display:"flex", alignItems:"center", justifyContent:"center",marginTop:"0px", fontSize: "14px", fontWeight: "500" }}>Back</div>
+  <div class={Style.backbtn} >Back</div>
 </button>
 
 <button
-  class={styles.jobdetailBackBtn }
+  class={Style.jobdetailBackBtnContainer }
   onClick={() => {navigate("/My-Profile")}}
 >
-  <div style={{ display:"flex", alignItems:"center", justifyContent:"center",fontSize: "14px", fontWeight: "500" }}>Update Profile</div>
+  <div class={Style.updatebtn}>Update Profile</div>
 </button>
  
 </div>
