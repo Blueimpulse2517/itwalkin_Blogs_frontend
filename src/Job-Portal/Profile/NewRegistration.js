@@ -1002,14 +1002,14 @@ const helpData = [
             <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} onClick={!email? NoEmailAlert : emailError? InvalidEmailAlert :login}>
           <div className={STyles.both}>
             <img className={STyles.google} src={GoogleImage} />
-            <p className={STyles.signUpwrap} >Continue with Google</p>
+            <p className={STyles.signUpwrap} >Register with Google</p>
           </div>
         </div>
 
         <div className={STyles.signUpWrapper} style={{marginLeft:"10px", marginBottom:"20px"}} >
           <div className={STyles.both}>
             <img className={STyles.google} src={linkedIn} />
-            <p className={STyles.signUpwrap} >Continue with Linkedin</p>
+            <p className={STyles.signUpwrap} >Register with Linkedin</p>
           </div>
         </div>
         </div>

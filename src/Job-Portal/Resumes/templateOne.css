@@ -190,7 +190,7 @@
 }
 
 /* Responsive */
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
   .template-one {
     width: 100%;
     min-height: auto;
@@ -201,11 +201,11 @@
     text-align: left;
     margin-top: 10px;
   }
-  /* Move button below resume for mobile */
+
   .download-button {
     position: static;
     margin-top: 20px;
-    /* float: right; */
+
   }
 }
 
@@ -241,13 +241,54 @@
     margin-left: 0%;
   }
 }
-/* Force A4 size for PDF export */
+
 .force-a4 {
   width: 210mm !important;
   min-height: 297mm !important;
   box-shadow: none !important;
   border: none !important;
   padding: 20px !important;
+} */
+@media (max-width: 768px) {
+  .resume-container {
+    transform-origin: top left;
+    transform: scale(0.78); /* Adjust zoom level */
+    /* width: 142.8%; 
+    overflow-x: auto;  */
+  }
+  .download-button-container {
+    margin-left:33%;
+  }
+  .jobdetailBackBtn{
+    
+  }
 }
-
-
+@media (max-width: 475px) {
+  .resume-container {
+    transform-origin: top left;
+    transform: scale(0.420); 
+  }
+  .download-button-container {
+    margin-left:60%;
+    width:100vw;
+  }
+}
+@media (max-width:376px) {
+  .resume-container {
+    transform-origin: top left;
+    transform: scale(0.375); 
+  }
+  .download-button-container {
+    margin-left:80%;
+    width:100vw;
+  }
+}@media (max-width: 320px) {
+  .resume-container {
+    transform-origin: top left;
+    transform: scale(0.325); 
+  }
+  .download-button-container {
+    margin-left:120%;
+    width:100vw;
+  }
+}

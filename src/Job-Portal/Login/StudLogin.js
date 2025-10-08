@@ -318,7 +318,7 @@ useEffect(() => {
   //       </div>
   ""
         :
-  <div style={{marginTop:"50px",}}>
+  <div style={{marginTop: "206px",}}>
 
         <Footer/>   
         </div>
