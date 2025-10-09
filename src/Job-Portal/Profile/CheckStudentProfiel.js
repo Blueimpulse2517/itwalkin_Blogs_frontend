@@ -122,7 +122,7 @@ useEffect(() => {
       if (window.history.length > 1) {
         navigate(-1);
       } else {
-        navigate("/posteddrives");
+        navigate("/Search-Candidate");
       }
     }}
   >
@@ -147,7 +147,7 @@ useEffect(() => {
 profileData.map((item, i) => {
     return (
         <div key={i}>
-        <img className={styles.imageV} src={item.image?item.image : profileDp}/>
+        <img className={styles.imageV} src={item.Gpicture?item.Gpicture: profileDp}/>
         
         </div>
     )

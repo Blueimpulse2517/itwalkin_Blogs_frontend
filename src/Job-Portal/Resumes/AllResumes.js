@@ -69,7 +69,7 @@ function AllResumes() {
 
 <button
   class={Style.jobdetailBackBtnContainer }
-  onClick={() => {navigate("/My-Profile")}}
+  onClick={() => {navigate("/Update-Profile")}}
 >
   <div class={Style.updatebtn}>Update Profile</div>
 </button>
