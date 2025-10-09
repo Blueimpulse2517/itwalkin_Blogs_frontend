@@ -324,7 +324,7 @@ function Nav(props) {
                   <div><NavLink to="/alljobs" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>All Jobs </NavLink>
                   </div>
                   <div><NavLink to="/resumes" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>
-                   Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"2px"}}>Beta</sup> </NavLink></div>
+                   Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup> </NavLink></div>
                   <div ref={dropdownRef} style={{ position: "relative" }}>
                             
                             <div style={{ display: "flex", marginTop: "-5px" }}>
@@ -772,7 +772,7 @@ function Nav(props) {
                       </div>
                       <div ref={alertRef} style={{position:"relative"}}>
                         <div onClick={()=>setresumeAlert((prev)=>prev=!prev)} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}>
-                           Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"2px"}}>Beta</sup></div>
+                           Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup></div>
                          {resumeAlert&&
                          <>
                             <div
@@ -1210,7 +1210,7 @@ function Nav(props) {
                 </div>
                  
                 <div className={Styles.fullnavewrapperRSMobile} style={{marginRight:"11px"}}>
-                <div className={Styles.resumeMenuVisible}><NavLink to="/resumes" className={Styles.AllJobJobSeeker}  ><sup style={{border:"2px solid white",borderRadius:"25px",padding:"2px"}}>Beta</sup> <br></br>Resume<br></br> Builder </NavLink></div>
+                <div className={Styles.resumeMenuVisible}><NavLink to="/resumes" className={Styles.AllJobJobSeeker}  ><sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup> <br></br>Resume<br></br> Builder </NavLink></div>
 
                  <div style={{display:"flex", flexDirection:"column"}}>
                   <div className={Styles.allJobMobspl}> <NavLink to="/alljobs" className={`${Styles.Moblink} ${Styles.AlllJobs}`} >All Jobs </NavLink> </div>
@@ -1424,9 +1424,9 @@ className={props.ShowSideNave ? "fas fa-times" : "fas fa-bars"} ref={SimgRef} on
 
                       <div style={{display:"flex", flexDirection:"column"}}>
 
-                      <div ref={alertRef} style={{position:"relative", marginBottom: "-28px", zIndex:"999"}}>
+                      <div ref={alertRef} style={{position:"relative", marginBottom: "-41px", zIndex:"999"}}>
                         <div onClick={()=>setresumeAlert((prev)=>prev=!prev)} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}> Resume Builder 
-                        <sup style={{border:"2px solid white",borderRadius:"25px",padding:"2px"}}>Beta</sup>
+                        <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup>
                         </div>
                         {resumeAlert&&
                          <>
@@ -1491,10 +1491,10 @@ className={props.ShowSideNave ? "fas fa-times" : "fas fa-bars"} ref={SimgRef} on
                          <div style={{ display: "flex", marginTop: "11px"}}>
                               <button
                                 onClick={() => setIsOpen((prev) => !prev)}
-                                style={{background: "none",border: "none",cursor: "pointer",fontSize: "24px",color: "#007bff",}}>
+                                style={{background: "none",border: "none",cursor: "pointer",fontSize: "24px",color: "#007bff",marginTop:"18px"}}>
                                 <img className={Styles.jobLocationImage} src={location} alt="Location" />
                               </button>
-                              <p style={{ marginTop: "17px", fontWeight: "bold", color: "white",width:"113px" }}>
+                              <p style={{ marginTop: "38px", fontWeight: "bold", color: "white",width:"113px" }}>
                               {props.selectedlocationOption?.label}
                               </p>
                             </div>

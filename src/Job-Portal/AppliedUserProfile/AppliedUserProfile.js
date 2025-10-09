@@ -303,6 +303,18 @@ function AppliedUserProfile() {
 
     return (
         <>
+        <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/postedjobs");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
             <h4 style={{ marginTop: "10px", marginLeft: "6%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"} has applied</h4>
             {screenSize.width > 850 ?
 <>
