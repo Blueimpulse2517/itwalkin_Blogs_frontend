@@ -265,7 +265,7 @@ const [StartTime, setStartTime] = useState("");
 const [EndTime, setEndTime] = useState("");
 
   const venueInputRef = useRef(null);
-  const[venue, setVenue]=useState("Banglore");
+  const[venue, setVenue]=useState("");
     // useEffect(() => {
     //   if (venueInputRef.current && !venueInputRef.current.autocomplete) {
     //     const autocomplete = new window.google.maps.places.Autocomplete(venueInputRef.current, {

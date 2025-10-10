@@ -862,7 +862,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
                         </li>
                         <li className={`${styles.li} ${styles.Location}`}>
                           {/* {items.jobLocation[0].toUpperCase() + items.jobLocation.slice(1)} */}
-                          {items?.jobLocation[0]?.toUpperCase() + items.jobLocation.slice(1)}
+                          {items.venue?items.venue:"venue not updated"}
                         
                           </li>
                         <li className={`${styles.li} ${styles.Package}`}>{items.salaryRange==="Not disclosed" ? "Not Disclosed":items.salaryRange+"LPA" }</li>
@@ -1059,7 +1059,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
                           )}
                         </li>
                         {/* <li className={`${styles.li} ${styles.Location}`}>{items.jobLocation[0].toUpperCase() + items.jobLocation.slice(1)}</li> */}
-                        <li className={`${styles.li} ${styles.Location}`}>{items?.jobLocation[0]?.toUpperCase() + items.jobLocation.slice(1)}</li>
+                        <li className={`${styles.li} ${styles.Location}`}>{items.venue?items.venue:"venue not updated"}</li>
                     
                         <li className={`${styles.li} ${styles.Package}`}>{items.salaryRange==="Not disclosed" ? "Not Disclosed":items.salaryRange+"LPA" }</li>
                         <li className={`${styles.li} ${styles.experiance}`}>{items.experiance}Y</li>
@@ -1269,7 +1269,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
 
                         <  img className={styles.jobLocationImage} src={location} />
                         {/* <span className={styles.jobLocation}>{job.jobLocation[0].toUpperCase() + job.jobLocation.slice(1)}</span> */}
-                        <span className={styles.jobLocation}>{job?.jobLocation[0]?.toUpperCase() + job.jobLocation.slice(1)}</span>
+                        <span className={styles.jobLocation}>{job.venue?job.venue:"venue not updated"}</span>
                        
                         <span className={styles.qualificationAndExperiance}>
                           <  img className={styles.graduationImage} src={graduation} />

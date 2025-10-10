@@ -113,13 +113,24 @@ let navigate = useNavigate()
         {/* <button style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"40px", cursor:"pointer", width:"50px"}} onClick={()=>{
             navigate(-1)}} >back</button> */}
             
-                        <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
-             width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} />
+                        {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
+             width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} /> */}
+             <button style={{marginTop:"5px"}} className={styles.readPageBackBtn} 
+            onClick={() => {
+               if (window.history.length > 1) {
+                  navigate(-1);
+                 } else {
+                    navigate('/alljobs'); 
+                  }
+             }}>
+                 Back
+          </button>
        
         </div>
 
         <div style={{display:"flex", justifyContent:"space-between", marginLeft:"3%", marginRight:"10%"}}>
           <div>
+           
             {
               profileData.map((item, i) => {
                return (
@@ -136,7 +147,7 @@ let navigate = useNavigate()
 
              profileData.length>0?
              <>
-             <button style={{height:"31px",paddingTop:"7px"}}  className={styles.updateProfileStd} onClick={updateprofile}>Update Profile</button><br></br>
+             <button style={{height:"31px",paddingTop:"7px"}}  className={styles.updateProfileStd} onClick={updateprofile}>Edit Profile</button><br></br>
 
              </>
 
