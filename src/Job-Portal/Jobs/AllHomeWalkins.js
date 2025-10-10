@@ -913,7 +913,7 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
                           )}/{items.StartTime}
                         </li>
                         {/* <li className={`${styles.li} ${styles.Location}`}>{items.jobLocation[0].toUpperCase() + items.jobLocation.slice(1)}</li> */}
-                        <li className={`${styles.li} ${styles.Location}`}>{items?.jobLocation[0]?.toUpperCase() + items.jobLocation.slice(1)}</li>
+                        <li className={`${styles.li} ${styles.Location}`}>{items.venue?items.venue:"venue not updated"}</li>
                         <li className={`${styles.li} ${styles.Package}`} style={{wordBreak:"break-word"}}>{items.salaryRange==="Not disclosed" ||items.salaryRange==="" ? "Not Disclosed":items.salaryRange+"LPA" }</li>
                         {/* {console.log("Sdsd",items)} */}
                         <li className={`${styles.li} ${styles.experiance}`}>{items.experiance}Yrs</li>
@@ -1195,9 +1195,10 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
                           }
                           </div>
                         </div>
+                        <div>
                         <  img className={styles.jobLocationImage} src={location} />
                         {/* <span className={styles.jobLocation}>{job.jobLocation[0].toUpperCase() + job.jobLocation.slice(1)} ,</span> */}
-                        <span className={styles.jobLocation}>{job?.jobLocation[0]?.toUpperCase() + job.jobLocation.slice(1)} ,</span>
+                        <span className={styles.jobLocation}>{job.venue?job.venue:"venue not updated"} ,</span>
                     
                         <span className={styles.qualificationAndExperiance}>
 
@@ -1206,7 +1207,7 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
                           {job.qualification}, {job.experiance}Yrs Exp ,   {job.jobtype}
                           {/* <span className={styles.jobtypeAndDate}> {job.jobtype}</span> */}
                         </span><br></br>
-
+                        </div>
                         <span className={styles.jobtypeAndDate}>Posted By</span> :
 
                         <> <span className={styles.skills}>ITwalkin</span><br></br></>

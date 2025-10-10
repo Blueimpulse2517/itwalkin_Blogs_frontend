@@ -453,8 +453,7 @@ console.log(records)
     return `${day}${getOrdinal(day)} ${month}, ${year}`;
   })()}
 </li>
-                      <li className={`${styles.li} ${styles.Location}`}>{items.jobLocation[0].toUpperCase() +
-                        items.jobLocation.slice(1)}</li>
+                      <li className={`${styles.li} ${styles.Location}`}>{items.venue?items.venue:"venue not updated"}</li>
                       <li className={`${styles.li} ${styles.Package}`}>{items.salaryRange}LPA</li>
                       <li className={`${styles.li} ${styles.experiance}`}>{items.experiance}Yrs</li>
                       <li className={`${styles.li} ${styles.Qualif}`}>{items.qualification} </li>
@@ -544,7 +543,7 @@ console.log(records)
                       </div>
 
                       <  img className={styles.jobLocationImage} src={location} />
-                      <span className={styles.jobLocation}>{job.jobLocation[0].toUpperCase() + job.jobLocation.slice(1)} ,</span>
+                      <span className={styles.jobLocation}>{job.venue?job.venue:"venue not updated"} ,</span>
                       <span className={styles.qualificationAndExperiance}>
 
                         <  img className={styles.graduationImage} src={graduation} />

@@ -1,3 +1,18 @@
+.readPageBackBtn{
+    background-color: rgb(40, 4, 99);
+    color: white;
+    border: none;
+    padding: 7px 15px 10px 13px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 1.0rem;
+    margin-left: 6px;
+    height: 33px;
+    width: 62px;
+    margin-right: 20px;
+}
 .tvbackbtn {
     background-color: rgb(40, 4, 99);
     color: white;

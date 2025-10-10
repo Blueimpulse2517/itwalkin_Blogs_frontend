@@ -595,14 +595,24 @@ const [PageLoader, setPageLoader] = useState(false)
                     year: "numeric",
                   }
                 )}</span> &nbsp; |
-  &nbsp; <span>Experience : {jobs.experiance}Yrs</span> &nbsp;|  
-  &nbsp;<span>Location : {jobs.jobLocation ? jobs.jobLocation.charAt(0).toUpperCase() + jobs.jobLocation.substring(1) : ''} &nbsp;|</span>
+           &nbsp;     <span>Posted by : {jobs.companyName}</span> &nbsp;|  
+  &nbsp; <span> Drive Date : {new Date(jobs.driveDate).toLocaleString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  }
+                )}</span> &nbsp; |
+          &nbsp;  <span>Drive Time : {jobs.StartTime?jobs.StartTime:"Not Updated"}</span> &nbsp; |
+  &nbsp; <span>Experience : {jobs.experiance}Yrs</span> &nbsp;| 
   &nbsp; <span>Job Type : {jobs.jobtype}</span>&nbsp; |  
+
+  <p>
+  &nbsp;<span>Venue : {jobs.venue?jobs.venue:"venue not updated"} &nbsp;|</span>
   &nbsp; <span>Qualification : {jobs.qualification}</span>&nbsp; |  
-  &nbsp; <span>Salary :  {jobs.salaryRange==="Not disclosed"||jobs.salaryRange==="" ? "Not Disclosed":jobs.salaryRange+"LPA" }</span> 
-  
-  
-<p>Skills : {jobs.skills} </p>
+  &nbsp; <span>Salary :  {jobs.salaryRange==="Not disclosed"||jobs.salaryRange==="" ? "Not Disclosed":jobs.salaryRange+"LPA" } &nbsp;|</span>
+  &nbsp; Skills : {jobs.skills} </p>
 </div>
 </div>
 
@@ -764,7 +774,7 @@ const [PageLoader, setPageLoader] = useState(false)
         </div>
         <  img className={styles.jobLocationImage} src={locationicon}  /> 
         <span className={styles.jobLocation}>
-  {jobs.jobLocation ? jobs.jobLocation.charAt(0).toUpperCase() + jobs.jobLocation.substring(1) : ''}
+  {jobs.venue?jobs.venue:"venue not updated"}
 </span>
 
         <span className={styles.qualificationAndExperiance}>

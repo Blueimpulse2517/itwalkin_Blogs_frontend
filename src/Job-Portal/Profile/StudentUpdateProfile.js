@@ -201,7 +201,7 @@ function StudentUpdateProfile(props) {
     function handleCollege(tag){
       setcollege(tag)      
   }  
-    const [city, setcity] =  useState("Banglore")
+    const [city, setcity] =  useState("")
     const [selectedCountry, setSelectedCountry] = useState("India");
 
     const CTags=[{value:'Bangalore'}]
@@ -625,15 +625,30 @@ if(confirm){
       <div className={styles.EntireFullWrapper}>
         <div className={styles.EntireWrapper}>
           {/* <h3 style={{ color: "rgb(40, 4, 99)", marginLeft: "2%" }}>Update your Profile</h3> */}
-          <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
-             width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+  <h2>Update Profile</h2>
+</div>
+
+          {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
+             width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} /> */}
+             <button style={{marginTop:"-7px"}} className={styles.readPageBackBtn} 
+            onClick={() => {
+               if (window.history.length > 1) {
+                  navigate(-1);
+                 } else {
+                    navigate('/My-Profile'); 
+                  }
+             }}>
+                 Back
+          </button>
           <div className={styles.imageViewWrapper}>
+
 
             <img className={styles.imageView} src={image ? image : profileDp} />
             {/* <img className={styles.fileView} src={file} /> */}
             <div style={{position:"absolute", marginLeft:"50%", marginTop:"40px"}}>
               <input type='checkbox' onClick={()=>{setShowdelete(prev=>!prev)}} />
-             <span>delete Profile</span><br></br>
+             <span>Delete Profile</span><br></br>
              {showdelete?
 <button className={{}} style={{backgroundColor:"red", color:"white", 
 border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>

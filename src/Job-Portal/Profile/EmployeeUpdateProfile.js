@@ -461,6 +461,10 @@ const [immage, setimmage] = useState()
         <div className={styles.EntireWrapper} style={{height:"100%"}}>
         {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
              width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} /> */}
+             <div style={{ display: "flex", justifyContent: "center" }}>
+  <h2>Update Profile</h2>
+</div>
+
               <button className={styles.readPageBackBtn} 
             onClick={() => {
                if (window.history.length > 1) {

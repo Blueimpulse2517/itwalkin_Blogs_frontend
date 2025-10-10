@@ -51,7 +51,7 @@ function MyPostedDrives(props) {
       await axios.get(`/walkinRoute/getPostedwalkins/${empId}`, {headers})
         .then((res) => {
           let result = (res.data)
-          console.log("result",res.data)
+          // console.log("result",res.data)
           let sortedate = result.sort(function (a, b) {
             return new Date(b.createdAt) - new Date(a.createdAt);
           });
@@ -167,7 +167,23 @@ function MyPostedDrives(props) {
     setMyjobs(newjobSort)
   }
 
-  
+  function sortbyOlddrives() {
+    let newjob = [...myjobs]
+    let oldjobSort = newjob.sort(function (a, b) {
+      return new Date(a.driveDate) - new Date(b.driveDate);
+    })
+    setMyjobs(oldjobSort)
+  }
+
+  function sortbyNewdrives() {
+    let newjob = [...myjobs]
+    let newjobSort = newjob.sort(function (a, b) {
+      return new Date(b.driveDate) - new Date(a.driveDate);
+    })
+
+    setMyjobs(newjobSort)
+  }
+
   function SdescendingOrder() {
     let newJobs = [...myjobs]
     // const desendSort = newJobs.sort(function (a, b) {
@@ -416,6 +432,12 @@ const handleHRGenerateQR = (driveId) => {
             {/* <li className={`${styles.li} ${styles.liDescription}`}><b>Job description</b></li> */}
             <li className={`${styles.li} ${styles.Pdate}`}><b>Posted Date</b>
             <p className={styles.arrowWrapper}>
+               <i onClick={sortbyNewdrives} className={`${styles.arrow} ${styles.up}`} ></i>
+                <i onClick={sortbyOlddrives} className={`${styles.arrow} ${styles.down}`}></i>
+            </p>
+            </li>
+            <li className={`${styles.li} ${styles.Pdate}`}><b>Drive Date / Time</b>
+            <p className={styles.arrowWrapper}>
                <i onClick={sortbyNewjobs} className={`${styles.arrow} ${styles.up}`} ></i>
                 <i onClick={sortbyOldjobs} className={`${styles.arrow} ${styles.down}`}></i>
             </p>
@@ -478,7 +500,17 @@ const handleHRGenerateQR = (driveId) => {
                         }
                       )}
                     </li>
-                    <li className={`${styles.li} ${styles.Location}`}>{items.jobLocation.toUpperCase()}</li>
+                    <li className={`${styles.li} ${styles.date}`}>
+                          {new Date(items.driveDate).toLocaleString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "2-digit",
+                              year: "numeric",
+                            }
+                          )}/{items.StartTime}
+                    </li>
+                    <li className={`${styles.li} ${styles.Location}`}>{items.venue?items.venue:"venue not updated"}</li>
                     <li style={{wordBreak:"break-word"}} className={`${styles.li} ${styles.Package}`}>{items.salaryRange==="Not disclosed" ||items.salaryRange===""  ? "Not Disclosed":<><span>&#8377;</span>{items.salaryRange} LPA</>}</li>
                     <li className={`${styles.li} ${styles.experiance}`}>{items.experiance}Yrs</li>
                     <li className={`${styles.li} ${styles.Skills}`}>{items.skills}</li>
@@ -645,7 +677,7 @@ myjobs.map((job, i) => {
           </div>
           
         <  img className={styles.jobLocationImage} src={location}  /> 
-        <span className={styles.jobLocation}>{job.jobLocation[0].toUpperCase()+job.jobLocation.slice(1)} ,</span>
+        <span className={styles.jobLocation}>{job.venue?job.venue:"venue not updated"} ,</span>
         <span className={styles.qualificationAndExperiance}>
         
         <  img className={styles.graduationImage} src={graduation}  /> 
