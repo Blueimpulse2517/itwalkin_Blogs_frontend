@@ -262,6 +262,23 @@ function Nav(props) {
               document.removeEventListener('mousedown', handleClickOutside);
             };
           }, []);
+          const [consultAlert, setconsultAlert]=useState(false)
+          const consultAlertRef = useRef(null);
+          useEffect(() => {
+            const handleClickOutside = (event) => {
+              // If clicked outside alert box and it's open
+              if (consultAlertRef.current && !consultAlertRef.current.contains(event.target)) {
+                setconsultAlert(false); // close the alert
+              }
+            };
+          
+            document.addEventListener('mousedown', handleClickOutside);
+          
+            return () => {
+              document.removeEventListener('mousedown', handleClickOutside);
+            };
+          }, []);
+
 
 
           const [fraudAlert, setfraudAlert]=useState(false)
@@ -325,6 +342,23 @@ function Nav(props) {
                   </div>
                   <div><NavLink to="/resumes" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>
                    Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup> </NavLink></div>
+                   <div><NavLink to="/consultation-services" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>Consultation Services </NavLink>
+                  </div>
+                   {/* <button
+  style={{
+    backgroundColor: 'rgb(40, 4, 99)',
+    color: 'white',
+    border: 'none',
+    padding: '6px 8px',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600'
+  }}
+  onClick={() => window.open('/consultation-services')}
+>
+  Consultation Services
+</button> */}
+
                   <div ref={dropdownRef} style={{ position: "relative" }}>
                             
                             <div style={{ display: "flex", marginTop: "-5px" }}>
@@ -345,6 +379,7 @@ function Nav(props) {
                               </p>
                             </div>
                       
+
                            
                             {isOpen && (
                               <div
@@ -402,6 +437,8 @@ function Nav(props) {
                               </div>
                             )}
                           </div>
+                          
+                          
                   
                 </div>
 
@@ -797,7 +834,10 @@ function Nav(props) {
         Login as a Jobseeker to explore opportunities and create a strong resume!
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
-              onClick={() => {navigate("/Job-Seeker-Login"); setresumeAlert(false)}}
+              onClick={() => { 
+                navigate("/Job-Seeker-Login", {
+                state: { loginpage: "resume" },
+              }); setresumeAlert(false)}}
               style={{
                 padding: '8px 16px',
                 backgroundColor: '#4CAF50',
@@ -830,6 +870,72 @@ function Nav(props) {
 
                          }
                         </div>
+                        <div><NavLink to="/consultation-services" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>Consultation Services </NavLink></div>
+
+                        {/* <div ref={consultAlertRef} style={{position:"relative"}}>
+                        <div onClick={()=>setconsultAlert((prev)=>prev=!prev)} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}>
+                           Consultation Services </div>
+                         {consultAlert&&
+                         <>
+                            <div
+        style={{
+          width: '300px',
+          padding: '20px',
+          backgroundColor: 'rgb(40,4,99)',
+          color: 'white',
+          fontSize: '12px',
+          borderRadius: '5px',
+          position: 'fixed',
+          top: '17%',
+          left: '32%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 9999,
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          textAlign: 'center',
+        }}
+        
+        > 
+        
+        Login as a Jobseeker to explore personalized consultation services designed to boost your career
+          <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
+            <button
+              onClick={() => { 
+                navigate("/Job-Seeker-Login", {
+                state: { loginpage: "consult" },
+              }); setconsultAlert(false)}}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Ok
+            </button>
+            <button
+              onClick={()=> setconsultAlert(false)}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+                         </>
+
+                         }
+                        </div> */}
+
             
 
                       <div ref={dropdownRef} style={{ position: "relative" }}>
@@ -946,7 +1052,6 @@ function Nav(props) {
                                Are you a Jobseeker or an Employer?
 
                                
-
                                <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
               onClick={() => {navigate("/JobSeekerLogin");setbgvAlert(false)}}
@@ -1452,8 +1557,10 @@ className={props.ShowSideNave ? "fas fa-times" : "fas fa-bars"} ref={SimgRef} on
         Login as a Jobseeker to explore opportunities and create a strong resume!
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
           <button
-              onClick={() => {navigate("/Job-Seeker-Login"); setresumeAlert(false)}}
-              style={{
+onClick={() => { 
+  navigate("/Job-Seeker-Login", {
+  state: { loginpage: "resume" },
+}); setresumeAlert(false)}}              style={{
                 padding: '8px 16px',
                 backgroundColor: '#4CAF50',
                 color: 'white',

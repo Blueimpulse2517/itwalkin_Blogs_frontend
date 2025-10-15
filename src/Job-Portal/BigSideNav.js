@@ -136,6 +136,7 @@ function SidebarNav(props) {
 //    setSuggestions([]); 
 //  };
 let EmployeeAuth = localStorage.getItem("EmpLog")
+let StudentAuth = localStorage.getItem("StudLog")
 
 
   return (
@@ -214,6 +215,12 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
        <>
         <p onClick={()=>{navigate("/AllCareerJobs"); update("AllCareerJobs")}} className={`${Styles.textBigSodeBar} ${value==="AllCareerJobs"?Styles.active:""}`}>ITwalkin Career</p>   
         <p onClick={()=>{navigate("/Walkin-Drives"); update("AllWalkinDrive")}} className={`${Styles.textBigSodeBar} ${value==="AllWalkinDrive"?Styles.active:""} `}>Walkin Drives</p>
+        {StudentAuth? <p onClick={()=>{navigate("/resumes"); update("AllResumes")}} className={`${Styles.textBigSodeBar} ${value==="AllResumes"?Styles.active:""} `}>Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup></p>
+        :<p onClick={()=>{ navigate("/Job-Seeker-Login", {
+          state: { loginpage: "resume" },
+        }); update("AllResumes")}} className={`${Styles.textBigSodeBar} ${value==="AllResumes"?Styles.active:""} `}>Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup></p>
+        }
+        <p onClick={()=>{navigate("/consultation-services"); update("consulltancy")}} className={`${Styles.textBigSodeBar} ${value==="consulltancy"?Styles.active:""} `}>Consultation Services </p>
         </>
        }
         <p onClick={()=>{navigate("/support/help"); update("AllHelps")}} className={`${Styles.textBigSodeBar} ${value==="AllHelps"?Styles.active:""} `}>Help/Support</p>

@@ -47,7 +47,8 @@ function AllResumes() {
    const navigate = useNavigate()
   return (
     <div>
-      {selectedTemplate===null?<h1 style={{ textAlign: 'center', marginTop: '20px' }}>Choose Your Resume Template</h1>
+      {selectedTemplate===null?
+      <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Choose resume template :<br></br> (This template is suitable for IT professionals with 2+ years of experience. You can add upto 20 bullet points)</h2>
        :
        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Your resume preview</h1>}
       {!selectedTemplate && (

@@ -128,7 +128,9 @@ const resumeRedirect=()=>{
   if(StudentAuth)
     navigate("/resumes")
 else{
-  navigate("/JobSeekerLogin")
+  navigate("/Job-Seeker-Login", {
+    state: { loginpage: "resume" },
+  })
 }
 }
   return (
@@ -210,6 +212,13 @@ else{
        )
 
        }
+
+{EmployeeAuth&&(
+        <p onClick={()=>{navigate("/PostJobs"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Post Job </p>
+        
+       )
+
+       }
            {EmployeeAuth&&(
         <p onClick={()=>{navigate("/PostDrives"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Post Walkin Drive </p>
         
@@ -242,7 +251,8 @@ else{
         {!EmployeeAuth&&
         <>
         <p onClick={()=>{navigate("/AllCareerJobs"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>ITwalkin Career</p>
-        <p onClick={()=>{resumeRedirect(); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>AI Resume Builder</p>
+        <p onClick={()=>{resumeRedirect(); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}> Resume Builder</p>
+        <p onClick={()=>{navigate("/consultation-services"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Consultation Services</p>
         <p onClick={()=>{navigate("/Walkin-Drives"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Walkin Drive</p>
         </>
         }
