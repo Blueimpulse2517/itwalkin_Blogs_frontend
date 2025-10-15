@@ -884,7 +884,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input placeholder='Enter gmail address' maxLength="30" className={styles.input} value={email}  
                 onChange={(e) => { handlesetemail(e.target.value) }} type="text" />
                 <br></br> <span style={{color:"red", marginLeft:"5%"}}>{emailError}</span>           
-                ( only gmail or microsoft outlook accepted for account creation)
+                ( only Gmail or Microsoft outlook accepted for account creation)
               </label>
 
               
@@ -1626,8 +1626,8 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input maxLength="25" className={styles.Mobileinput}  value={email}
                  onChange={(e) => { handlesetemail(e.target.value) }} type="text" />
                  <br></br> <span style={{color:"red", marginLeft:"5%"}}>{emailError}</span> 
-                 <div style={{marginBottom:"11px"}}>
-                 ( only gmail or microsoft outlook accepted for account creation)    
+                 <div style={{marginBottom:"11px",marginLeft:"10px"}}>
+                 ( only Gmail or Microsoft outlook accepted for account creation)    
                  </div>      
               </label>
 

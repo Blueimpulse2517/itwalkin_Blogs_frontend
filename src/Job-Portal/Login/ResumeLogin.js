@@ -45,6 +45,8 @@ useEffect(() => {
 
   let navigate = useNavigate()
 
+  const { loginpage } = location.state || {};
+
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       try {
@@ -76,7 +78,10 @@ useEffect(() => {
 
             if (result.status == "success") {
               localStorage.setItem("StudLog", JSON.stringify(btoa(token)))
+              if(loginpage==="resume")
               navigate("/resumes", {state:{name:result.name}})
+              else if (loginpage==="consult")
+                navigate("/consultation-services", {state:{name:result.name}})
               localStorage.setItem("StudId", JSON.stringify(Id))   
             }
           }).catch((err) => {

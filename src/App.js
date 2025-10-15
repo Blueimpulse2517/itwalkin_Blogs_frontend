@@ -89,6 +89,10 @@ import InterviewScreen from "./Job-Portal/QRCode/InterviewScreen";
 // import Test from "./Job-Portal/Jobs/Test";
 import MyAppliedDrives from "./Job-Portal/Jobs/MyAppliedDrives";
 import HomeWalkin from "./Job-Portal/Jobs/AllHomeWalkins";
+import ConsultationServices from "./Job-Portal/Consultation Services/ConsultationServices";
+// import ConsultationServices from "./Job-Portal/Consultation Services/ConsultationServices";
+
+
 // import PostFraud from "./Job-Portal/Jobs/PostFraud";
 axios.defaults.baseURL = " https://itwalkin-backend-testrelease-2-0-1-0824-ns0g.onrender.com" // Render Test
 
@@ -1106,7 +1110,7 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
               searchIcon={searchIcon}
               />
             } /> */}
-
+             <Route path="/consultation-services" element={<ConsultationServices />} />
             <Route path="/Blogs" element={<Blogs 
             showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
             ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}
@@ -1198,6 +1202,7 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
             </Route>
             {/* ..........Jobseeker Private component i,e can not search in URL......... */}
             <Route element={<StudPrivate />}>
+            
             <Route path="/scanner" element={<QRScanner />} />
             <Route path="/enter-cabin" element={<JobseekerEnterCabin />} />
              <Route path="resume-form" element={<ResumeForm />}></Route>
