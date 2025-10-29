@@ -14,6 +14,7 @@ import HTMLReactParser from 'html-react-parser'
 
 
 
+
 function JoppostedByEmp(props) {
   useEffect( ()=>{    
     const socket = socketIO.connect(props.url,{
@@ -271,14 +272,25 @@ function handleRecordchange(e){
 
   return (
     <>
- 
+ <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
  {screenSize.width > 850 ?
         <>
           <div className={styles.searchBothForNavWrapper}>
-            <input className={styles.inputboxsearchNav} type="text" placeholder='Search for a Job / Skills / Location / Experience' onChange={(e) => { search(e) }} />
+            {/* <input className={styles.inputboxsearchNav} type="text" placeholder='Search for a Job / Skills / Location / Experience' onChange={(e) => { search(e) }} /> */}
 
-            <i style={{ color: "rgb(40, 4, 99)", fontSize: "18px", cursor: "pointer" }} onClick={() => { searchIcon(searchKey) }}
-              class="fa fa-search" ></i>
+            {/* <i style={{ color: "rgb(40, 4, 99)", fontSize: "18px", cursor: "pointer" }} onClick={() => { searchIcon(searchKey) }} */}
+              {/* class="fa fa-search" ></i> */}
           </div>
           {Result ?
             <h4 style={{ marginLeft: "40%", marginTop: "20px" }}> {myjobs.length} matching Result Found  </h4>

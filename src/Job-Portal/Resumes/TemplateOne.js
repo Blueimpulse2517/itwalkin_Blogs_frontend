@@ -218,7 +218,7 @@ const TemplateOne = () => {
             </div> */}
 
             <div className="skills">
-              <h4 style={{marginLeft:"8px"}}>CORE TECHNICAL SKILLS</h4>
+              <h4 style={{marginLeft:"10px"}}>CORE TECHNICAL SKILLS</h4>
               {pageLoader?<p>Loading...</p>:(profileData && profileData.skills && profileData.skills.length > 0 ? (
   profileData.skills.map((group, i) => (
     <div style={{marginLeft:"32px"}} className="skill-section" key={i}>

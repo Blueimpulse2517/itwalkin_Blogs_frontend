@@ -1158,7 +1158,9 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
               })
             }
           </div>
-
+          <p style={{ fontWeight: 400, marginLeft: "10px" }}>Displaying <span style={{ color: "blue" }}>
+                {jobs.length} </span>Jobs with following matching tags:
+                <span style={{ color: "blue" }}>{Active.toString()}</span></p>
           <p style={{ fontWeight: 400, marginLeft: "10px" }}>Showing {firstIndex + 1} to {lastIndex} latest jobs</p>
           <div style={{ marginBottom: "5px", marginTop: "10px", marginLeft: "10px" }}>
             Show  <select onChange={(e) => { handleRecordchange(e) }}>

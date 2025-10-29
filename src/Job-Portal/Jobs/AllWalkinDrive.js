@@ -910,10 +910,10 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
         
         >
           <strong style={{color:"red", textAlign:"center", fontSize:"14px"}}>NOTICE</strong><br></br>
-          ITWALKIN.com never charges fees for walkin drives. If you encounter misuse or payment requests, report it through our website.<br></br>
+          ITWALKIN.com never charges fees for Walkin Drives. If you encounter misuse or payment requests, report it through our website.<br></br>
           <br></br>
           You will be redirected to the career page of {items.Source}. 
-          ITWalkin is not responsible for any misconduct that may arise during the walkin drive.
+          ITWalkin is not responsible for any misconduct that may arise during the Walkin Drives.
           {/* <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website. */}
 
           <div ref={alertRef} style={{ marginTop: '15px', display:"flex", gap:"4px", justifyContent:"center" }}>
@@ -982,7 +982,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
         }}
         
         >
-          <strong>Notice:</strong> ITWALKIN.com never charges fees for walkin drives. If you encounter misuse or payment requests, report it through our website.
+          <strong>Notice:</strong> ITWALKIN.com never charges fees for Walkin Drives. If you encounter misuse or payment requests, report it through our website.
 
           <div ref={alertRef} style={{ marginTop: '15px' }}>
             <button

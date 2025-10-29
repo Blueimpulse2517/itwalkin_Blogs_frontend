@@ -398,7 +398,7 @@ const handleHRGenerateQR = (driveId) => {
             {        nopageFilter?
     <p style={{fontWeight:400, marginLeft:"10px"}}>Displaying <span style={{color:"blue"}}>{Filtereredjobs}</span> from All Jobs</p>
     :
-    <p style={{fontWeight:400, marginLeft:"10px"}}>Showing {firstIndex+1} to {lastIndex} latest jobs</p>
+    <p style={{fontWeight:400, marginLeft:"10px"}}>Showing {firstIndex+1} to {lastIndex} latest drives</p>
     }
 <div className={styles.navigationWrapper}>
   <button disabled={currentPage === 1} style={{display:"inline", margin:"5px"}} className={styles.navigation} onClick={firstPage}>
@@ -422,7 +422,7 @@ const handleHRGenerateQR = (driveId) => {
               <option selected = {lastIndex === 25} value={25}>25</option>
               <option selected = {lastIndex === 50} value={50}>50</option>
               <option selected = {lastIndex === 100} value={100}>100</option>
-            </select>  jobs per page
+            </select>  drives per page
             </div>
       
    <div className={styles.Uiwarpper}>
@@ -604,7 +604,7 @@ const handleHRGenerateQR = (driveId) => {
               <option selected = {lastIndex === 25} value={25}>25</option>
               <option selected = {lastIndex === 50} value={50}>50</option>
               <option selected = {lastIndex === 100} value={100}>100</option>
-            </select>  jobs per page
+            </select>  drives per page
             </div>
 
           <div className={styles.navigationWrapper}>
@@ -635,7 +635,7 @@ const handleHRGenerateQR = (driveId) => {
           navigate("/Search-Candidate")
         }}>Search Candidate</button> */}
 
-<p style={{ marginLeft: "4%", color: "blue", fontWeight:"bold" }}> Total {myjobs.length} jobs</p>
+<p style={{ marginLeft: "4%", color: "blue", fontWeight:"bold" }}> Total {myjobs.length} drives</p>
         <div className={styles.searchBoth}>
           {/* <p className={styles.p}>Search </p> */}
           {/* <input className={styles.inputboxsearch} type="text" placeholder='search for a posted job' onChange={(e) => { search(e) }} /> */}

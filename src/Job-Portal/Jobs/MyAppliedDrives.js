@@ -123,9 +123,11 @@ function MyAppliedDrives(props) {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
       width: "245",
+      marginLeft:'75px',
       // position:"top",
       customClass: {
-        popup: "alertIcon"
+        popup: "alertIcon",
+        
       }
     }).then((result) => {
       if (result.isConfirmed) {
@@ -279,6 +281,18 @@ console.log(records)
   };
   return (
     <>
+     <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
 
 <p className={styles.h2} style={{ textAlign: "center",fontSize:"26px" }}><b>My Registered Walkin Drives</b></p>
 {MyAppliedjob.length>0&&
