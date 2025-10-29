@@ -263,7 +263,7 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
 
   return (
     <div className={styles["consult-card"]}>
-      <div className={styles.tags}>For one person</div>
+      {/* <div className={styles.tags}>For one person</div> */}
       <h2 className={styles["card-title"]}>{title}</h2>
       <p className={styles["card-desc"]}>{description}</p>
       <p className={styles["card-price"]}>{price}</p>
@@ -275,13 +275,13 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
       />
 
       <div className={styles["btn-wrapper"]}>
-        <button className={styles.bookbutton} onClick={handleBook}>
+        <button className={styles.bookbutton} >
           BOOK NOW
         </button>
 
         {showPopup && (
           <div ref={popupRef} className={styles.popup}>
-            <p>Login as a Jobseeker to explore personalized consultation services designed to boost your career.</p>
+            <p>Login as a Job Seeker to explore personalized consultation services designed to boost your career.</p>
             <div className={styles["popup-buttons"]}>
             <button
   onClick={() => {
@@ -320,7 +320,7 @@ const ConsultationServices = () => {
       <ConsultationCard
         title="Free Consultation"
         description="Please select the date. We will get back to you. Review by expert on submission of profile."
-        price="Free"
+        // price="Free"
         onBook={handleBooking}
       />
 

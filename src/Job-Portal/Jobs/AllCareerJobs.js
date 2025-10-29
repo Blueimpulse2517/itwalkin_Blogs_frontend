@@ -1175,6 +1175,14 @@ const responsive = {
             }
 
           </div>
+          <div style={{ marginBottom: "5px", marginTop: "0", marginLeft: "10px" }}>
+            Show  <select onChange={(e) => { handleRecordchange(e) }}>
+              <option selected={lastIndex === 10} value={10}>10</option>
+              <option selected={lastIndex === 25} value={25}>25</option>
+              <option selected={lastIndex === 50} value={50}>50</option>
+              <option selected={lastIndex === 100} value={100}>100</option>
+            </select>  jobs per page
+          </div>
                     <div style={{marginTop:"20px",}}>
             <Footer/>
             </div>

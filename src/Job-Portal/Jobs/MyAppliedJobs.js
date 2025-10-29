@@ -272,6 +272,18 @@ console.log(records)
 
   return (
     <>
+    <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
 
 <p className={styles.h2} style={{ textAlign: "center",fontSize:"26px" }}><b>My Applied Jobs</b></p>
 {MyAppliedjob.length>0&&

@@ -7,6 +7,9 @@ import { Puff } from 'react-loader-spinner'
 import useScreenSize from '../SizeHook';
 import profileDp from "../img/user_3177440.png"
 import Footer from '../Footer/Footer';
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 function AppliedDriveUserProfile() {
     let params = useParams()
@@ -300,9 +303,158 @@ function AppliedDriveUserProfile() {
         setCurrentPage(1)
     }
 
+    const [selectedIds, setSelectedIds] = useState([]);
+
+    // Handle Checkbox Select/Deselect
+    const handleCheckboxChange = (id) => {
+      setSelectedIds((prevSelected) =>
+        prevSelected.includes(id)
+          ? prevSelected.filter((item) => item !== id)
+          : [...prevSelected, id]
+      );
+    };
+
+  
+    const handleDownloadList = () => {
+        const selectedData = records.filter((item) =>
+          selectedIds.includes(item._id.toString())
+        );
+      
+        if (!selectedData.length) {
+          alert("Please select at least one record");
+          return;
+        }
+      
+        const doc = new jsPDF();
+      
+        selectedData.forEach((candidate, index) => {
+          const fields = [
+            { label: "Name", key: "name" },
+            // { label: "Email Address", key: "email" },
+            { label: "Phone Number", key: "phoneNumber" },
+            { label: "Qualification", key: "Qualification" },
+            { label: "Skills", key: "Skills" },
+            { label: "Experience", key: "Experiance", suffix: " Years" },
+            { label: "Current CTC", key: "currentCTC", suffix: " LPA" },
+            { label: "Expected Salary", key: "ExpectedSalary", suffix: " LPA" },
+            { label: "Notice Period", key: "NoticePeriod", suffix: " Days" },
+
+          ];
+      
+          const body = fields.map(({ label, key, suffix }) => {
+            let value = candidate[key] || candidate[key.toLowerCase()] || "N/A";
+      
+            if (Array.isArray(value)) value = value.join(", ");
+            if (typeof value === "object" && value !== null)
+              value = JSON.stringify(value);
+      
+            if (suffix && value !== "N/A" && !value.toString().includes(suffix))
+              value = `${value}${suffix}`;
+      
+            return [label, value];
+          });
+      
+          autoTable(doc, {
+            head: [["Field", "Details"]],
+            body,
+            startY: index === 0 ? 10 : doc.lastAutoTable.finalY + 15,
+            theme: "grid",
+            headStyles: { fillColor: [41, 128, 185], textColor: 255, halign: "center" },
+            styles: { fontSize: 10, cellPadding: 3, valign: "middle" },
+            columnStyles: {
+              0: { fontStyle: "bold", cellWidth: 60 },
+              1: { cellWidth: 120 },
+            },
+            margin: { top: 10, left: 10, right: 10 },
+            didDrawPage: (data) => {
+              if (index === 0) {
+                doc.setFontSize(14);
+                doc.text("Selected Candidate Details", 14, 8);
+              }
+            },
+          });
+        });
+      
+        doc.save("selected_list.pdf");
+      };
+  
+
+    const handleMergeMail = () => {
+        const selectedData = records.filter((item) =>
+          selectedIds.includes(item._id.toString())
+        );
+        if (selectedData.length === 0) return alert("Select at least one user.");
+      
+        const subject = encodeURIComponent("Candidate Details");
+      
+        // Only show key info (short enough for Gmail)
+        const body = encodeURIComponent(
+          selectedData
+          .map(
+            (d, i) => `
+    ${i + 1}. ${d.name || "N/A"}
+    Age: ${d.age || "N/A"}
+    Notice Period: ${d.NoticePeriod ? `${d.NoticePeriod} Days` : "N/A"}
+    Qualification: ${d.Qualification || "N/A"}
+    Experience: ${d.Experiance ? `${d.Experiance} Years` : "N/A"}
+    Skills: ${Array.isArray(d.Skills) ? d.Skills.join(", ") : d.Skills || "N/A"}
+    Current CTC: ${d.currentCTC ? `${d.currentCTC} LPA` : "N/A"}
+    Expected Salary: ${d.ExpectedSalary ? `${d.ExpectedSalary} LPA` : "N/A"}
+    Email: ${d.email || "N/A"}
+    Phone: ${d.phoneNumber || "N/A"}
+    Address: ${d.address || "N/A"}
+    `
+          )
+          .join("\n-----------------------------------\n")
+      );
+      
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${body}`, "_blank");
+      };
+      
+
+      // Download as Excel
+  const handleDownloadExcel = () => {
+    const data = records.filter((item) => selectedIds.includes(item._id.toString()));
+    const selectedData = data.map((item) => ({
+        Name: item.name || "N/A",
+        Age:item.age
+        ? `${item.age} Years`
+        : "N/A",
+        NoticePeriod: item.NoticePeriod
+        ? `${item.NoticePeriod} Days`
+        : "N/A",
+        Qualification: item.Qualification || "N/A",
+        Experience: item.Experiance
+      ? `${item.Experiance} Years`
+      : "N/A",
+        Skills: item.Skills || "N/A",
+        CurrentCTC: item.currentCTC
+      ? `${item.currentCTC} LPA`
+      : "N/A",
+    ExpectedSalary: item.ExpectedSalary
+      ? `${item.ExpectedSalary} LPA`
+      : "N/A",
+      }));
+
+    const worksheet = XLSX.utils.json_to_sheet(selectedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Selected Data");
+    XLSX.writeFile(workbook, "selected_list.xlsx");
+
+  };
+
+  // Check if all rows are selected
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedIds(records.map((item) => item._id.toString()));
+    } else {
+      setSelectedIds([]);
+    }
+  };
 
     return (
         <>
+        <div style={{display:"flex", justifyContent:"space-between", flexWrap:"wrap"}}>
          <button
     className={styles.tvbackbtn}
     onClick={() => {
@@ -315,7 +467,15 @@ function AppliedDriveUserProfile() {
   >
     <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
   </button>
-      
+  {window.innerWidth > 768 && (
+  <div style={{ display: "flex", flexWrap: "wrap", marginRight: "2%" }}>
+    <button onClick={handleDownloadList} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Download List</button>
+    <button onClick={handleMergeMail} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Merge & Mail</button>
+    <button onClick={handleDownloadExcel} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Download Excel</button>
+  </div>
+)}
+
+   </div>
 
             <h4 style={{ marginTop: "10px", marginLeft: "1%" }}>Total {AppliedUser.length} {AppliedUser.length>1?"Job Seekers":"Job Seeker"}  have applied</h4>
             
@@ -356,6 +516,13 @@ function AppliedDriveUserProfile() {
                 <div className={styles.AllUiWrapper}>
 
                     <ul className={styles.ul} >
+                        
+                    <input
+                type="checkbox"
+                checked={selectedIds.length === records.length}
+                onChange={handleSelectAll}
+                style={{ visibility: 'hidden' }}
+              />
                         <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.name}`}><b>Name</b>  </li>
                         <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.NoticePeriod}`}><b>Notice Period</b>
                             <p style={{ display: "inline", marginLeft: "10px" }}>
@@ -403,6 +570,11 @@ function AppliedDriveUserProfile() {
                         records?.map((Applieduser, i) => {
                             return (
                                 <ul className={styles.ul} key={i}>
+                                     <input
+                  type="checkbox"
+                  checked={selectedIds.includes(Applieduser._id)}
+                  onChange={() => handleCheckboxChange(Applieduser._id)}
+                />
                                     <li className={`${styles.li} ${styles.name} ${styles.onclick}`} onClick={() => { CheckProfile(btoa(Applieduser._id)) }} >
                                         {Applieduser.name ? <a className={styles.namelink} title="Click to check the Contact Details">
                                             {Applieduser.name}</a> : <li className={styles.Nli}>N/A</li>} </li>

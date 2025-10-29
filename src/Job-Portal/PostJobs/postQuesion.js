@@ -126,7 +126,7 @@ let question =true
         let jobLocation = joblocation.toLowerCase()
         
         if(jobTitle===""){ 
-            setErrorMessage("please fill all the fields")
+            setErrorMessage("Please fill all the fields")
             return
         }
         // await axios.post("/QuestionRoute/questionPost/", {
@@ -250,7 +250,7 @@ let question =true
                             <div>
                                 <button style={{width:"56px",fontSize:"10px",height:"24px",display:"flex", alignItems:"center", justifyContent:"center"}} className={Style.backButton1} onClick={() => {
                                     navigate(-1)
-                                }}>Go Back</button>
+                                }}>Back</button>
                                 {/* {Logo ? <img className={Style.logo} src={Logo} /> :
                                     <p style={{ color: "red", marginLeft: "5%", fontStyle: "italic" }}> Alert! You have not updated the Company logo, please update the Company Logo</p>
                                     } */}
@@ -265,7 +265,7 @@ let question =true
                                        }
                                         <div style={{display:"flex", alignItems:"center", gap:"90px", marginBottom:"14px"}}>
                                            <h4 className={Style.jobHeadline}  >Ask a question**</h4>
-                                           <div className={Style.hint}> 
+                                           <div style={{marginLeft:"14px"}} className={Style.hint}> 
                                             ( This question will be shared with the employers or consultants)
                                             </div>
                                         </div>

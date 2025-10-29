@@ -75,13 +75,13 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,current
   },
   { 
     id: 2, 
-    question: "How to Register as a Jobseeker?", 
+    question: "How to Register as a Job Seeker?", 
     source: "ITWalkin", 
     companyName: "ITWalkin", 
     postedby: "ITWalkin", 
     postedDate: "20-03-2025", 
     view: "View",
-    details: "1. To register as a Jobseeker, follow these steps:\n2. Click on the 'Open an Account' menu in the navigation bar.\n3. A submenu will appear—select 'Jobseeker Registration' from the list.\n4. The jobseeker Registration Form will open in a new window.\n5. Fill in all the required details in the given fields.\n6. Choose to register using either Microsoft or Google.\n7. Once completed, your registration will be successful."
+    details: "1. To register as a Job Seeker, follow these steps:\n2. Click on the 'Open an Account' menu in the navigation bar.\n3. A submenu will appear—select 'Jobseeker Registration' from the list.\n4. The jobseeker Registration Form will open in a new window.\n5. Fill in all the required details in the given fields.\n6. Choose to register using either Microsoft or Google.\n7. Once completed, your registration will be successful."
 },
      ];
 

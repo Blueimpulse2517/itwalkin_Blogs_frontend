@@ -831,7 +831,7 @@ function Nav(props) {
         
         > 
         
-        Login as a Jobseeker to explore opportunities and create a strong resume!
+        Login as a Job Seeker to explore opportunities and create a strong resume!
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
               onClick={() => { 
@@ -1154,7 +1154,7 @@ function Nav(props) {
                            ShowRegister?
                            <div className={Styles.dropdownwrapperHomeRegistration} ref={newReg} >
                            <p onClick={()=>{navigate("/New-Registration");setShowRegister(false)}}>Employer Registration</p>
-                           <p onClick={()=>{navigate("/Jobseeker-New-Registration");setShowRegister(false)}}>JobSeeker Registration</p>
+                           <p onClick={()=>{navigate("/Jobseeker-New-Registration");setShowRegister(false)}}>Job Seeker Registration</p>
                            </div>
                            :""
                          }
@@ -1232,7 +1232,7 @@ function Nav(props) {
                 cursor: 'pointer',
               }}
             >
-              JobSeeker Login
+              Job Seeker Login
             </button>
             <button
              onClick={() => {navigate("/EmployeeLogin"); setfraudAlert(false)}}
@@ -1554,7 +1554,7 @@ className={props.ShowSideNave ? "fas fa-times" : "fas fa-bars"} ref={SimgRef} on
         
         > 
         
-        Login as a Jobseeker to explore opportunities and create a strong resume!
+        Login as a Job Seeker to explore opportunities and create a strong resume!
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
           <button
 onClick={() => { 
