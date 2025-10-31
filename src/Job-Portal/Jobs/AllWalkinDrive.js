@@ -50,13 +50,14 @@ function AllWalkinDrive({nopageFilter,setNoPageFilter,searchKey, setsearchKey,Fi
   ,searchClick,setSearchClick,ShowSideNave,setShowSideNave,showMobileSearchIcon,setShowMobileSearchIcon
 }) {
 
-  useEffect(() => {
-    const socket = socketIO.connect(url, {
-      auth: {
-        token: JSON.parse(localStorage.getItem("StudId"))
-      }
-    });
-  }, [])
+  // useEffect(() => {
+  //   const socket = socketIO.connect(url, {
+  //     auth: {
+  //       token: JSON.parse(localStorage.getItem("StudId"))
+  //     }
+  //   });
+  // }, [])
+
 
   let JobLocationTags = ["Bangalore"]
 
@@ -204,10 +205,11 @@ function AllWalkinDrive({nopageFilter,setNoPageFilter,searchKey, setsearchKey,Fi
     setclickedJobId(jobId)
     setLoader(true)
     // setTimeout(async () => {
-
+     console.log("fn executed")
       await axios.put(`/walkinRoute/updatforwalkinApply/${jobId}`, { jobSeekerId, date }, { headers })
         .then((res) => {
           if (res.data) {
+            console.log("data respoense received")
             setLoader(false)
             getjobs()
           }
@@ -1292,7 +1294,16 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
                         <div className={styles.skillWrapper}>
                           <span className={styles.skillsHeading}>Skills: </span><span className={styles.skills}>{job.skills}</span><br></br>
                         </div>
-
+                        <div className={styles.skillWrapper}>
+                          <span className={styles.skillsHeading}>Drive Date/Time: </span><span className={styles.skills}>{new Date(job.driveDate).toLocaleString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "2-digit",
+                              year: "numeric",
+                            }
+                          )}/{job.StartTime}</span><br></br>
+                        </div>
 
                         <div className={styles.ApplyPackageJobseeker}>
                           <p style={{marginLeft: "20px"}} className={styles.salaryRangeJobseeker}><span>&#8377;</span>{job.salaryRange==="Not disclosed" ? "Not Disclosed":job.salaryRange+"LPA" }</p>

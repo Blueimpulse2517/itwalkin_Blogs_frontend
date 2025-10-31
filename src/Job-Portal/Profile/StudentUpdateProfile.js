@@ -432,7 +432,7 @@ if(confirm){
     if (!value.startsWith('+91')) return;
 
     // Only allow digits after +91
-    const digits = value.slice(3).replace(/\D/g, '');
+    const digits = value?.slice(3).replace(/\D/g, '');
     setphoneNumber('+91' + digits);
   }
   const AadharhandleChange = (event) => {
@@ -441,40 +441,40 @@ if(confirm){
   }else{
    
     const value = event.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setAadhar(sanitizedValue);
   }
   };
 
   const PanCardhandleChange = (event) => {
     const value = event.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setpanCard(sanitizedValue);
   };
   function handleNoticePeriod(e){
     const value = e.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setNoticePeriod(sanitizedValue);
   }
   function handleexpectedSalary(e){
     const value = e.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setExpectedSalary(sanitizedValue);
   }
 
   function handleCurrentCTC(e){
     const value = e.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setcurrentCTC(sanitizedValue);
   }
   function handleQualification(e){
     const value = e.target.value;
-    const sanitizedValue = value.replace(/[^\w\s.]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s.]/gi, ''); // Regex to remove special characters
     setQualification(sanitizedValue);
   }
   function handleExperiance(e){
     const value = e.target.value;
-    const sanitizedValue = value.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
+    const sanitizedValue = value?.replace(/[^\w\s]/gi, ''); // Regex to remove special characters
     setExperiance(sanitizedValue);
   }
 
@@ -861,7 +861,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.inputName}>
                 <h4>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.input} value={Aadhar.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
+                <input maxLength="12" className={styles.input} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.inputName}>
@@ -1252,7 +1252,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.Mobileinput} value={Aadhar.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
+                <input maxLength="12" className={styles.Mobileinput} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.MobileinputName}>

@@ -324,7 +324,12 @@ console.log(imageConsent)
       languages.length === 0 ||
       qualificationDetails.length === 0
     ) {
-      setSuccessMessage("Please make sure to fill in all required details");
+      setSuccessMessage(
+        <span style={{ color: "red" }}>
+          Your resume is incomplete. Please fill in all required profile details before downloading
+        </span>
+      );
+      
       return;
     }
     // console.log("hshs",imageConsent)

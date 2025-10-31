@@ -1231,10 +1231,16 @@ let EmployeeAuth = localStorage.getItem("EmpLog")
                           
                             // <button className={styles.homeApplyMobileBtn} onClick={() => { applyforJob(job._id) }}><b>Apply</b></button>
                             <div  ref={alertRef} style={{position:"relative",marginRight:"3%"}}>
-                            <button className={styles.walkinhomeapplybtn} onClick={() => handleApplyClick(job._id)}>
-                              Register
+                           {EmployeeAuth
+                            ?
+                            <button className={styles.walkinhomeapplybtn} onClick={() => navigate(`/Drivedetails/${btoa(job._id)}?index=${i}`, {state: {selectedTag, },})}>
+                              View
                             </button>
-                      
+                            :
+                            <button className={styles.walkinhomeapplybtn} onClick={() => handleApplyClick(job._id)}>
+                              Registers
+                            </button>
+                          }
                             {activeAlertId === job._id && (
                               <div
                               style={{

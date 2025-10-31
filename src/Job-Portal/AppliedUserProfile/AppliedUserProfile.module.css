@@ -17,7 +17,90 @@
     align-self: flex-start; /* ensures it's aligned left */
     margin-top: 10px;
   }
+  .downloadbtns {
+    display: flex;
+    flex-wrap: nowrap;        /* keep in one line */
+    gap: 8px;                 /* spacing between buttons */
+    justify-content: center;  /* center horizontally */
+    align-items: center;      /* align vertically */
+    margin: 10px 0;
+    overflow-x: auto;         /* allow horizontal scroll if screen is too small */
+    padding-bottom: 5px;  
+    margin-right: 5px;    /* avoid scrollbar overlap */
+  }
+  
+  .downloadbtns::-webkit-scrollbar {
+    display: none;            /* hides scrollbar on mobile for a cleaner look */
+  }
+  
+  .backbtn {
+    background-color: rgb(40, 4, 99);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 12px;
+    height: 32px;
+    flex: 0 0 auto;           /* prevents shrinking */
+    white-space: nowrap;      /* keeps text in one line */
+  }
+  
+  @media(max-width:376px){
+    .downloadbtns {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 6px;
+        padding: 5px 0;
+        margin-left:22px;
+      }
+  }
+  @media (max-width: 320px) {
+    .downloadbtns {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      justify-content: flex-start;
+      gap: 6px;
+      padding: 5px 0;
+      margin-left: 17px;
+    }
+  
+    .backbtn {
+      font-size: 10px;
+      padding: 4px 8px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+  }
+  
 
+
+  
+  /* .backbtn {
+    background-color: rgb(40, 4, 99);
+    color: white;
+    border: none;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: -25px;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-left: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    align-self: flex-start; 
+    margin-top: 10px;
+  } */
+  /* .downloadbtns{
+    display: flex;
+    flex-wrap: wrap;
+     margin-right: 2%;
+} */
 
 
 .blogSearchContainer{
