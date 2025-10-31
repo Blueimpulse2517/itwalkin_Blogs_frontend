@@ -103,13 +103,13 @@ let navigate = useNavigate()
             className={`${styles.tabBtn} ${
               activeTab === tab ? styles.activeTab : ""
             }`}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {setActiveTab(tab);setShowApprovedStatus(false)}}
+            
           >
             {tab}
           </button>
         ))}
       </div>
-
       {/* Dynamic Tab Content */}
       <div className={styles.content}>
         {activeTab === "Personal Info" && (
@@ -131,7 +131,7 @@ let navigate = useNavigate()
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
               <div><strong style={{color:"Black"}}>Account Status</strong></div>
-              <div><strong style={{color:"green"}}>Congrats ! Your account has been Approved</strong></div>
+              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
              </div>
              :
              <div className={styles.aprovedStatus}>
@@ -194,6 +194,20 @@ Experiance
             <div>
               <strong>Duration:</strong> {profileData[0].previousDuration}
             </div> */}
+            {showApprovedStatus &&
+            (profileData[0].isApproved?
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
+             </div>
+             :
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"red"}}></strong></div>
+              <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
+             </div> 
+            )
+          }
           </div>
         )}
 
@@ -213,7 +227,20 @@ Experiance
             <div style={{display:"flex", }}>
                   <strong>Masters: </strong> {profileData[0].college?profileData[0].college:"#####"}
             </div>
-           
+            {showApprovedStatus &&
+            (profileData[0].isApproved?
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
+             </div>
+             :
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"red"}}></strong></div>
+              <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
+             </div> 
+            )
+          }
           </div>
         )}
 
@@ -222,7 +249,20 @@ Experiance
            <div style={{display:"flex",}}>
                   <strong> Skills: </strong> {profileData[0].Skills?profileData[0].Skills:"#####"}
             </div>
-               
+            {showApprovedStatus &&
+            (profileData[0].isApproved?
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
+             </div>
+             :
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"red"}}></strong></div>
+              <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
+             </div> 
+            )
+          } 
            
           </div>
         )}
@@ -237,6 +277,20 @@ Experiance
               </div>
             ))} */}
             {profileData[0].message?profileData[0].message:"#####" }
+            {showApprovedStatus &&
+            (profileData[0].isApproved?
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
+             </div>
+             :
+             <div className={styles.aprovedStatus}>
+              <div><strong style={{color:"Black"}}>Account Status</strong></div>
+              <div><strong style={{color:"red"}}></strong></div>
+              <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
+             </div> 
+            )
+          }
           </div>
         )}
       </div>

@@ -790,9 +790,19 @@ const [PageLoader, setPageLoader] = useState(false)
   : */}
   <> <span className={styles.skills}>ITwalkin</span><br></br></>
 {/* } */}
-
+ 
 <div className={styles.skillWrapper}>
           <span className={styles.skillsHeading}>Skills: </span><span className={styles.skills}>{jobs.skills}</span><br></br>
+        </div>
+        <div className={styles.skillWrapper}>
+          <span className={styles.skillsHeading}>Drive Date/Time: </span><span className={styles.skills}>{ new Date(jobs.driveDate).toLocaleString(
+          "en-US",
+          {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }
+        )}/{jobs.StartTime}</span><br></br>
         </div>
 
             

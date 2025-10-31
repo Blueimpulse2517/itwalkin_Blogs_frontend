@@ -609,9 +609,20 @@ console.log(records)
     return `${day}${getOrdinal(day)} ${month}, ${year}`;
   })()}
                       </span>
-
+                      
                       <div className={styles.skillWrapper}>
                         <span className={styles.skillsHeading}>Skills: </span><span className={styles.skills}>{job.skills}</span><br></br>
+                      </div>
+                      <div className={styles.skillWrapper}>
+                        <span className={styles.skillsHeading}>Drive Date/Time: </span><span className={styles.skills}>{new Date(job.driveDate).toLocaleString(
+                          "en-US",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )
+                        }/{job.StartTime} </span><br></br>
                       </div>
 
                       <div className={styles.ApplyPackage}>

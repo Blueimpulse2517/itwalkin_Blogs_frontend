@@ -11,6 +11,7 @@ import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+
 function AppliedDriveUserProfile() {
     let params = useParams()
     let JobId = atob(params.jid)
@@ -467,13 +468,13 @@ function AppliedDriveUserProfile() {
   >
     <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
   </button>
-  {window.innerWidth > 768 && (
-  <div style={{ display: "flex", flexWrap: "wrap", marginRight: "2%" }}>
-    <button onClick={handleDownloadList} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Download List</button>
-    <button onClick={handleMergeMail} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Merge & Mail</button>
-    <button onClick={handleDownloadExcel} className={styles.tvbackbtn} style={{ fontSize: "12px", fontWeight: "800" }}>Download Excel</button>
+ 
+  <div className={styles.downloadbtns}>
+    <button onClick={handleDownloadList} className={styles.backbtn} style={{ fontSize: "10px", fontWeight: "800" }}>Download List</button>
+    <button onClick={handleMergeMail} className={styles.backbtn} style={{ fontSize: "10px", fontWeight: "800" }}>Merge & Mail</button>
+    <button onClick={handleDownloadExcel} className={styles.backbtn} style={{ fontSize: "10px", fontWeight: "800" }}>Download Excel</button>
   </div>
-)}
+
 
    </div>
 
@@ -711,7 +712,12 @@ function AppliedDriveUserProfile() {
                             return (
                                 <>
                                     <div className={styles.JobCard} key={i}>
-
+                                    <input
+                  type="checkbox"
+                  checked={selectedIds.includes(job._id)}
+                  onChange={() => handleCheckboxChange(job._id)}
+                />
+            
                                         <div style={{ display: "flex" }}>
 
                                             <div className={styles.LeftTable}>

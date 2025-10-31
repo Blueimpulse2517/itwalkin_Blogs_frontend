@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: stretch; /* ensures equal height */
     gap: 40px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     background-color: #f8f8f8;
     padding: 50px 20px;
     min-height: 100vh;
@@ -11,21 +11,47 @@
   
   /* Individual card */
   .consult-card {
-    background-color: #ffd6f3;
+    background-color: rgb(40, 4, 99);
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 340px;
+    width: 320px;
     padding: 30px 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* already correct */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    flex: 1 1 340px;       /* allows cards to grow/shrink equally */
-    min-height: 420px;     /* consistent base height */
-    max-height: fit-content; /* allows growth when needed */
+    flex: 1 1 340px;
+    height:370px;  
   }
+  @media(max-width:1024px){
+    .consult-card{
+     height:405px;
+    }
+  }
+  @media(max-width:785px){
+    .consult-container {
+      flex-wrap:wrap;
+    } 
+    .consult-card{
+      height:300px;
+    }
+  }
+
+  @media(max-width:475px){
+    .consult-card{
+      min-height:450px;
+    }
+  }
+  .card-content {
+    flex-grow: 1;
+  }
+  
+  .card-footer {
+    margin-top: auto;
+  }
+    
   
   
   
@@ -49,12 +75,12 @@
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #000;
+    color: white;
   }
   
   .card-desc {
     font-size: 16px;
-    color: #333;
+    color:white;
     margin-bottom: 12px;
     line-height: 1.4;
   }
@@ -67,18 +93,19 @@
   }
   
   input[type="date"] {
-    width: 100%;
+    width: 93%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
     margin-bottom: 20px;
     font-size: 15px;
+    margin-left: -4px;
   }
   
   /* BOOK NOW button */
   .bookbutton {
-    background-color: rgb(40, 4, 99);
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
     padding: 10px 16px;
     border-radius: 6px;
