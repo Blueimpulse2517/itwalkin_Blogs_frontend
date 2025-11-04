@@ -63,6 +63,9 @@ let navigate = useNavigate()
     function updateprofile() {
       navigate("/Update-Profile")
     }
+    function resumedownload() {
+      navigate("/resumes")
+    }
 
   if (loading) return 
   <div className={styles.centerText} style={{display:"flex",flexDirection:"column"}}>
@@ -90,7 +93,7 @@ let navigate = useNavigate()
         </div>
         <div className={styles.actions}>
           <button style={{width:"147px"}}  className={styles.editBtn} onClick={updateprofile}>Edit Profile</button>
-          <button className={styles.downloadBtn}>Download Resume</button>
+          <button className={styles.downloadBtn} onClick={resumedownload}>Download Resume</button>
           <span style={{width:"120px",textAlign:"center"}}  className={styles.statusBadge} onClick={()=>setShowApprovedStatus(prev=>!prev)}>Account Status</span>
         </div>
       </div>
@@ -173,19 +176,14 @@ let navigate = useNavigate()
 </div>
 <div>
        <strong>Expected CTC : </strong> 
-       {profileData[0].
-currentCTC?profileData[0].
-currentCTC:"####"} LPA
+       {profileData[0].currentCTC? `${profileData[0].currentCTC} LPA`:"####"} 
            </div>
 
            <div>
        <strong>Experience : </strong> 
-       {profileData[0].
-Experiance
-?profileData[0].
-Experiance
-:"####"} Yrs
+       {profileData[0].Experiance?`${profileData[0].Experiance} Yrs`:"####"} 
            </div>
+
 
 
             {/* <div>

@@ -7,7 +7,7 @@ import GoogleImage from "../img/icons8-google-48.png"
 import MicosoftImage from "../img/icons8-windows-10-48.png"
 import linkedIn from "../img/icons8-linked-in-48.png"
 import github from "../img/icons8-github-50.png"
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import image from "../img/user_3177440.png"
@@ -42,7 +42,8 @@ function EmpLogin(props) {
       .catch(error => console.log(error))
   }, []);
 
-
+ let location = useLocation()
+  const { loginpage } = location.state || {};
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
@@ -75,8 +76,13 @@ function EmpLogin(props) {
             if (result.status == "success") {
               localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
               localStorage.setItem("EmpIdG", JSON.stringify(GuserId))
-              navigate("/Search-Candidate", { state: { gserid: GuserId } })
+              if (loginpage==="fraud-form"){
+                navigate("/fraud-form", { state: { gserid: GuserId } })
+              }
+              else
+                  navigate("/Search-Candidate", { state: { gserid: GuserId } })
             }
+            
           }).catch((err) => {
             alert("server issue occured")
           })

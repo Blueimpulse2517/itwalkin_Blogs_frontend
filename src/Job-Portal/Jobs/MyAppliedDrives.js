@@ -114,7 +114,7 @@ function MyAppliedDrives(props) {
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     Swal.fire({
-      title: 'Are you sure?',
+      title: 'Are you sure you want to delete it or cancel?',
       // icon: 'warning',      
       width: "260",
       // position:"top",
@@ -124,6 +124,14 @@ function MyAppliedDrives(props) {
       confirmButtonText: 'Yes, delete it!',
       width: "245",
       marginLeft:'75px',
+      didOpen: (popup) => {
+        if (screenSize.width > 850) {
+          popup.style.marginLeft = '15%';
+        } else {
+         
+          popup.style.marginLeft = '-18%';
+        }
+      },
       // position:"top",
       customClass: {
         popup: "alertIcon",

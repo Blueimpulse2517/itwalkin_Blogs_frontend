@@ -450,7 +450,7 @@ async function deletComment(id){
           <tr>
             <td colSpan={2}>
               <p>
-                {com.name} : {HTMLReactParser(com.comment.toString())}
+                {com.name}  {HTMLReactParser(com.comment.toString())}
               </p>
 
               {userid === com.id && (

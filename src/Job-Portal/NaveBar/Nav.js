@@ -1221,7 +1221,9 @@ function Nav(props) {
         Login to Report Fraud
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
-              onClick={() => {navigate("/JobSeekerLogin"); setfraudAlert(false)}}
+              onClick={() => {navigate("/Job-Seeker-Login", {
+                state: { loginpage: "fraud-form" },
+              }); setfraudAlert(false)}}
               style={{
                 padding: '8px 16px',
                 backgroundColor: '#4CAF50',
@@ -1235,7 +1237,9 @@ function Nav(props) {
               Job Seeker Login
             </button>
             <button
-             onClick={() => {navigate("/EmployeeLogin"); setfraudAlert(false)}}
+             onClick={() => {navigate("/EmployeeLogin", {
+              state: { loginpage: "fraud-form" },
+            }); setfraudAlert(false)}}
               style={{
                 padding: '8px 16px',
                 backgroundColor: '#4CAF50',

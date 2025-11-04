@@ -211,18 +211,12 @@ let navigate = useNavigate()
 </div>
 <div>
        <strong>Expected CTC : </strong> 
-       {profileData[0].
-currentCTC?profileData[0].
-currentCTC:"####"} LPA
+       {profileData[0].currentCTC? `${profileData[0].currentCTC} LPA`:"####"} 
            </div>
 
            <div>
        <strong>Experience : </strong> 
-       {profileData[0].
-Experiance
-?profileData[0].
-Experiance
-:"####"} Yrs
+       {profileData[0].Experiance?`${profileData[0].Experiance} Yrs`:"####"} 
            </div>
            {showApprovedStatus &&
             (profileData[0].isApproved?

@@ -17,33 +17,35 @@ const PostFraudForm = () => {
   
   async function handleSubmit(e) {
     e.preventDefault(); 
-    if (!description || !misuseType) {
-      setSuccessMessage("Alert!... Misuse Type and Misuse Description must be filled")
+    if (!misuseType) {
+      // setSuccessMessage("Alert!... Misuse Type and Misuse Description must be filled")
       window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
       return;
     }
-
-    let userid = JSON.parse(localStorage.getItem("EmpIdG"))
-    const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("EmpLog"))) };
+    // console.log("exe reached")
+    let userid = JSON.parse(localStorage.getItem("StudId"))
+    const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
+    // let userid = JSON.parse(localStorage.getItem("EmpIdG"))
+    // const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("EmpLog"))) };
     const issues=description     
-    await axios.post("/QuestionRoute/postQuestion", {
+    await axios.post("/ReportFraud/reportFraud", {
         misuseType, issues
     }, { headers })
         .then((res) => {
             let result = (res.data)
-            console.log(result)
+            console.log(res)
             if (result == "success") {
                 setMisuseType('');
-                setDescription('');
+                // setDescription('');
                 // setEvidence(null);
                 // setEmail('');           
                 setSuccessMessage("Success! fraud report successfully posted")
-            }
-            else if (result == "field are missing") {
-                setSuccessMessage("Alert!... Misuse Type and Misuse Description must be filled")
+            // }
+            // else if (result == "field are missing") {
+            //     setSuccessMessage("Alert!... Misuse Type and Misuse Description must be filled")
             }
             else
                 {
@@ -90,13 +92,16 @@ const PostFraudForm = () => {
             className={styles.select}
           >
             <option value="">-- Select --</option>
-            <option value="Fake job postings">Fake job postings</option>
-            <option value="Impersonation">Impersonation</option>
-            <option value="Scam">Scam</option>
+            <option value="Fake job postings">Fake Job Posting – job doesn’t exist, misleading info.</option>
+            <option value="Scam / Payment Fraud ">
+            Scam / Payment Fraud – employer asking for money, deposits, training fees.</option>
+            <option value="Impersonation">Impersonation – fake company or recruiter pretending to be someone else.</option>
+            <option value="Data Misuse">Data Misuse – personal details being misused or shared without consent.</option>
+            <option value="Suspicious Communication">Suspicious Communication – spam, phishing emails, or WhatsApp/SMS fraud.</option>
           </select>
         </label>
 
-        <label className={styles.label}>
+        {/* <label className={styles.label}>
            Describe the Issue (Required)
           <textarea
           style={{fontFamily:"serif"}}
@@ -106,7 +111,7 @@ const PostFraudForm = () => {
             // required
             className={styles.textarea}
           />
-        </label>
+        </label> */}
 
         {/* <label className={styles.label}>
           📎 Upload Evidence (Optional)

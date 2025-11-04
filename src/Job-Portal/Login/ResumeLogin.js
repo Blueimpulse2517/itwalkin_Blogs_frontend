@@ -82,6 +82,8 @@ useEffect(() => {
               navigate("/resumes", {state:{name:result.name}})
               else if (loginpage==="consult")
                 navigate("/consultation-services", {state:{name:result.name}})
+              else if (loginpage==="fraud-form")
+                navigate("/fraud-form", {state:{name:result.name}})
               localStorage.setItem("StudId", JSON.stringify(Id))   
             }
           }).catch((err) => {
