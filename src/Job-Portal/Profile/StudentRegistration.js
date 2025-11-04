@@ -884,7 +884,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input placeholder='Enter gmail address' maxLength="30" className={styles.input} value={email}  
                 onChange={(e) => { handlesetemail(e.target.value) }} type="text" />
                 <br></br> <span style={{color:"red", marginLeft:"5%"}}>{emailError}</span>           
-                ( only Gmail or Microsoft outlook accepted for account creation)
+                ( only Gmail or Microsoft Outlook accepted for account creation)
               </label>
 
               
@@ -1627,7 +1627,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                  onChange={(e) => { handlesetemail(e.target.value) }} type="text" />
                  <br></br> <span style={{color:"red", marginLeft:"5%"}}>{emailError}</span> 
                  <div style={{marginBottom:"11px",marginLeft:"10px"}}>
-                 ( only Gmail or Microsoft outlook accepted for account creation)    
+                 ( only Gmail or Microsoft Outlook accepted for account creation)    
                  </div>      
               </label>
 
@@ -1793,7 +1793,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Aadhaar Number:</h4>
-                <input maxLength="12" className={styles.Mobileinput} value={Aadhar} onChange={(e) => { AadharhandleChange(e) }} type="number" />
+                <input maxLength="14" className={styles.Mobileinput} value={Aadhar} onChange={(e) => { AadharhandleChange(e) }} type="number" />
               </label>
 
               <label className={styles.MobileinputName}>

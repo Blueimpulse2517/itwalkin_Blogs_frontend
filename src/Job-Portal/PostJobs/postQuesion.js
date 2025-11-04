@@ -55,7 +55,7 @@ function AskQuestion(props) {
     const [skills, setSkills] = useState("")
     const [name, setName] = useState("")
 
-    const [concent, setconcent] = useState(true)
+    const [concent, setconcent] = useState(false)
 
     function handleSalary(e) {
         const sanitizedValue = e.target.value.replace(/[A-Za-z]/g, '');
@@ -117,7 +117,9 @@ function AskQuestion(props) {
     // }, [])
 
 
-    async function postJob() {        
+    async function postJob() { 
+        setErrorMessage("")
+        setSuccessMessage("")       
     // let userid = JSON.parse(localStorage.getItem("StudId"))
     // const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     const headers = { authorization: 'BlueItImpulseWalkinIn' };
@@ -151,16 +153,16 @@ let question =true
                     setExperiance("")
                     setSkills("")
                     setTag([])
-                    
-                  setSuccessMessage("Successfully Updated")
+                    setconcent(false)
+                    setSuccessMessage(<span style={{ color: "green" }}>Successfully Posted</span>);
                   
                 }
                 else if (result == "field are missing") {
-                    setSuccessMessage("Alert!... JobTitle, CompanyName JobDescription, Experiance, JobLocation and Skills must be filled")
+                    setErrorMessage("Alert!... JobTitle, CompanyName JobDescription, Experiance, JobLocation and Skills must be filled")
                 }
                 // else if (result ==="server issue")
                 else {
-                    setSuccessMessage("something went wrong, Could not save your post")
+                    setErrorMessage("something went wrong, Could not save your post")
                 }
             }).catch((err) => {
                 alert("server issue occured", err)
@@ -248,21 +250,35 @@ let question =true
             <h2 style={{ fontWeight:"800", marginTop:"6px", marginBottom:"-15px"}}>Ask a question </h2>
             </div>
                             <div>
-                                <button style={{width:"56px",fontSize:"10px",height:"24px",display:"flex", alignItems:"center", justifyContent:"center"}} className={Style.backButton1} onClick={() => {
-                                    navigate(-1)
-                                }}>Back</button>
+                            <button
+  style={{
+    width: "56px",
+    fontSize: "10px",
+    height: "24px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+  className={Style.backButton1}
+  onClick={() => {
+    navigate("/alljobs"); // navigate directly to /alljobs
+  }}
+>
+  Back
+</button>
                                 {/* {Logo ? <img className={Style.logo} src={Logo} /> :
                                     <p style={{ color: "red", marginLeft: "5%", fontStyle: "italic" }}> Alert! You have not updated the Company logo, please update the Company Logo</p>
                                     } */}
 
                                 <div className={Style.postJobPageWrapper} >
                                     <div className={Style.postJobWrapper}>
-                                        <p className={successMessage === "Success! successfully posted" ?
-                                            Style.successmessage : Style.errormessage}>{successMessage} </p>
-                                        {/* <p className={Style.errormessage}>{errorMessage} </p> */}
+                                       
+                                        {successMessage!==""&&
+                                        <p className={Style.successmessage}>{successMessage} </p>
+                                         }
                                         {errorMessage!==""&&
                                         <p className={Style.errormessage}>{errorMessage} </p>
-                                       }
+                                         }
                                         <div style={{display:"flex", alignItems:"center", gap:"90px", marginBottom:"14px"}}>
                                            <h4 className={Style.jobHeadline}  >Ask a question**</h4>
                                            <div style={{marginLeft:"14px"}} className={Style.hint}> 
@@ -301,7 +317,7 @@ let question =true
                                         </div>
                                         
 
-                                        <p><input type="checkbox" onChange={() => { setconcent((prev) => !prev) }} />
+                                        <p><input type="checkbox" checked={concent} onChange={() => { setconcent((prev) => !prev) }} />
                                             I have read the terms and conditions of ITwalkin.com and I agree to all the
                                             <span style={{ color: "blue", cursor: "pointer" }} onClick={() => (window.open("/TermsAndCondition"))}> Terms and Conditions</span> before posting my question </p>
 
@@ -310,7 +326,7 @@ let question =true
                                         
                                     </div >
                                     <div className={Style.submitDeleteBtn}>   
-                                        <button style={{width:"130px", marginLeft:"-4%px"}} disabled={concent} className={concent? Style.disableButton:Style.button} onClick={postJob}>Submit</button>
+                                        <button style={{width:"130px", marginLeft:"-4%px"}} disabled={!concent} className={!concent? Style.disableButton:Style.button} onClick={postJob}>Submit</button>
                                         {/* <button style={{width:"200px",backgroundColor:"red"}} disabled={concent} className={Style.disableButton} >Delete</button> */}
                                         </div>
                                 </div >

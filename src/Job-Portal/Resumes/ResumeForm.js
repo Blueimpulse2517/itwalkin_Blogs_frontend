@@ -151,7 +151,22 @@ console.log(imageConsent)
     borderRadius: '4px',
     cursor: 'pointer',
   };
-
+  const [resumeAlert, setresumeAlert]=useState(false)
+  const alertRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // If clicked outside alert box and it's open
+      if (alertRef.current && !alertRef.current.contains(event.target)) {
+        setresumeAlert(false); // close the alert
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   // ---------- BASIC INPUT CHANGE ----------
   const handleChange = (field, value) => {
     let charLimit = null;
@@ -312,6 +327,7 @@ console.log(imageConsent)
 
     const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails } = formData;
 
+
     if (
       !profileSummary.trim() ||
       !address.trim() ||
@@ -324,12 +340,15 @@ console.log(imageConsent)
       languages.length === 0 ||
       qualificationDetails.length === 0
     ) {
-      setSuccessMessage(
-        <span style={{ color: "red" }}>
-          Your resume is incomplete. Please fill in all required profile details before downloading
-        </span>
-      );
-      
+      // setSuccessMessage(
+      //   <span style={{ color: "red" }}>
+      //     Your resume is incomplete. Please fill in all required profile details before downloading
+      //   </span>
+      // );
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setSuccessMessage("")
+      setresumeAlert(true)
+     
       return;
     }
     // console.log("hshs",imageConsent)
@@ -391,8 +410,54 @@ console.log(imageConsent)
     return () => clearInterval(interval);
   }, []);
 
+ const goToHelp=()=>{
+  //  window.open("#")
+ }
+
   return (
     <div className={styles.container}>
+      <div ref={alertRef} style={{position:"relative"}}>
+      {resumeAlert&&
+                         <>
+                            <div className={styles.popup} > 
+        
+        Your resume is incomplete. Please fill in all required profile details before downloading
+          <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
+            <button
+              onClick={()=> setresumeAlert(false)}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Ok
+            </button>
+            <button
+              onClick={()=> setresumeAlert(false)}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+                         </>
+
+ }
+      </div>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
       <button
         className={styles.tvbackbtn}
         onClick={() => {
@@ -402,6 +467,16 @@ console.log(imageConsent)
       >
         <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
       </button>
+      <button
+        className={styles.tvbackbtn}
+        onClick={goToHelp}
+        style={{marginRight:"2%"}}
+      >
+        <div style={{ fontSize: "12px", fontWeight: "800" }}>Help</div>
+      </button>
+      </div>
+
+
 
       <div style={containerStyle}>
         <div style={{display:"flex",justifyContent:"center"}}>
@@ -464,7 +539,7 @@ console.log(imageConsent)
         {screenSize.width > 850 ?
         <>
         <h2>Qualification</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" , marginLeft:"2%"}}>
+        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" , marginLeft:"1%"}}>
           <thead>
             <tr style={{ background: "#eee" }}>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>Degree/Masters/School</th>

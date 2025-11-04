@@ -1380,7 +1380,40 @@ return(
 
            
           </Carousel> */}
-
+           {/* <div style={{ display: "flex", flexDirection:"column", justifyContent: "space-between" }}> */}
+          
+          {nopageFilter ?
+                        <p style={{ fontWeight: 400, marginLeft: "10px" }}>Displaying <span style={{ color: "blue" }}>
+                          {uniqueList.length} </span>Jobs with following matching tags:
+                          <span style={{ color: "blue" }}>{Active.toString()}</span></p>
+                        :
+                        <p style={{ fontWeight: 400, marginLeft: "10px" }}>Showing {firstIndex + 1} to {lastIndex} latest candidates</p>
+                      }
+                      <div  style={{textAlign:"left"}} className={styles.navigationWrapper}>
+                        <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={firstPage}>
+                          <i class='fas fa-step-backward' ></i>
+                        </button>
+                        <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={previous}>
+                          <i class='fas fa-caret-square-left'></i>
+                        </button>
+                        <span>{currentPage}</span>
+                        <button disabled={currentPage === npage} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={next}>
+                          <i class='fas fa-caret-square-right'></i>
+                        </button>
+                        <button disabled={currentPage === npage} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={last}>
+                          <i class='fas fa-step-forward'></i>
+                        </button>
+                      </div>
+                    {/* </div> */}
+          
+                    <div style={{marginBottom:"5px", marginTop:"0", marginLeft:"10px"}}>
+                      Show  <select onChange={(e) => { handleRecordchange(e) }}>
+                        <option selected = {lastIndex === 10} value={10}>10</option>
+                        <option selected = {lastIndex === 25} value={25}>25</option>
+                        <option selected = {lastIndex === 50} value={50}>50</option>
+                        <option selected = {lastIndex === 100} value={100}>100</option>
+                      </select>  candidates per page
+                      </div>
           <div id={styles.JobCardWrapper} >
 
             {Candidate.length>0?
@@ -1434,6 +1467,31 @@ return(
           }
 
           </div>
+          
+                      <div className={styles.navigationWrapper}>
+                        <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={firstPage}>
+                          <i class='fas fa-step-backward' ></i>
+                        </button>
+                        <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={previous}>
+                          <i class='fas fa-caret-square-left'></i>
+                        </button>
+                        <span>{currentPage}</span>
+                        <button disabled={currentPage === npage} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={next}>
+                          <i class='fas fa-caret-square-right'></i>
+                        </button>
+                        <button disabled={currentPage === npage} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={last}>
+                          <i class='fas fa-step-forward'></i>
+                        </button>
+                    </div>
+          
+                    <div style={{marginBottom:"5px", marginTop:"0", marginLeft:"10px"}}>
+                      Show  <select onChange={(e) => { handleRecordchange(e) }}>
+                        <option selected = {lastIndex === 10} value={10}>10</option>
+                        <option selected = {lastIndex === 25} value={25}>25</option>
+                        <option selected = {lastIndex === 50} value={50}>50</option>
+                        <option selected = {lastIndex === 100} value={100}>100</option>
+                      </select>  candidates per page
+                      </div>
           <div style={{marginTop:"10px"}}>
           <Footer/>
         </div>

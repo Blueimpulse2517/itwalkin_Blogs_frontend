@@ -201,7 +201,7 @@ function StudentUpdateProfile(props) {
     function handleCollege(tag){
       setcollege(tag)      
   }  
-    const [city, setcity] =  useState("")
+    const [city, setcity] =  useState("Banglore")
     const [selectedCountry, setSelectedCountry] = useState("India");
 
     const CTags=[{value:'Bangalore'}]
@@ -681,7 +681,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
               <label className={styles.inputName}>
                 <h4>Email Address:**</h4>
                 <input maxLength="25" className={styles.input} value={email} disabled onChange={(e) => { setemail(e.target.value) }} type="text" />
-               <br></br> ( only gmail or microsoft outlook accepted for account creation)
+               <br></br> ( only Gmail or Microsoft Outlook accepted for account creation)
               </label>
               <label className={styles.inputName}>
                 <h4>City: 
@@ -861,7 +861,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.inputName}>
                 <h4>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.input} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
+                <input maxLength="14" className={styles.input} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.inputName}>
@@ -1099,7 +1099,10 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Email Address:</h4>
                 <input maxLength="25" className={styles.Mobileinput} disabled value={email} onChange={(e) => { setemail(e.target.value) }} type="text" />
-                <br></br> ( only gmail or microsoft outlook accepted for account creation)
+                <br></br>
+                <div style={{marginBottom:"11px",marginLeft:"6px"}}>
+                 ( only Gmail or Microsoft Outlook accepted for account creation)    
+                 </div>   
               </label>
 
               <label className={styles.MobileinputName}>
@@ -1252,7 +1255,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.MobileinputName}>
                 <h4 className={styles.MobileName}>Aadhaar number:</h4>
-                <input maxLength="12" className={styles.Mobileinput} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
+                <input maxLength="14" className={styles.Mobileinput} value={Aadhar?.replace(/(\d{4})(?=\d)/g, "$1 ").trim()} onChange={(e) => { AadharhandleChange(e) }} type="text" />
               </label>
 
               <label className={styles.MobileinputName}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Styles from "./nav.module.css"
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
 // import { jobTags } from '../Tags';
@@ -133,6 +133,24 @@ else{
   })
 }
 }
+
+const [fraudAlert, setfraudAlert]=useState(false)
+          const fraudalertRef = useRef(null);
+          useEffect(() => {
+            const handleClickOutside = (event) => {
+              // If clicked outside alert box and it's open
+              if (fraudalertRef.current && !fraudalertRef.current.contains(event.target)) {
+                setfraudAlert(false); // close the alert
+              }
+            };
+          
+            document.addEventListener('mousedown', handleClickOutside);
+          
+            return () => {
+              document.removeEventListener('mousedown', handleClickOutside);
+            };
+          }, []);
+
   return (
   <>
   
@@ -225,7 +243,9 @@ else{
        )
 
        }
-                <p onClick={()=>{navigate("/support/help"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Help/Support </p>
+      <p onClick={()=>{navigate("/support/help"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Help/Support </p>
+
+        
        {!(EmployeeAuth||StudentAuth)&&
         <p onClick={()=>{setShow(prev=>!prev)}} className={`${Styles.textinMobileSodeBar} `}>Open an account
        
@@ -256,7 +276,75 @@ else{
         <p onClick={()=>{navigate("/Walkin-Drives"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Walkin Drive</p>
         </>
         }
+        {(EmployeeAuth||StudentAuth) ?
         <p onClick={()=>{navigate("/fraud-form"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Report Fraud</p>
+        :
+          <div ref={fraudalertRef} style={{position:"relative"}}>
+                    <p onClick={()=>{setfraudAlert((prev)=>prev=!prev); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Report Fraud</p>
+                {fraudAlert&&
+                         <>
+                            <div
+        style={{
+          width: '300px',
+          padding: '20px',
+          backgroundColor: 'rgb(40,4,99)',
+          color: 'white',
+          fontSize: '12px',
+          borderRadius: '5px',
+          position: 'fixed',
+          top: '30%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 9999,
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          textAlign: 'center',
+        }}
+        
+        > 
+        
+        Login to Report Fraud
+          <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
+            <button
+              onClick={() => {navigate("/Job-Seeker-Login", {
+                state: { loginpage: "fraud-form" },
+              }); setfraudAlert(false)}}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Job Seeker Login
+            </button>
+            <button
+             onClick={() => {navigate("/EmployeeLogin", {
+              state: { loginpage: "fraud-form" },
+            }); setfraudAlert(false)}}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+             Employer Login
+            </button>
+          </div>
+        </div>
+                         </>
+
+                         }
+
+
+            </div>
+          }
         <p onClick={()=>{navigate("/AboutUs"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>About Us</p>
         <p onClick={()=>{navigate("/Services"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Our Services</p>
         <p onClick={()=>{navigate("/Contact"); props.setShowSideNaveProps(false);props.setShowMobileSearchIcon(true)}} className={`${Styles.textinMobileSodeBar} `}>Contact Us</p>

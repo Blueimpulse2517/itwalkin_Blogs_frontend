@@ -64,3 +64,24 @@
     align-self: flex-start; /* ensures it's aligned left */
     margin-top: 25px;
   }
+  .popup {
+    width: 300px;
+    padding: 20px;
+    background-color: rgb(40, 4, 99);
+    color: white;
+    font-size: 12px;
+    border-radius: 5px;
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  @media(max-width:475px){
+    .popup{
+      top:19%;
+    }
+  }
