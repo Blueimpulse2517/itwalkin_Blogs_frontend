@@ -56,7 +56,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 		.catch(error => console.log(error))
 	}, []);
   
-  
+	const { loginpage } = location.state || {};
   
 	const login = useGoogleLogin({
 	  onSuccess: async (response) => {
