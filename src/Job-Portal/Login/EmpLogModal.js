@@ -56,7 +56,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 		.catch(error => console.log(error))
 	}, []);
   
-	const { loginpage } = location.state || {};
+	// const { loginpage } = location.state || {};
   
 	const login = useGoogleLogin({
 	  onSuccess: async (response) => {
@@ -227,12 +227,12 @@ const Modal = ({ isOpen, onClose, children }) => {
 					navigate("/Search-Candidate", { state: { gserid: GuserId } })
 					onClose()
 				  }
-				  else if (loginpage==="fraud-form"){
-					localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
-					localStorage.setItem("EmpIdG", JSON.stringify(GuserId))
-					navigate("/fraud-form", { state: { gserid: GuserId } })
-					onClose()
-				  }
+				//   else if (loginpage==="fraud-form"){
+				// 	localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
+				// 	localStorage.setItem("EmpIdG", JSON.stringify(GuserId))
+				// 	navigate("/fraud-form", { state: { gserid: GuserId } })
+				// 	onClose()
+				//   }
 
 					}).catch((err) => {
 						alert("server issue occured")
