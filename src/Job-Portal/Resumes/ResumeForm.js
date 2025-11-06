@@ -539,7 +539,7 @@ console.log(imageConsent)
         {screenSize.width > 850 ?
         <>
         <h2>Qualification</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" , marginLeft:"1%"}}>
+        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" , marginLeft:"0%"}}>
           <thead>
             <tr style={{ background: "#eee" }}>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>Degree/Masters/School</th>
