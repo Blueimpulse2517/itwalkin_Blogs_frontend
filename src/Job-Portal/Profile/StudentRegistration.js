@@ -161,7 +161,19 @@ function StudentUpdateProfile(props) {
 
        const [ipAddress, setIPAddress] = useState('')
        const [gmailuser, setGmailuser] = useState("")
-         
+       const [employers, setEmployers] = useState([]);
+       const inputRefs = useRef([]);
+       const collegeInputRef = useRef(null);
+       const tenthInputRef = useRef(null);
+       const twelfthInputRef = useRef(null);
+       const DegreeInputRef = useRef(null);
+       const currentEmpInputRef = useRef(null);
+     
+       
+       const[tenth, setTenth]=useState("");
+       const[twelfth, setTwelfth]=useState("");
+       const[degree, setDegree]=useState("");
+       const[currentEmp, setCurrentEmp]=useState("");
          
            useEffect(() => {
              fetch('https://api.ipify.org?format=json')
@@ -169,6 +181,85 @@ function StudentUpdateProfile(props) {
                .then(data => setIPAddress(data.ip))
                .catch(error => console.log(error))
            }, []);
+
+           useEffect(() => {
+           
+            const name = localStorage.getItem("name");
+            const email = localStorage.getItem("email");
+            const city = localStorage.getItem("city");
+            const selectedCountry = localStorage.getItem("selectedCountry");
+            const currentEmp = localStorage.getItem("currentEmp");
+            const Experiance = localStorage.getItem("Experiance");
+            const employers = localStorage.getItem("employers");
+            const age = localStorage.getItem("age");
+            const phoneNumber = localStorage.getItem("phoneNumber");
+            const Aadhar = localStorage.getItem("Aadhar");
+            const panCard = localStorage.getItem("panCard");
+            const NoticePeriod = localStorage.getItem("NoticePeriod");
+            const ExpectedSalary = localStorage.getItem("ExpectedSalary");
+            const currentCTC = localStorage.getItem("currentCTC");
+            const Qualification = localStorage.getItem("Qualification");
+            const Skills = localStorage.getItem("Skills");
+            const Tags = localStorage.getItem("Tags");
+            const college = localStorage.getItem("college");
+            const tenth = localStorage.getItem("tenth");
+            const twelfth = localStorage.getItem("twelfth");
+            const degree = localStorage.getItem("degree");
+
+
+
+            if (name) setname(name)
+            if (email) setemail(email)
+            if (city) setCity(city)
+            if (selectedCountry) setSelectedCountry(selectedCountry)
+            if (currentEmp) setCurrentEmp(currentEmp)
+            if (Experiance) setExperiance(Experiance)
+            if (employers) setEmployers(employers)
+            if (age) setage(age)
+            if (phoneNumber) setphoneNumber(phoneNumber)
+            if (Aadhar) setAadhar(Aadhar)
+            if (panCard) setpanCard(panCard)
+            if (NoticePeriod) setNoticePeriod(NoticePeriod)
+            if (ExpectedSalary) setExpectedSalary(ExpectedSalary)
+            if (currentCTC) setcurrentCTC(currentCTC)
+            if (Qualification) setQualification(Qualification)
+            if (Skills) setSkills(Skills)
+            if (Tags) setTag(JSON.parse(Tags))
+            if (college) setcollege(college)
+            if (tenth) setTenth(tenth)
+            if (twelfth) setTwelfth(twelfth)
+           if (degree) setDegree(degree)
+
+          }, []);
+        
+          useEffect(() => {
+            localStorage.setItem("name", name);
+            localStorage.setItem("email", email);
+            localStorage.setItem("city", city);
+            localStorage.setItem("selectedCountry", selectedCountry);
+            localStorage.setItem("currentEmp", currentEmp);
+            localStorage.setItem("Experiance", Experiance);
+            localStorage.setItem("employers", employers);
+            localStorage.setItem("age", age);
+            localStorage.setItem("phoneNumber", phoneNumber);
+            localStorage.setItem("Aadhar", Aadhar);
+            localStorage.setItem("panCard", panCard);
+            localStorage.setItem("NoticePeriod", NoticePeriod);
+            localStorage.setItem("ExpectedSalary", ExpectedSalary);
+            localStorage.setItem("currentCTC", currentCTC);
+            localStorage.setItem("Qualification", Qualification);
+            localStorage.setItem("Skills", Skills);
+            localStorage.setItem("Tags", JSON.stringify(Tags));
+            localStorage.setItem("college", college);
+            localStorage.setItem("tenth", tenth);
+            localStorage.setItem("twelfth", twelfth);
+            localStorage.setItem("degree", degree);
+
+
+          }, [name,email,city,selectedCountry,currentEmp, Experiance, employers,age, phoneNumber,Aadhar,panCard,
+            NoticePeriod,ExpectedSalary,currentCTC,Qualification, Skills, Tags, college, tenth,twelfth,degree 
+
+          ]);
 
 const saveMicrosoft=(e)=>{
 
@@ -504,19 +595,7 @@ if(confirm){
   //   // console.log(employers)
   // };
 // ----------------------
-  const [employers, setEmployers] = useState([]);
-  const inputRefs = useRef([]);
-  const collegeInputRef = useRef(null);
-  const tenthInputRef = useRef(null);
-  const twelfthInputRef = useRef(null);
-  const DegreeInputRef = useRef(null);
-  const currentEmpInputRef = useRef(null);
-
   
-  const[tenth, setTenth]=useState("");
-  const[twelfth, setTwelfth]=useState("");
-  const[degree, setDegree]=useState("");
-  const[currentEmp, setCurrentEmp]=useState("");
   // const[currentEmpTenure, setCurrentEmpTenure]=useState("");
 
   const addEmployer = () => {
@@ -805,8 +884,6 @@ const qualifications = [
   //   console.log("employer",employers)
   // })
 
-  
-
   return (
     <>
 
@@ -935,7 +1012,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input maxLength="3" className={styles.input} value={Experiance} onChange={(e) => { handleExperiance(e) }} type="text" />
                 <span className={styles.suffix}>{Experiance===""?"":"YRS"}</span>
                 
-                
               </label>
 
 
@@ -1044,8 +1120,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
         </div>
       ))}
     </div>
-
-       
             </div>
               <label className={styles.inputName}>
                 <h4>Age:</h4>
@@ -1095,7 +1169,6 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                 <input maxLength="3" className={styles.input} value={currentCTC} onChange={(e) => {handleCurrentCTC(e)}} type="text" />
                 <span className={styles.suffix}>{currentCTC===""?"":"LPA"}</span>
               </label>
-
               {/* <label className={styles.inputName}>
                 <h4>Qualification:</h4>
                 <input maxLength="6" className={styles.input} value={Qualification} onChange={(e) => {handleQualification(e) }} type="text" />

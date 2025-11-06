@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Consultation.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
+
 
 const ConsultationCard = ({ title, description, price, onBook }) => {
   const [date, setDate] = useState("");
@@ -46,7 +47,7 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
       <p className={styles["card-desc"]}>{description}</p>
       {price && <p className={styles["card-price"]}>{price}</p>}
     </div>
-  
+   
     <div className={styles["card-footer"]}>
       <input
         type="date"
@@ -92,18 +93,47 @@ const ConsultationServices = () => {
   const handleBooking = (type, date) => {
     alert(`Booked ${type} on ${date}`);
   };
-
+  const navigate = useNavigate();
   return (
+    <>
+    <button
+    className={styles.tvbackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/alljobs");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
+      
+     <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100px",
+        fontWeight:"bold",
+        marginTop:"-62px",
+        marginRight:"-26"
+      }}
+    >
+     <h2 style={{ marginRight: "-27px" }}>Consultation Services</h2>
+
+    </div>
     <div className={styles["consult-container"]}>
       <ConsultationCard
         title="Free Consultation"
-        description="Please select the date. We will get back to you. Review by expert on submission of profile."
+        description="Please select a date. Our team will review your profile and get back to you shortly"
         onBook={handleBooking}
       />
 
       <ConsultationCard 
         title="Paid Consultation"
-        description="Please select the date. We will get back to you. Review by expert on submission of profile. Dedicated phone call with ITwalkin Experts. Resume Enhancement by ITwalkin Expert."
+        description="Boost your career with ITwalkin Experts!
+        Get your profile reviewed, resume enhanced, and personalized career advice.Book your paid consultation today."
         onBook={handleBooking}
       />
 
@@ -113,6 +143,7 @@ const ConsultationServices = () => {
         onBook={handleBooking}
       />
     </div>
+    </>
   );
 };
 
