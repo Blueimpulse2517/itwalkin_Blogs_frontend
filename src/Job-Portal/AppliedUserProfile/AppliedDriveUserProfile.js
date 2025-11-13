@@ -736,9 +736,39 @@ function AppliedDriveUserProfile() {
                                                 <span className={styles.span}>{job.age ? <span style={{ color: "blue" }}>{job.age} </span> : <span style={{ color: "red" }}>N/A</span>}</span><br></br>
                                                 <span className={styles.span}> {job.NoticePeriod ? <span style={{ color: "blue" }}>{job.NoticePeriod} </span> : <span style={{ color: "red" }}>N/A</span>}</span><br></br>
                                                 <span className={styles.span}> {job.Qualification ? <span style={{ color: "blue" }}>{job.Qualification} </span> : <span style={{ color: "red" }}>N/A</span>}</span><br></br>
-                                                <span className={styles.span}> {job.Experiance ? <span style={{ color: "blue" }}>{job.Experiance} </span> : <span style={{ color: "red" }}>N/A</span>}   </span><br></br>
-                                                <span className={styles.span}>{job.currentCTC ? <span style={{ color: "blue" }}>{job.currentCTC} </span> : <span style={{ color: "red" }}>N/A</span>} </span><br></br>
-                                                <span className={styles.span}> {job.ExpectedSalary ? <span style={{ color: "blue" }}>{job.ExpectedSalary} </span> : <span style={{ color: "red" }}>N/A</span>}</span><br></br>
+                                                <span className={styles.span}>
+  {job.Experiance ? (
+    <span style={{ color: "blue" }}>
+      {job.Experiance} Yrs
+    </span>
+  ) : (
+    <span style={{ color: "red" }}>N/A</span>
+  )}
+</span>
+<br />
+
+<span className={styles.span}>
+  {job.currentCTC ? (
+    <span style={{ color: "blue" }}>
+      {job.currentCTC} LPA
+    </span>
+  ) : (
+    <span style={{ color: "red" }}>N/A</span>
+  )}
+</span>
+<br />
+
+<span className={styles.span}>
+  {job.ExpectedSalary ? (
+    <span style={{ color: "blue" }}>
+      {job.ExpectedSalary} LPA
+    </span>
+  ) : (
+    <span style={{ color: "red" }}>N/A</span>
+  )}
+</span>
+<br />
+
                                             </div>
                                             <img className={styles.MobileimageView} src={job.image ? job.image : profileDp} />
 
@@ -764,9 +794,9 @@ function AppliedDriveUserProfile() {
                                                                         marginLeft: "27%", background: "rgb(24, 175, 24)", color: "white",
                                                                         border: "solid", width: "31%", height: "30px", fontWeight: "bold"
                                                                     }} title="Click to Undo Select">Selected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br>
-                                                                    <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
+                                                                    {/* <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
-                                        Background Check</button>
+                                        Background Check</button> */}
                                                                     </div>
                                                                 </>
                                                                 
@@ -810,9 +840,9 @@ function AppliedDriveUserProfile() {
                                                                                     width: "25%", height: "30px", fontWeight: "bold"
                                                                                 }} onClick={() => { onHold(job._id, "OhHold") }}>OnHold</button><br></br>
                                                                                 {/* <li className={`${styles.li} ${styles.Status}`} style={{border:"none"}}> */}
-                                      <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
+                                      {/* <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
-                                        Background Check</button>
+                                        Background Check</button> */}
                                     {/* </li> */}
                                                                             </div>
                                                                             

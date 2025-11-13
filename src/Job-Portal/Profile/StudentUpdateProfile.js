@@ -201,7 +201,7 @@ function StudentUpdateProfile(props) {
     function handleCollege(tag){
       setcollege(tag)      
   }  
-    const [city, setcity] =  useState("Banglore")
+    const [city, setcity] =  useState("")
     const [selectedCountry, setSelectedCountry] = useState("India");
 
     const CTags=[{value:'Bangalore'}]
@@ -286,7 +286,7 @@ const addEmployer = () => {
           setphoneNumber(result.phoneNumber)
           setAadhar(result.Aadhar)
           setpanCard(result.panCard)
-          // setcity(result.city)    
+          setcity(result.city)    
           setTenth(result.tenth)    
           setTwelfth(result.twelfth)  
           setDegree(result.degree)
@@ -695,7 +695,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                           onChange={handleChangeCityTag}     
                         />
                          </div> */}
-            <input className={styles.input}disabled value={city} ></input>
+            <input className={styles.input} value={city} onChange={(e) => { setcity(e.target.value) }} ></input>
               </label>
               <label className={styles.inputName}>
                 <h4>Country:</h4>
@@ -1107,7 +1107,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.MobileinputName}>
                 <h4>City: </h4>
-                <input className={styles.Mobileinput} disabled value={city} ></input>
+                <input className={styles.Mobileinput}  value={city} onChange={(e) => { setcity(e.target.value) }} ></input>
                 {/* <CreatableSelect  
                   // isMulti={true}
                           options={CTags}

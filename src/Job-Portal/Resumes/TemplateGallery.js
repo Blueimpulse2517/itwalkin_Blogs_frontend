@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './gallery.css';
 import template1 from "../img/template1.png";
+import template2 from "../img/template2.png";
+import template3 from "../img/template3.png";
 import { useNavigate } from 'react-router-dom';
+import TemplateTwo from './TemplateTwo';
 
 const Magnifier = ({ src, alt, className }) => {
   const containerRef = useRef(null);
@@ -35,8 +38,8 @@ const Magnifier = ({ src, alt, className }) => {
       position: 'absolute',
       top: `${top}px`,
       left: `${left}px`,
-      width: '700px',
-      height: '400px',
+      width: '200px',
+      height: '200px',
       backgroundImage: `url(${src})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '500% 500%',
@@ -97,12 +100,35 @@ const TemplateGallery = ({ onSelect }) => {
   return (
     <div className="template-gallery">
       <div
-        style={{ position: "relative", }}
-        className="template-card"
+        
+        className="template-card template1"
         onClick={() => setResumeAlert({ show: true, selected: 'one' })}
       >
+        <p style={{marginBottom:"30px"}}>This template is suitable for IT professionals with 2+ years of experience. 
+          You can add upto 20 bullet points</p>
         <Magnifier src={template1} alt="Template One" className="blurred" />
         <p>Template 1</p>
+      </div>
+
+      <div
+        style={{width:"600px",}}
+        className="template-card template1  "
+        onClick={() => setResumeAlert({ show: true, selected: 'two' })}
+      >
+        <p >This template is suitable for recent graduates across all domains. 
+          You can add up to 12 bullet points to highlight education, skills, and academic projects.</p>
+        <Magnifier src={template2} alt="Template two" className="blurred template2" />
+        <p>Template 2</p>
+      </div>
+
+      <div
+        className="template-card template1"
+        onClick={() => setResumeAlert({ show: true, selected: 'three' })}
+      >
+        <p>This template is suitable for recent graduates across all domains. 
+        You can add up to 12 bullet points to highlight education, skills, and academic projects.</p>
+        <Magnifier src={template3} alt="Template three" className="blurred" />
+        <p>Template 3</p>
       </div>
 
       {resumeAlert.show && (

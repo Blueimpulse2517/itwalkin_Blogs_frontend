@@ -388,9 +388,7 @@ const handleHRGenerateQR = (driveId) => {
      {screenSize.width>850?
        <>
        <div style={{display:"flex"}}>
-    {/* <button className={styles.searchButton} onClick={() => {
-          navigate("/Search-Candidate")
-        }}>Search Candidate</button> */}
+    
         <p style={{marginLeft:"38%", marginTop:"-13px", fontSize:"large", fontWeight:"bold",}}>My Posted Walkin Drives</p>
         </div>
 
@@ -630,7 +628,7 @@ const handleHRGenerateQR = (driveId) => {
       :
       <> 
 
-<p style={{marginLeft:"45%"}}>My Posted Walkin Drives</p>
+<p style={{marginLeft:"30%"}}>My Posted Walkin Drives</p>
 {/* <button className={styles.searchButton} onClick={() => {
           navigate("/Search-Candidate")
         }}>Search Candidate</button> */}
@@ -692,9 +690,11 @@ myjobs.map((job, i) => {
                           <span className={styles.skillsHeading}>Skills: </span><span className={styles.skills}>{job.skills}</span><br></br>
                         </div>
                         <div style={{display:"flex", gap:"6px",marginLeft:"4%"}}>
-            <span className={styles.skillsHeading}>Drive Date: </span><span className={styles.skills}>{new Date(job.driveDate).toLocaleDateString("en-IN")}</span>
+            <span className={styles.skillsHeading}>Drive Date: </span><span className={styles.skills}>{new Date(job.driveDate).toLocaleDateString("en-IN")}</span></div>
+            <br></br>
+            <div style={{marginTop:"-13px",marginLeft:"10px",fontWeight:"bold"}}>
             {/* <span className={styles.skillsHeading}>Drive Time: </span><span className={styles.skills}>{job.time && `${((+job.time.split(":")[0] % 12) || 12)}:${job.time.split(":")[1]} ${job.time.split(":")[0] >= 12 ? "PM" : "AM"}`}</span> */}
-            <span className={styles.skillsHeading}>Drive Time: </span><span className={styles.skills}>{job.StartTime}</span>
+            <span style={{marginTop:"10px"}} className={styles.skillsHeadings}>Drive Time: </span><span className={styles.skills}>{job.StartTime}</span>
 
          </div>
         <span className={styles.NoOfJobSeekersApplied}> No. of Job Seekers Applied:
@@ -817,7 +817,7 @@ Download QR
     </>
   )
 })
-: <p style={{ marginLeft: "39%", color: "red" }}> No Jobs Found</p>
+: <p style={{ marginLeft: "39%", color: "red" }}> No Drives Found</p>
 }
 
 </div>

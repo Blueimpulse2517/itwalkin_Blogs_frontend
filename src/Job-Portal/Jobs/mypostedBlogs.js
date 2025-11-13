@@ -274,7 +274,7 @@ console.log("dhdgsgdg",records)
  
  {screenSize.width > 850 ?
         <>
-          <div className={styles.searchBothForNavWrapper}>
+          {/* <div className={styles.searchBothForNavWrapper}>
             <input className={styles.inputboxsearchNav} type="text" placeholder='Search for a Job / Skills / Location / Experience' onChange={(e) => { search(e) }} />
 
             <i style={{ color: "rgb(40, 4, 99)", fontSize: "18px", cursor: "pointer" }} onClick={() => { searchIcon(searchKey) }}
@@ -283,7 +283,7 @@ console.log("dhdgsgdg",records)
           {Result ?
             <h4 style={{ marginLeft: "40%", marginTop: "20px" }}> {myjobs.length} matching Result Found  </h4>
             : ""
-          }
+          } */}
         </>
         : ""
       }      
@@ -455,8 +455,8 @@ console.log("dhdgsgdg",records)
 
 <p style={{ marginLeft: "4%", color: "blue", fontWeight:"bold" }}> Total {myjobs.length} Articles</p>
         <div className={styles.searchBoth}>
-          <p className={styles.p}>Search </p>
-          <input className={styles.inputboxsearch} type="text" placeholder='search for a posted job' onChange={(e) => { search(e) }} />
+          {/* <p className={styles.p}>Search </p> */}
+          {/* <input className={styles.inputboxsearch} type="text" placeholder='search for a posted job' onChange={(e) => { search(e) }} /> */}
         </div>
         {Result ?
             <h4 style={{ marginLeft: "34%", marginTop: "0px"}}> {myjobs.length} matching Result Found  </h4>

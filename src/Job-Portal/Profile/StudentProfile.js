@@ -16,8 +16,19 @@ function StudentProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const tabs = ["Personal Info", "Job Info", "Education", "Skills", "Feedback"];
+  const tabs = ["Personal Info", "Job Info", "Education", "Skills", "Feedback","YouTube Video"];
 const [PageLoader, setPageLoader] = useState(false)
+
+const [youtubeLink, setYoutubeLink] = useState(profileData?.[0]?.youtubeLink || "");
+
+function handleYoutubeLinkChange(e) {
+  setYoutubeLink(e.target.value);
+}
+function getYoutubeVideoId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+}
 
   // useEffect(() => {
   //   async function fetchProfile() {
@@ -88,7 +99,7 @@ let navigate = useNavigate()
         <div className={styles.details}>
           <h2 className={styles.name}>{profileData[0].name?profileData[0].name:"#####"}</h2>
           <p className={styles.email}>{profileData[0].email?profileData[0].email:"#####"}</p>
-          <p className={styles.city}>Bangalore</p>
+          <p className={styles.city}>{profileData[0].city?profileData[0].city:"#####"}</p>
         </div>
         </div>
         <div className={styles.actions}>
@@ -96,7 +107,9 @@ let navigate = useNavigate()
           <button className={styles.downloadBtn} onClick={resumedownload}>Download Resume</button>
           <span style={{width:"120px",textAlign:"center"}}  className={styles.statusBadge} onClick={()=>setShowApprovedStatus(prev=>!prev)}>Account Status</span>
         </div>
+        
       </div>
+      
 
       {/* Tabs Section */}
       <div className={styles.tabs}>
@@ -113,6 +126,7 @@ let navigate = useNavigate()
           </button>
         ))}
       </div>
+      
       {/* Dynamic Tab Content */}
       <div className={styles.content}>
         {activeTab === "Personal Info" && (
@@ -128,7 +142,7 @@ let navigate = useNavigate()
               <strong>Phone</strong><br></br> {profileData[0].phoneNumber?profileData[0].phoneNumber:"#####"}
             </div>
             <div>
-              <strong>City</strong><br></br> Bangalore
+              <strong>City</strong><br></br> {profileData[0].city?profileData[0].city:"#####"}
             </div>
             {showApprovedStatus &&
             (profileData[0].isApproved?
@@ -192,7 +206,7 @@ let navigate = useNavigate()
             <div>
               <strong>Duration:</strong> {profileData[0].previousDuration}
             </div> */}
-            {showApprovedStatus &&
+            {/* {showApprovedStatus &&
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
               <div><strong style={{color:"Black"}}>Account Status</strong></div>
@@ -205,7 +219,7 @@ let navigate = useNavigate()
               <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
              </div> 
             )
-          }
+          } */}
           </div>
         )}
 
@@ -225,7 +239,7 @@ let navigate = useNavigate()
             <div style={{display:"flex", }}>
                   <strong>Masters: </strong> {profileData[0].college?profileData[0].college:"#####"}
             </div>
-            {showApprovedStatus &&
+            {/* {showApprovedStatus &&
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
               <div><strong style={{color:"Black"}}>Account Status</strong></div>
@@ -238,7 +252,7 @@ let navigate = useNavigate()
               <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
              </div> 
             )
-          }
+          } */}
           </div>
         )}
 
@@ -247,7 +261,7 @@ let navigate = useNavigate()
            <div style={{display:"flex",}}>
                   <strong> Skills: </strong> {profileData[0].Skills?profileData[0].Skills:"#####"}
             </div>
-            {showApprovedStatus &&
+            {/* {showApprovedStatus &&
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
               <div><strong style={{color:"Black"}}>Account Status</strong></div>
@@ -260,7 +274,7 @@ let navigate = useNavigate()
               <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
              </div> 
             )
-          } 
+          }  */}
            
           </div>
         )}
@@ -275,7 +289,7 @@ let navigate = useNavigate()
               </div>
             ))} */}
             {profileData[0].message?profileData[0].message:"#####" }
-            {showApprovedStatus &&
+            {/* {showApprovedStatus &&
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
               <div><strong style={{color:"Black"}}>Account Status</strong></div>
@@ -288,9 +302,37 @@ let navigate = useNavigate()
               <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
              </div> 
             )
-          }
+          } */}
           </div>
         )}
+
+{activeTab === "YouTube Videos" && (
+  <div className={styles.infoSection}>
+    <h3>YouTube Video</h3>
+    <input
+      type="text"
+      placeholder="Paste YouTube link here"
+      value={youtubeLink}
+      onChange={handleYoutubeLinkChange}
+      style={{width:"100%", padding:"8px", marginBottom:"10px"}}
+    />
+    
+    {/* {youtubeLink && (
+      <div style={{marginTop:"10px"}}>
+        <iframe
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${getYoutubeVideoId(youtubeLink)}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+    )} */}
+  </div>
+)}
+
       </div>
     </div>
   );

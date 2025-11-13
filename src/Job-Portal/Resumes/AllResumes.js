@@ -6,6 +6,7 @@ import axios from 'axios';
 import styles from "../Jobs/Allobs.module.css"
 import Style from "./AllResumes.module.css"
 import { Navigate, useNavigate } from 'react-router-dom';
+import TemplateThree from './TemplateThree';
 
   
 function AllResumes() {
@@ -46,9 +47,22 @@ function AllResumes() {
 
    const navigate = useNavigate()
   return (
+<>
+<button
+    className={Style.resumebackbtn}
+    onClick={() => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/alljobs");
+      }
+    }}
+  >
+    <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
+  </button>
     <div>
       {selectedTemplate===null?
-      <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Choose resume template :<br></br> (This template is suitable for IT professionals with 2+ years of experience. You can add upto 20 bullet points)</h2>
+      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Choose resume template<br></br> </h1>
        :
        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Your resume preview</h1>}
       {!selectedTemplate && (
@@ -79,11 +93,15 @@ function AllResumes() {
 
           {selectedTemplate === 'one' && <TemplateOne data={profileData} />}
           {selectedTemplate === 'two' && <TemplateTwo data={profileData} />}
+          {selectedTemplate === 'three' && <TemplateThree data={profileData} />}
         </div>
+        
       )}
     </div>
+    </>
   );
 }
+
 
 export default AllResumes;
 

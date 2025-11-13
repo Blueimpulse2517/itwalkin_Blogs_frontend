@@ -119,7 +119,7 @@ let navigate = useNavigate()
         <div className={styles.details}>
           <h2 className={styles.name}>{profileData[0].name?profileData[0].name:"#####"}</h2>
           <p className={styles.email}>{profileData[0].email?profileData[0].email:"#####"}</p>
-          <p className={styles.city}>Bangalore</p>
+          <p className={styles.city}>{profileData[0].city?profileData[0].city:"#####"}</p>
         </div>
         </div>
         <div className={styles.actions}>
@@ -160,7 +160,7 @@ let navigate = useNavigate()
               <strong>Phone</strong><br></br> {profileData[0].phoneNumber?profileData[0].phoneNumber:"#####"}
             </div>
             <div>
-              <strong>City</strong><br></br> Bangalore
+              <strong>City</strong><br></br> {profileData[0].city?profileData[0].city:"#####"}
             </div>
 
             
