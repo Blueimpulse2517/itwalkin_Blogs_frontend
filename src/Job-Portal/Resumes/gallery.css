@@ -1,42 +1,83 @@
 .template-gallery {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 40px;
-
-  }
-  
-  .template-card {
-    text-align: center;
-    cursor: pointer;
-    width: 350px;
-    transition: transform 0.2s ease;
-    
-  }
-  
-  /* .template-card:hover {
-    transform: scale(1.05);
-  } */
-  
-  .blurred {
-    width: 250%;
-    height: 80%;
-    border-radius: 10px;
-    /* filter: blur(1px); */
-    border: 1px solid #ccc;
-    margin-top: -24px;
-    margin-left: -274px;
-  }
-  @media screen and (max-width: 768px) {
-    .blurred {
-        width: 100%;        /* Make it fit screen width */
-        height: auto;       /* Let height adjust naturally */
-        border-radius: 8px; /* Slightly smaller radius for mobile */
-        border: 1px solid #ccc;
-        margin-top: -10px;  /* Reduce negative margin */
-        margin-left: 0;     /* Remove horizontal shift */
-    }
+  display: flex;
+  justify-content: center; /* Centers all cards */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 20px; /* Balanced spacing */
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
 
+.template-card {
+  text-align: center;
+  cursor: pointer;
+  width: 100%; /* Makes 3 fit nicely in one row on desktop */
+  max-width: 360px; /* Prevents extra large scaling */
+  transition: transform 0.3s ease;
+  position: relative;
+  /* margin-right:100px; */
+}
 
+.template-card:hover {
+  transform: scale(1.05);
+}
+
+.blurred {
+  width: 100%; /* Fills the card width */
+  height: 400px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 0;
+  object-fit: contain;
+}
+.template2{
+   width:322px;
+   object-fit: fill;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .template-card {
+    width: 45%; /* 2 per row on medium screens */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .template-card {
+    width: 90%;
+    margin-right: 0px;/* Single column on mobile */
+  }
+
+  .template-gallery {
+    padding: 20px 10px;
+    gap: 15px;
+  }
+ .template1{
+  width: 392px;
+ }
+  .blurred {
+    width: 100%;
+    border-radius: 8px;
+    height:400px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .template-card {
+    width: 90%;
+    margin-right: 0px;/* Single column on mobile */
+  }
+
+  .template-gallery {
+    padding: 20px 10px;
+    gap: 15px;
+  }
+ .template1{
+  width: 392px;
+ }
+  .blurred {
+    width: 100%;
+    border-radius: 8px;
+    height:100%;
+  }
+}

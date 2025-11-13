@@ -34,7 +34,7 @@ function StudentUpdateProfile(props) {
     });
   }, [])
 
-  const [city, setCity] = useState("Banglore")
+  const [city, setCity] = useState("")
   const [selectedCountry, setSelectedCountry] = useState("India");
  
   useEffect(()=>{
@@ -978,7 +978,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                           onChange={handleChangeCityTag}     
                         /> */}
                          {/* </div> */}
-                         <input className={styles.input}disabled value={city} ></input>
+                         <input className={styles.input} value={city} onChange={(e) => { setCity(e.target.value) }}></input>
             
               </label>
 
@@ -1715,7 +1715,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
                           onChange={handleChangeCityTag}     
                         /> */}
                         {/* </div> */}
-                        <input className={styles.Mobileinput}disabled value={city} ></input>
+                        <input className={styles.Mobileinput}value={city} onChange={(e) => { setCity(e.target.value) }} ></input>
               </label>
 
               <label className={styles.MobileinputName}>

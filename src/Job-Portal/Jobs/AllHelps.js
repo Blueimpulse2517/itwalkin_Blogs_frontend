@@ -83,6 +83,68 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,current
     view: "View",
     details: "1. To register as a Job Seeker, follow these steps:\n2. Click on the 'Open an Account' menu in the navigation bar.\n3. A submenu will appear—select 'Jobseeker Registration' from the list.\n4. The jobseeker Registration Form will open in a new window.\n5. Fill in all the required details in the given fields.\n6. Choose to register using either Microsoft or Google.\n7. Once completed, your registration will be successful."
 },
+{
+  id: 2,
+  question: "How to Fill Form in Resume Builder?",
+  source: "ITWalkin",
+  companyName: "ITWalkin",
+  postedby: "ITWalkin",
+  postedDate: "13-11-2025",
+  view: "View",
+  details: `Steps to Fill the Resume Builder Form:
+
+1. Login to the ITWalkin portal using your Jobseeker credentials.
+
+2. Navigate to the Resume Builder page from the dashboard or profile menu.
+
+3. Photo Consent:
+   - The system will prompt: “Would you like to include a photo from Google in your resume?”
+   - Click “Give Consent” to allow using your Google profile photo.
+
+4. Form Auto-fill & Manual Entry:
+   - The following fields will be auto-populated from your profile:
+     • Name
+     • Email ID
+     • Total Experience
+     • College / Institute Name
+   - Verify that these details are correctly fetched.
+
+5. Address:
+   - Manually enter your address if it’s not already available.
+
+6. Qualification Section:
+   - Add all educational qualifications including:
+     • Degree
+     • University
+     • Passing Year
+     • Percentage/CGPA
+   - Use the “Add More” option to include multiple entries.
+
+7. Experience Section:
+   - Add all work experience details:
+     • Company Name
+     • Role/Designation
+     • Duration (From–To)
+     • Responsibilities/Description
+   - Ensure all entries are saved properly.
+
+8. Certifications:
+   - Add relevant certifications with:
+     • Name
+     • Issuing Authority
+     • Year
+
+9. Skills:
+   - Add all key skills (technical and soft skills) using the skill entry field.
+
+10. Save Details:
+    - Click the “Save” button to store all entered information.
+
+11. Download Resume:
+    - Click “Continue to Download”.
+    - The system will generate and allow you to download your resume in PDF format.`
+}
+
      ];
 
      async function filterByJobTitle(key) {

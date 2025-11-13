@@ -471,7 +471,7 @@ function AppliedUserProfile() {
                         {nopageFilter ?
                             <p style={{ fontWeight: 400, marginLeft: "10px" }}>Displaying <span style={{ color: "blue" }}>{Filtereredjobs}</span> from All Jobs</p>
                             :
-                            <p style={{ fontWeight: 400, marginLeft: "10px" }}>showing {firstIndex + 1} to {lastIndex} latest candidates</p>
+                            <p style={{ fontWeight: 400, marginLeft: "10px" }}>Showing {firstIndex + 1} to {lastIndex} latest candidates</p>
                         }
                         <div className={styles.navigationWrapper}>
                             <button disabled={currentPage === 1} style={{ display: "inline", margin: "5px" }} className={styles.navigation} onClick={firstPage}>
@@ -541,7 +541,7 @@ function AppliedUserProfile() {
                         </li>
                         {/* <li className={`${styles.li} ${styles.checkProfile}`}><b>View Profile</b> </li> */}
                         <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Status</b> </li>
-                        <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Background Check</b> </li>
+                        {/* <li style={{ backgroundColor: " rgb(40, 4, 99)", color: "white" }} className={`${styles.li} ${styles.Status}`}><b>Background Check</b> </li> */}
 
                     </ul>
                     {PageLoader ?
@@ -643,11 +643,11 @@ function AppliedUserProfile() {
                                             }
                                         </div>
                                     </li>
-                                    <li className={`${styles.li} ${styles.Status}`}>
+                                    {/* <li className={`${styles.li} ${styles.Status}`}>
                                       <button style={{marginLeft: "2%", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
                                         Background Check</button>
-                                    </li>
+                                    </li> */}
 
                                 </ul>
 
@@ -746,9 +746,9 @@ function AppliedUserProfile() {
                                                                         marginLeft: "27%", background: "rgb(24, 175, 24)", color: "white",
                                                                         border: "solid", width: "31%", height: "30px", fontWeight: "bold"
                                                                     }} title="Click to Undo Select">Selected<span style={{ fontSize: '16px' }} >&#10004;</span></button><br></br>
-                                                                    <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
+                                                                    {/* <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
-                                        Background Check</button>
+                                        Background Check</button> */}
                                                                     </div>
                                                                 </>
                                                                 
@@ -794,9 +794,9 @@ function AppliedUserProfile() {
                                                                                     width: "25%", height: "30px", fontWeight: "bold"
                                                                                 }} onClick={() => { onHold(job._id, "OhHold") }}>OnHold</button><br></br>
                                                                                 {/* <li className={`${styles.li} ${styles.Status}`} style={{border:"none"}}> */}
-                                      <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
+                                      {/* <button style={{marginLeft: "", background: "rgb(40, 4, 99)", color: "white", 
                                       border: "solid", fontWeight: "600",}}>
-                                        Background Check</button>
+                                        Background Check</button> */}
                                     {/* </li> */}
                                                                             </div>
                                                                             
