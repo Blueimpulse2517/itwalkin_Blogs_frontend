@@ -187,15 +187,27 @@ const TemplateTwo = () => {
                 <p>No languages added</p>
               )}
             </section>
-
+            
             <section>
               <h3>WORK EXPERIENCE</h3>
               {profileData?.experiences?.length > 0 ? (
                 <ul>
                   {profileData?.experiences?.map((exp, i) => (
                     <li key={i}>
-                      {exp?.company} — {exp?.role} ({exp?.startDate} -{" "}
-                      {exp?.endDate || "Present"})
+                      {exp?.company} — {exp?.role} <br></br>
+                      ({new Date(exp?.startDate).toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })} -{" "}
+                      {exp?.endDate?
+                      (new Date(exp.endDate).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })) 
+                      : "Present"})
+                      
                     </li>
                   ))}
                 </ul>
@@ -207,9 +219,9 @@ const TemplateTwo = () => {
             <section>
               <h3>PERSONAL DETAILS</h3>
               <div style={{display:"flex", flexWrap:"wrap", gap:"4px"}}>
-              <div className={styles.personalTag}>Gender: {profileData?.gender || "N/A"}</div>
-              <div className={styles.personalTag}>Religion: {profileData?.religion || "N/A"}</div>
-              <div className={styles.personalTag}>Marital Status: {profileData?.maritalStatus || "N/A"}</div>
+              <div className={styles.personalTag}>Gender: {profileData?.personalDetails[0]?.gender || "N/A"}</div>
+              {/* <div className={styles.personalTag}>Religion: {profileData?.religion || "N/A"}</div> */}
+              <div className={styles.personalTag}>Marital Status: {profileData?.personalDetails[0]?.maritalStatus || "N/A"}</div>
               </div>
             </section>
           </div>

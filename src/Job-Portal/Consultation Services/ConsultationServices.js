@@ -126,20 +126,34 @@ const ConsultationServices = () => {
     <div className={styles["consult-container"]}>
       <ConsultationCard
         title="Free Consultation"
-        description="Please select a date. Our team will review your profile and get back to you shortly"
+        description="Feeling stuck, overwhelmed, or unsure about your next career move? Our free jobseeker consultation is here to help you gain clarity, confidence, and direction — at no cost. Whether you're: crafting your resume and not sure what recruiters want, exploring new roles but unsure where to start, preparing for interviews and need expert tips, looking to switch industries or upskill strategically, and looking to boost your professional growth further while navigating today’s fast-changing job market effectively.
+"
         onBook={handleBooking}
       />
 
       <ConsultationCard 
         title="Paid Consultation"
-        description="Boost your career with ITwalkin Experts!
-        Get your profile reviewed, resume enhanced, and personalized career advice.Book your paid consultation today."
+        description="Supercharge your career with ITwalkin Experts.
+ Get your professional profile reviewed by industry specialists.
+ Receive a polished, recruiter-ready resume tailored to your goals.
+ Unlock personalized career guidance aligned with your aspirations.
+ Stand out in today’s competitive job market with expert support.
+ Our consultations are designed to give you clarity and confidence.
+ Book your paid session now and take the next step forward.
+ Your career deserves expert attention — let’s make it happen.."
         onBook={handleBooking}
       />
 
       <ConsultationCard
         title="Premium Paid Consultation"
-        description="Please select the date. We will get back to you. Rootcause Analysis and Fix Review by expert on submission of profile. Dedicated phone call with ITwalkin Experts. Resume Enhancement by ITwalkin Expert. Dedicated Expert will analyze the root cause. One to one interaction with ITwalkin Expert."
+        description="Submit your profile for a detailed root cause analysis by our experts.
+ Receive a personalized fix review to uncover what’s holding you back.
+ Get your resume professionally enhanced for better recruiter visibility.
+ Enjoy a dedicated one-on-one phone consultation with ITwalkin Experts.
+ Our specialists dive deep into your career challenges and opportunities.
+ Every insight is tailored to your goals, strengths, and job aspirations.
+ Benefit from expert guidance that’s focused, actionable, and results-driven.
+ "
         onBook={handleBooking}
       />
     </div>

@@ -100,10 +100,21 @@ const TemplateThree = () => {
               <span className={styles.square}></span>
               <h3>PERSONAL DETAILS</h3>
             </div>
-            <p><span className={styles.squareSmall}></span>Date of Birth: {profileData?.dob || "N/A"}</p>
-            <p><span className={styles.squareSmall}></span>Gender: {profileData?.gender || "N/A"}</p>
-            <p><span className={styles.squareSmall}></span>Marital Status: {profileData?.maritalStatus || "N/A"}</p>
-            <p><span className={styles.squareSmall}></span>Religion: {profileData?.religion || "N/A"}</p>
+            <p>
+  <span className={styles.squareSmall}></span>
+  Date of Birth:{" "}
+  {profileData?.personalDetails[0]?.dob
+    ? new Date(profileData.personalDetails[0].dob).toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      })
+    : "N/A"}
+</p>
+
+            <p><span className={styles.squareSmall}></span>Gender: {profileData?.personalDetails[0]?.gender || "N/A"}</p>
+            <p><span className={styles.squareSmall}></span>Marital Status: {profileData?.personalDetails[0]?.maritalStatus || "N/A"}</p>
+            {/* <p><span className={styles.squareSmall}></span>Religion: {profileData?.religion || "N/A"}</p> */}
           </div>
 
           <div className={styles.section}>
@@ -156,7 +167,13 @@ const TemplateThree = () => {
               <ul>
                 {profileData?.qualificationDetails?.map((edu, i) => (
                   <li key={i}>
-                    <strong>{edu?.degree}</strong> — {edu?.collegeName} ({edu?.score || "N/A"})
+                    <div style={{display:"flex",flexDirection:"column",width:"100%"}}>
+                    <div><strong>{edu?.degree}</strong> </div>
+                    <div style={{display:"flex", justifyContent:"space-between"}}>
+                       <div>{edu?.collegeName} </div> 
+                       <div>{edu?.score || "N/A"}</div>
+                    </div>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -173,7 +190,18 @@ const TemplateThree = () => {
               <ul>
                 {profileData?.experiences?.map((exp, i) => (
                   <li key={i}>
-                    <strong>{exp?.role}</strong> — {exp?.company} ({exp?.startDate} - {exp?.endDate || "Present"})
+                    <strong>{exp?.role}</strong> — {exp?.company} 
+                    ({new Date(exp?.startDate).toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })} - {exp?.endDate?
+                (new Date(exp?.endDate).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                }))
+              :  "Present"})
                   </li>
                 ))}
               </ul>
