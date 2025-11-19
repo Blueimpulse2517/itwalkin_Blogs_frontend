@@ -25,15 +25,18 @@ const PostFraudForm = () => {
     });
       return;
     }
-    // console.log("exe reached")
+    console.log("misuse type:",misuseType)
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
     // let userid = JSON.parse(localStorage.getItem("EmpIdG"))
     // const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("EmpLog"))) };
     const issues=description     
     await axios.post("/ReportFraud/reportFraud", {
-        misuseType, issues
-    }, { headers })
+        misuseType
+    //     , selectedOption: "",
+    // issues: description,
+    // showSuccessMessage: false
+    })
         .then((res) => {
             let result = (res.data)
             console.log(res)
@@ -92,12 +95,12 @@ const PostFraudForm = () => {
             className={styles.select}
           >
             <option value="">-- Select --</option>
-            <option value="Fake job postings">Fake Job Posting – job doesn’t exist, misleading info.</option>
-            <option value="Scam / Payment Fraud ">
+            <option value="Fake Job Posting – job doesn’t exist, misleading info">Fake Job Posting – job doesn’t exist, misleading info.</option>
+            <option value="Scam / Payment Fraud – employer asking for money, deposits, training fees. ">
             Scam / Payment Fraud – employer asking for money, deposits, training fees.</option>
-            <option value="Impersonation">Impersonation – fake company or recruiter pretending to be someone else.</option>
-            <option value="Data Misuse">Data Misuse – personal details being misused or shared without consent.</option>
-            <option value="Suspicious Communication">Suspicious Communication – spam, phishing emails, or WhatsApp/SMS fraud.</option>
+            <option value="Impersonation – fake company or recruiter pretending to be someone else">Impersonation – fake company or recruiter pretending to be someone else.</option>
+            <option value="Data Misuse – personal details being misused or shared without consent">Data Misuse – personal details being misused or shared without consent.</option>
+            <option value="Suspicious Communication – spam, phishing emails, or WhatsApp/SMS fraud">Suspicious Communication – spam, phishing emails, or WhatsApp/SMS fraud.</option>
           </select>
         </label>
 
@@ -130,7 +133,7 @@ const PostFraudForm = () => {
         </label> */}
 
         <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.submitButton}>✅ Submit Report</button>
+          <button type="submit" onClick={handleSubmit}  className={styles.submitButton}>✅ Submit Report</button>
           <button type="button" onClick={handleCancel} className={styles.cancelButton}>❌ Cancel</button>
         </div>
       </form>

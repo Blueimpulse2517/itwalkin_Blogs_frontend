@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from "./ResumeForm.module.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useScreenSize from '../SizeHook';
 
 
@@ -23,7 +23,54 @@ const ResumeForm = () => {
     qualificationDetails: [
       { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' },
     ],
+    personalDetails: [{
+      gender: "",
+      maritalStatus: "",
+      dob: ""  
+    }],
+    achievements: [""],
+    interests: [""],
+    projects:[""],
   };
+
+  const handlePersonalChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      personalDetails: [
+        {
+          ...prev.personalDetails[0], // spread the first object
+          [name]: value,              // update the field
+        },
+      ],
+    }));
+  };
+  
+
+  // Dynamic List Handlers
+  const handleDynamicChange = (index, type, value) => {
+    const updated = [...formData[type]];
+    updated[index] = value;
+
+    setFormData({ ...formData, [type]: updated });
+  };
+
+  const addField = (type) => {
+    setFormData({
+      ...formData,
+      [type]: [...formData[type], ""],
+    });
+  };
+
+  const removeField = (type, index) => {
+    const updated = formData[type].filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      [type]: updated,
+    });
+  };
+
+
 
   const navigate  = useNavigate();
   const screenSize = useScreenSize();
@@ -77,6 +124,19 @@ const ResumeForm = () => {
             }))
             : [{ heading: "", items: [""] }],
           languages: result.languages?.length ? result.languages : [""],
+          personalDetails:[{
+            gender: result.personalDetails[0]?.gender || "",
+            maritalStatus: result.personalDetails[0]?.maritalStatus || "",
+            dob: result.personalDetails[0]?.dob
+              ? new Date(result.personalDetails[0].dob).toISOString().split("T")[0]
+              : "",
+          }],
+          achievements:
+            result.achievements?.length > 0 ? result.achievements : [""],
+          interests:
+            result.interests?.length > 0 ? result.interests : [""],
+          projects:
+            result.projects?.length > 0 ? result.projects : [""],
           qualificationDetails: result.qualificationDetails?.length
             ? result.qualificationDetails.map(q => ({
               degree: q.degree || "",
@@ -96,7 +156,7 @@ const ResumeForm = () => {
   }, [studId]);
 
   useEffect(()=>{
-console.log(imageConsent)
+console.log(imageConsent, formData)
   },[imageConsent])
 
   const containerStyle = {
@@ -325,7 +385,8 @@ console.log(imageConsent)
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
 
-    const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails } = formData;
+    const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails, personalDetails, achievements, interests, projects } = formData;
+
 
 
     if (
@@ -351,10 +412,12 @@ console.log(imageConsent)
      
       return;
     }
-    // console.log("hshs",imageConsent)
+    console.log("personal details",personalDetails)
+    console.log("ach",achievements)
+    console.log("int",interests)
     const Experiance=totalExperience;
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
-      name, email,Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails,imageConsent
+      name, email,Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails,imageConsent,personalDetails, achievements, interests, projects
     }, { headers })
       .then((res) => {
         let result = (res.data)
@@ -414,6 +477,9 @@ console.log(imageConsent)
   //  window.open("#")
  }
 
+ let location = useLocation()
+   const { formstate } = location.state || {};
+  //  console.log("fd",formstate)
   return (
     <div className={styles.container}>
       <div ref={alertRef} style={{position:"relative"}}>
@@ -485,7 +551,7 @@ console.log(imageConsent)
 
         {successMessage && <p>{successMessage}</p>}
         <div >
-        {console.log("pd",profileData[0]?.Gpicture )}
+        {/* {console.log("pd",profileData[0]?.Gpicture )} */}
             {profileData? (
               // console.log("pd",profileData[0]?.Gpicture )
                 <img
@@ -659,15 +725,22 @@ console.log(imageConsent)
           </div>
         ))}
         <button style={buttonStyle} type="button" onClick={addSkillSection}>Add Skill Section</button>
-
-        {/* LANGUAGES */}
-        {/* <h2>Languages</h2>
+        {formstate=="freshers" &&
+        <>
+        <h2>Languages</h2>
         {formData.languages.map((lang, i) => (
           <div key={i}>
             <input style={inputStyle} placeholder="Language" value={lang} onChange={(e) => handleLanguageChange(i, e.target.value)} />
             <button style={buttonStyle} type="button" onClick={() => removeLanguage(i)}>Remove</button>
           </div>
         ))}
+        <button style={buttonStyle} type="button" onClick={() => addLanguage()}>Add</button>
+        </>
+       }
+       
+
+        {/* LANGUAGES */}
+        {/* 
         <button style={buttonStyle} type="button" onClick={addLanguage}>Add Language</button> */}
         {/* <div style={{ padding: "10px", fontFamily: "Arial" }}>
       <p style={{ fontWeight: "bold" }}>
@@ -697,6 +770,161 @@ console.log(imageConsent)
       </label>
 
       </div> */}
+      {formstate=="freshers" &&
+      <>
+       <div>
+      {/* PERSONAL DETAILS */}
+      <h2>Personal Details</h2>
+
+      {/* Gender */}
+      <h3>Gender:</h3>
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            checked={formData.personalDetails[0]?.gender === "Male"}
+            onChange={handlePersonalChange}
+          />
+          Male
+        </label>
+
+        <label style={{ marginLeft: "20px" }}>
+          <input
+            type="radio"
+            name="gender"
+            value="Female"
+            checked={formData.personalDetails[0]?.gender === "Female"}
+            onChange={handlePersonalChange}
+          />
+          Female
+        </label>
+
+        <label style={{ marginLeft: "20px" }}>
+          <input
+            type="radio"
+            name="gender"
+            value="Other"
+            checked={formData.personalDetails[0]?.gender === "Other"}
+            onChange={handlePersonalChange}
+          />
+          Other
+        </label>
+      </div>
+
+      {/* Marital Status */}
+      <h3>
+        Marital Status:
+      </h3>
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="maritalStatus"
+            value="Single"
+            checked={formData?.personalDetails[0]?.maritalStatus === "Single"}
+            onChange={handlePersonalChange}
+          />
+          Single
+        </label>
+
+        <label style={{ marginLeft: "20px" }}>
+          <input
+            type="radio"
+            name="maritalStatus"
+            value="Married"
+            checked={formData?.personalDetails[0]?.maritalStatus === "Married"}
+            onChange={handlePersonalChange}
+          />
+          Married
+        </label>
+      </div>
+
+      {/* Date of Birth */}
+      <h3>
+        Date of Birth:
+      </h3>
+      <input
+        type="date"
+        name="dob"
+        value={formData?.personalDetails[0]?.dob}
+        onChange={handlePersonalChange}
+        style={{width:"20%",height:"10px"}}
+      />
+
+      {/* ACHIEVEMENTS */}
+      <h2>Achievements</h2>
+      {formData?.achievements?.map((item, index) => (
+        <div key={index} style={{  marginBottom: "10px" }}>
+          <input
+            type="text"
+            value={item}
+            placeholder="Enter achievement"
+            onChange={(e) =>
+              handleDynamicChange(index, "achievements", e.target.value)
+            }
+            style={inputStyle}
+          />
+          <button
+            onClick={() => removeField("achievements", index)} 
+            style={buttonStyle}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <button onClick={() => addField("achievements")} style={buttonStyle}>Add Achievement</button>
+
+      {/* INTERESTS */}
+      <h2>Interests</h2>
+      {formData?.interests?.map((item, index) => (
+        <div key={index} style={{  marginBottom: "10px" }}>
+          <input
+            type="text"
+            value={item}
+            placeholder="Enter interest"
+            onChange={(e) =>
+              handleDynamicChange(index, "interests", e.target.value)
+              
+            }
+            style={inputStyle}
+          />
+          <button
+            onClick={() => removeField("interests", index)}
+            style={buttonStyle}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <button onClick={() => addField("interests")} style={buttonStyle}>Add Interest</button>
+
+      <h2>Projects</h2>
+      {formData?.projects?.map((item, index) => (
+        <div key={index} style={{  marginBottom: "10px" }}>
+          <input
+            type="text"
+            value={item}
+            placeholder="Enter project"
+            onChange={(e) =>
+              handleDynamicChange(index, "projects", e.target.value)
+              
+            }
+            style={inputStyle}
+          />
+          <button
+            onClick={() => removeField("projects", index)}
+            style={buttonStyle}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <button onClick={() => addField("interests")} style={buttonStyle}>Add Projects</button>
+    </div>
+    </>
+    }
         <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Save</button>
       </div>
     </div>

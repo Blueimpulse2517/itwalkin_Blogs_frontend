@@ -14,6 +14,7 @@ import CreatableSelect from "react-select"
 import useScreenSize from '../SizeHook';
 import {jobTags} from "../Tags"
 import CustomTextEditor from '../Editor/CustomTextEditor'
+import { Puff } from 'react-loader-spinner'
 
 // import CreatableSelect  from 'react-select/creatable';
 
@@ -112,8 +113,10 @@ function PostWalkinDrive(props) {
         getLogo()
     }, [])
 
+  const[PageLoader, setPageLoader]=useState(false)
 
     async function postJob() {
+        setPageLoader(true)
         if(jobtype===""|| qualification==="") {
           setSuccessMessage(
             <span style={{
@@ -125,7 +128,7 @@ function PostWalkinDrive(props) {
               Please complete all required fields: Job Title, Company Name, Description, Experience, Location, Qualification, Job Type, and Skills.
             </span>
           );
-          
+          setPageLoader(false)
           return
         }
         let userid = JSON.parse(localStorage.getItem("EmpIdG"))
@@ -160,27 +163,32 @@ function PostWalkinDrive(props) {
                     setstime("")
                     setetime("")
                     setTag([])
+                    setPageLoader(false)
                     setconcent(false)
-                    setSuccessMessage(
-                      <span
-                        style={{
-                          color: "green",
-                          fontWeight: "800",   
-                          fontStyle: "normal", 
-                          fontFamily: "Courier New, Courier, monospace" 
-                        }}
-                      >
-                        Successfully Posted 
-                      </span>
-                    );
+                    setWalkinAlert(true)
+                    setSuccessMessage("")
+                    // setSuccessMessage(
+                    //   <span
+                    //     style={{
+                    //       color: "green",
+                    //       fontWeight: "800",   
+                    //       fontStyle: "normal", 
+                    //       fontFamily: "Courier New, Courier, monospace" 
+                    //     }}
+                    //   >
+                    //     Your walk-in drive has been successfully posted. Job seekers can now view and apply directly
+                    //   </span>
+                    // );
                     
                 }
                 else if (result == "field are missing") {
+                  setPageLoader(false)
                     setSuccessMessage("Alert!... JobTitle, CompanyName JobDescription, Experiance, JobLocation and Skills must be filled")
                 }
                 // else if (result ==="server issue")
                 else
                     {
+                      setPageLoader(false)
                     setSuccessMessage("something went wrong, Could not save your walk-in drive post")
                 }
             }).catch((err) => {
@@ -192,6 +200,21 @@ function PostWalkinDrive(props) {
         });
     }
     
+    const alertRef = useRef(null);
+  const [walkinAlert, setWalkinAlert] = useState(false)   
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (alertRef.current && !alertRef.current.contains(event.target)) {
+            setWalkinAlert(false);
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
+
     function handlejobtitle(e){ 
      setJobTitle(e.target.value)                    
     }
@@ -418,20 +441,83 @@ const [EndTime, setEndTime] = useState("");
 
     return (
         <>
-
-            {
+       
+          {PageLoader ?
+                        <div style={{display:"flex",flexDirection:"column",alignItems:"center", justifyContent:"center"}}>
+                        <Puff height="80" width="80" color="#4fa94d" ariaLabel="bars-loading" wrapperStyle={{ marginTop: "50px" }} />
+                        <div style={{color:"red"}}>Loading ....</div>
+                        </div>
+                        : 
+                      
+            (  
                 profileData.map((items, i) => {
                     return (
+                      
                         items.isApproved ?
 
                             <div key={i} style={{display:"flex", justifyContent:"center"}}>
                                 <div className={Style.dirveContainer}>
                                   <div style={{display:"flex", justifyContent:"center"}}>
                                <h2>Post Walkin Drive</h2> 
+                               
+                               {walkinAlert && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 9998,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          
+          }}
+        >
+          <div
+            ref={alertRef}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '300px',
+              padding: '20px',
+              backgroundColor: 'rgb(40,4,99)',
+              color: 'white',
+              fontSize: '12px',
+              borderRadius: '5px',
+              zIndex: 9999,
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+             
+            }}
+          >
+            Your walk-in drive has been successfully posted. Jobseekers can now view and apply directly
+            <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+              <button
+                onClick={() => {setWalkinAlert(false) }}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                 
+                }}
+              >
+               Ok
+              </button>   
+            </div>
+          </div>
+        </div>
+      )}
+                               
                                </div>
 
-                               <p className={successMessage === "Successfully posted!" ?
-                                            Style.successmessage : Style.errormessage}>{successMessage} </p>
+                               <p className={successMessage !== "" &&
+                                             Style.errormessage}>{successMessage} </p>
                                <div className={Style.dirvefirstRow}>
                                   <div className={Style.dirvesubContainer}>
                                     <h4 className={Style.heading}>Walk-in Drive Title**</h4>
@@ -736,6 +822,7 @@ I acknowledge that I have read and agreed to the
                     )
 
                 })
+              )
             }
            {screenSize.width > 750 ?
 ""

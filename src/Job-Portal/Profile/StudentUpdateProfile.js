@@ -675,7 +675,7 @@ border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
 
               <label className={styles.inputName}>
                 <h4>Name:</h4>
-                <input maxLength="22" className={styles.input} value={name} disabled onChange={(e) => { setname(e.target.value) }} type="text" />
+                <input maxLength="22" className={styles.input} value={name}  onChange={(e) => { setname(e.target.value) }} type="text" />
               </label>
 
               <label className={styles.inputName}>

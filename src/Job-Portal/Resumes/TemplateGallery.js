@@ -99,19 +99,19 @@ const TemplateGallery = ({ onSelect }) => {
 
   return (
     <div className="template-gallery">
-      <div
+      <div style={{fontWeight:"bold"}}
         
-        className="template-card template1"
+        className="template-card template1" 
         onClick={() => setResumeAlert({ show: true, selected: 'one' })}
       >
-        <p style={{marginBottom:"30px"}}>This template is suitable for IT professionals with 2+ years of experience. 
+        <p style={{marginBottom:"30px", fontWeight:"bold"}}>This template is suitable for IT professionals with 2+ years of experience. 
           You can add upto 20 bullet points</p>
         <Magnifier src={template1} alt="Template One" className="blurred" />
         <p>Template 1</p>
       </div>
 
-      <div
-        style={{width:"600px",}}
+      <div 
+        style={{width:"600px",fontWeight:"bold"}}
         className="template-card template1  "
         onClick={() => setResumeAlert({ show: true, selected: 'two' })}
       >
@@ -121,7 +121,7 @@ const TemplateGallery = ({ onSelect }) => {
         <p>Template 2</p>
       </div>
 
-      <div
+      <div style={{fontWeight:"bold"}}
         className="template-card template1"
         onClick={() => setResumeAlert({ show: true, selected: 'three' })}
       >
@@ -166,10 +166,20 @@ const TemplateGallery = ({ onSelect }) => {
             Ensure your profile is fully completed
             <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
               <button
-                onClick={() => {
-                  setResumeAlert({ show: false, selected: null });
-                  navigate("/resume-form");
-                }}
+               onClick={() => {
+                if (resumeAlert?.selected === "one") {
+                  navigate("/resume-form", {
+                    state: { formstate: "experience" },
+                  });
+                }
+                else {
+                  navigate("/resume-form", {
+                    state: { formstate: "freshers" },
+                  });
+                }
+                setResumeAlert({ show: false, selected: null });
+              }}
+              
                 style={{
                   padding: '8px 16px',
                   backgroundColor: '#4CAF50',
