@@ -812,7 +812,7 @@ console.log(imageConsent, formData)
           Other
         </label>
       </div>
-
+      
       {/* Marital Status */}
       <h3>
         Marital Status:
@@ -828,6 +828,7 @@ console.log(imageConsent, formData)
           />
           Single
         </label>
+        
 
         <label style={{ marginLeft: "20px" }}>
           <input

@@ -117,7 +117,7 @@ const TemplateGallery = ({ onSelect }) => {
       >
         <p >This template is suitable for recent graduates across all domains. 
           You can add up to 12 bullet points to highlight education, skills, and academic projects.</p>
-        <Magnifier src={template2} alt="Template two" className="blurred template2" />
+        <Magnifier src={template1} alt="Template two" className="blurred template2" />
         <p>Template 2</p>
       </div>
 

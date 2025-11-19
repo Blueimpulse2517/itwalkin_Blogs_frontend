@@ -217,13 +217,22 @@ const TemplateTwo = () => {
             </section>
 
             <section>
-              <h3>PERSONAL DETAILS</h3>
-              <div style={{display:"flex", flexWrap:"wrap", gap:"4px"}}>
-              <div className={styles.personalTag}>Gender: {profileData?.personalDetails[0]?.gender || "N/A"}</div>
-              {/* <div className={styles.personalTag}>Religion: {profileData?.religion || "N/A"}</div> */}
-              <div className={styles.personalTag}>Marital Status: {profileData?.personalDetails[0]?.maritalStatus || "N/A"}</div>
-              </div>
-            </section>
+  <h3>PERSONAL DETAILS</h3>
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
+    <div className={styles.personalTag}>
+      Gender: {profileData?.personalDetails[0]?.gender || "N/A"}
+    </div>
+
+    {/* Marital Status on new line */}
+    <div
+      className={styles.personalTag}
+      style={{ flexBasis: "100%" }} // forces it to next line
+    >
+      Marital Status: {profileData?.personalDetails[0]?.maritalStatus || "N/A"}
+    </div>
+  </div>
+</section>
+
           </div>
         </div>
       </div>
