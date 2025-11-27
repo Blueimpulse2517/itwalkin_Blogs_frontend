@@ -42,11 +42,11 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     flex: 1 1 340px;
-    height:370px;  
+    height:395px;  
   }
   @media(max-width:1024px){
     .consult-card{
-     height:405px;
+     height:545px;
     }
   }
   @media(max-width:785px){
@@ -60,9 +60,21 @@
 
   @media(max-width:475px){
     .consult-card{
-      min-height: 474px;
+      min-height: 500px;
     }
   }
+  
+  @media(max-width:375px){
+    .consult-card{
+      min-height: 565px;
+    }
+  }
+  @media(max-width:320px){
+    .consult-card{
+      min-height: 565px;
+    }
+  }
+  
   .card-content {
     flex-grow: 1;
   }

@@ -156,8 +156,9 @@ function AllJobs({nopageFilter,setNoPageFilter,searchKey, setsearchKey,Filterere
    setActiveAlertId(id);
  };
  
- const handleOkClick1 = (Link) => {
+ const handleOkClick1 = (Link,id) => {
   setActiveAlertId(null); // close alert
+  applyforJob(id);
   applyforOtherJob(Link)
 };
 
@@ -899,7 +900,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
 
           <div ref={alertRef} style={{ marginTop: '15px', display:"flex", gap:"4px", justifyContent:"center" }}>
             <button
-              onClick={() => handleOkClick1(items.SourceLink)}
+              onClick={() => handleOkClick1(items.SourceLink, items._id)}
               style={{
                 padding: '8px 16px',
                 backgroundColor: '#4CAF50',
@@ -1325,7 +1326,7 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
 
                                   <div ref={alertRef} style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"4px" }}>
                                     <button
-                                      onClick={() => handleOkClick1(job.SourceLink)}
+                                      onClick={() => handleOkClick1(job.SourceLink, job._id)}
                                       style={{
                                         padding: '8px 16px',
                                         backgroundColor: '#4CAF50',

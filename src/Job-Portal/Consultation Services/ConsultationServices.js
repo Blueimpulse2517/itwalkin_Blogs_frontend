@@ -90,9 +90,31 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
 };
 
 const ConsultationServices = () => {
+
+  const [resumeAlert, setResumeAlert] = useState(false);
+    const alertRef = useRef(null);
+  
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (alertRef.current && !alertRef.current.contains(event.target)) {
+          setResumeAlert(false);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
+  const [scheduledDate, setScheduledDate] =useState("")
   const handleBooking = (type, date) => {
-    alert(`Booked ${type} on ${date}`);
+    // alert(`Booked ${type} on ${date}`);
+    setScheduledDate(date)
+    setResumeAlert(true)
   };
+
+
   const navigate = useNavigate();
   return (
     <>
@@ -156,6 +178,81 @@ const ConsultationServices = () => {
  "
         onBook={handleBooking}
       />
+       {resumeAlert && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 9998,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          
+          }}
+        >
+          <div
+            ref={alertRef}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '300px',
+              padding: '20px',
+              backgroundColor: 'rgb(40,4,99)',
+              color: 'white',
+              fontSize: '12px',
+              borderRadius: '5px',
+              zIndex: 9999,
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+             
+            }}
+          >
+            Paid Consultation Scheduled for {scheduledDate} ITWALKIN.com offers expert career advice both free and paid.
+ ITWALKIN.com is not affiliated with third-party consultants unless clearly stated.
+            <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+              <button
+               onClick={() => {
+                setResumeAlert(false);
+              }}
+              
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                 
+                }}
+              >
+               OK
+              </button>
+              <button
+                onClick={() => {
+                  setResumeAlert(false);
+                }}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#f44336',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                   
+                  
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
     </>
   );

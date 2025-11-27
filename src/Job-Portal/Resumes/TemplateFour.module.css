@@ -1,0 +1,287 @@
+.pageWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* MAIN PAGE */
+  .templateFour {
+    width: 239mm;
+    min-height: 297mm;
+    /* display: flex; */
+    column-gap: 30px;
+    padding: 20px 25px;
+    background: #ffffff;
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+  }
+  
+  
+  /* ===========================================
+     LEFT COLUMN
+  =========================================== */
+  .leftCol {
+    width: 51%;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  /* NAME */
+  .name {
+    font-size: 34px;
+    font-weight: 800;
+    margin-top: 5px;
+    margin-bottom: 8px;
+  }
+  
+  /* ROLE ROW */
+  .roleRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .rolePrimary {
+    color: #1a5ac3;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .roleSecondary {
+    color: #1a5ac3;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  /* CONTACT ROW */
+  .contactRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 22px;
+  }
+  
+  
+  /* ===========================================
+     SECTION BLOCK
+  =========================================== */
+  .sectionBlock {
+    margin-bottom: 26px;
+  }
+  
+  /* FULL-WIDTH TITLES – ALIGNED PERFECTLY */
+  .sectionTitle {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    margin-left: 0 !important;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid #d0d0d0;
+  }
+  
+  /* SUMMARY */
+  .summaryText {
+    font-size: 13.5px;
+    line-height: 1.48;
+    color: #333;
+  }
+  
+  
+  /* ===========================================
+     EXPERIENCE
+  =========================================== */
+  .expEntry {
+    margin-bottom: 16px;
+  }
+  
+  .expHeader {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .expCompanyRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12.8px;
+    margin: 2px 0 6px;
+  }
+  
+  .expCompany {
+    color: #1a5ac3;
+    font-weight: 700;
+  }
+  
+  .expDate {
+    color: #666;
+  }
+  
+  .expLoc {
+    color: #555;
+  }
+  
+  .expBullets {
+    margin-left: 18px;
+    margin-top: 4px;
+  }
+  
+  .expBullets li {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  
+  /* ===========================================
+     EDUCATION
+  =========================================== */
+  .eduEntry {
+    margin-bottom: 12px;
+  }
+  
+  .eduDegree {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .eduInst {
+    font-size: 13px;
+    color: #444;
+  }
+  
+  
+  /* ===========================================
+     RIGHT COLUMN
+  =========================================== */
+  .rightCol {
+    width: 46%;
+    margin-top: 0;
+  }
+
+  .rightCol .sectionBlock:first-child {
+    margin-top: 0;
+  }
+  
+  
+  /* ===========================================
+     TECH STACK
+  =========================================== */
+  .subTitleBlue {
+    color: #1a5ac3;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  
+  .subList {
+    font-size: 13px;
+    color: #333;
+    margin-top: 4px;
+  }
+  
+  
+  /* ===========================================
+     PROJECTS
+  =========================================== */
+  .projectEntry {
+    margin-bottom: 14px;
+  }
+  
+  .projectTitle {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1a5ac3;
+    margin-bottom: 2px;
+  }
+  
+  .projectText {
+    font-size: 13px;
+    color: #444;
+  }
+  
+  
+  /* ===========================================
+     ACHIEVEMENTS
+  =========================================== */
+  .achItem {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  
+  /* ===========================================
+     LANGUAGES
+  =========================================== */
+  .langItem {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  
+  
+  /* ===========================================
+     DOWNLOAD BUTTON
+  =========================================== */
+  .downloadBtn {
+    margin-top: 25px;
+    padding: 10px 18px;
+    background: #1a5ac3;
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .downloadBtn:hover {
+    background: #124a8d;
+  }
+  
+  
+  /* ===========================================
+     PDF MODE
+  =========================================== */
+  .forceA4 {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  
+  /* ===========================================
+     SCALE MOBILE
+  =========================================== */
+  @media (max-width: 768px) {
+    .pageWrapper {
+      transform-origin: top center;
+      transform: scale(0.76);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pageWrapper {
+      transform-origin: top center;
+      transform: scale(0.40);
+    }
+  }
+  
+  @media (max-width: 376px) {
+    .pageWrapper {
+      transform-origin: top center;
+      transform: scale(0.36);
+    }
+  }
+
+  @media (max-width: 320px) {
+    .pageWrapper {
+      transform-origin: top center;
+      transform: scale(0.32);
+    }
+  }

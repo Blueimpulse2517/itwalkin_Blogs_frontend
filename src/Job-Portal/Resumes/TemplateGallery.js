@@ -3,6 +3,7 @@ import './gallery.css';
 import template1 from "../img/template1.png";
 import template2 from "../img/template2.png";
 import template3 from "../img/template3.png";
+import template4 from "../img/template4.JPG";
 import { useNavigate } from 'react-router-dom';
 import TemplateTwo from './TemplateTwo';
 
@@ -99,37 +100,70 @@ const TemplateGallery = ({ onSelect }) => {
 
   return (
     <div className="template-gallery">
-      <div style={{fontWeight:"bold"}}
-        
-        className="template-card template1" 
-        onClick={() => setResumeAlert({ show: true, selected: 'one' })}
-      >
-        <p style={{marginBottom:"30px", fontWeight:"bold"}}>This template is suitable for IT professionals with 2+ years of experience. 
-          You can add upto 20 bullet points</p>
-        <Magnifier src={template1} alt="Template One" className="blurred" />
-        <p>Template 1</p>
-      </div>
+      
+      <div style={{ display: "flex", flexDirection: "column", gap: "40px",}}>
+  {/* First row: Template 1 & 2 */}
+  <div style={{ display: "flex", gap: "40px", flexWrap:"wrap"  }}>
+    <div
+      style={{ fontWeight: "bold" }}
+      className="template-card template1"
+      onClick={() => setResumeAlert({ show: true, selected: "one" })}
+    >
+      <p style={{ marginBottom: "30px", fontWeight: "bold" }}>
+     <h3>2+ YRS OF EXPERIENCE RESUME</h3><br></br>
+        This template is suitable for IT professionals with 2+ years of experience. 
+        You can add up to 20 bullet points
+      </p>
+      <Magnifier src={template1} alt="Template One" className="blurred" />
+      {/* <p>Template 1</p> */}
+    </div>
 
-      <div 
-        style={{width:"600px",fontWeight:"bold"}}
-        className="template-card template1  "
-        onClick={() => setResumeAlert({ show: true, selected: 'two' })}
-      >
-        <p >This template is suitable for recent graduates across all domains. 
-          You can add up to 12 bullet points to highlight education, skills, and academic projects.</p>
-        <Magnifier src={template1} alt="Template two" className="blurred template2" />
-        <p>Template 2</p>
-      </div>
+    <div
+      style={{ width: "600px", fontWeight: "bold" }}
+      className="template-card template2"
+      onClick={() => setResumeAlert({ show: true, selected: "two" })}
+    >
+      <p>
+     <h3>FRESHER RESUME</h3><br></br>
+        This template is suitable for recent graduates across all domains. 
+        You can add up to 12 bullet points to highlight education, skills, and academic projects.
+      </p>
+      <Magnifier src={template3} alt="Template Two" className="blurred" />
+      {/* <p>Template 2</p> */}
+    </div>
+  </div>
 
-      <div style={{fontWeight:"bold"}}
-        className="template-card template1"
-        onClick={() => setResumeAlert({ show: true, selected: 'three' })}
-      >
-        <p>This template is suitable for recent graduates across all domains. 
-        You can add up to 12 bullet points to highlight education, skills, and academic projects.</p>
-        <Magnifier src={template3} alt="Template three" className="blurred" />
-        <p>Template 3</p>
-      </div>
+  {/* Second row: Template 3 & 4 */}
+  <div style={{ display: "flex", gap: "40px", flexWrap:"wrap" }}>
+    <div
+      style={{ fontWeight: "bold" }}
+      className="template-card template3"
+      onClick={() => setResumeAlert({ show: true, selected: "three" })}
+    >
+      <p>
+      <h3>FRESHER RESUME</h3><br></br>
+        This template is suitable for recent graduates across all domains. 
+        You can add up to 12 bullet points to highlight education, skills, and academic projects.
+      </p>
+      <Magnifier src={template3} alt="Template Three" className="blurred" />
+      {/* <p>Template 3</p> */}
+    </div>
+
+    <div
+      style={{ fontWeight: "bold" }}
+      className="template-card template4"
+      onClick={() => setResumeAlert({ show: true, selected: "four" })}
+    >
+      <p>
+      <h3>FULL STACK DEVELOPER RESUME</h3><br></br>
+       This template is ideal for aspiring Full Stack Developers, providing up to 12 bullet points to highlight education, frontend and backend skills, frameworks, and key projects.
+      </p>
+      <Magnifier src={template4} alt="Template Four" className="blurred" />
+      {/* <p>Template 4</p> */}
+    </div>
+  </div>
+</div>
+
 
       {resumeAlert.show && (
         <div

@@ -7,6 +7,7 @@ import styles from "../Jobs/Allobs.module.css"
 import Style from "./AllResumes.module.css"
 import { Navigate, useNavigate } from 'react-router-dom';
 import TemplateThree from './TemplateThree';
+import TemplateFour from './TemplateFour';
 
   
 function AllResumes() {
@@ -48,7 +49,7 @@ function AllResumes() {
    const navigate = useNavigate()
   return (
 <>
-<button
+{/* <button
     className={Style.resumebackbtn}
     onClick={() => {
       if (window.history.length > 1) {
@@ -59,7 +60,7 @@ function AllResumes() {
     }}
   >
     <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
-  </button>
+  </button> */}
     <div>
       {selectedTemplate===null?
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Choose resume template<br></br> </h1>
@@ -94,6 +95,8 @@ function AllResumes() {
           {selectedTemplate === 'one' && <TemplateOne data={profileData} />}
           {selectedTemplate === 'two' && <TemplateTwo data={profileData} />}
           {selectedTemplate === 'three' && <TemplateThree data={profileData} />}
+          {selectedTemplate === 'four' && <TemplateFour data={profileData} />}
+
         </div>
         
       )}
