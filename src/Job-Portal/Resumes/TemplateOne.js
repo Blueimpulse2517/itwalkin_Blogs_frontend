@@ -4,6 +4,12 @@ import { generatePDF } from './generatePDF';
 import axios from 'axios';
 
 const TemplateOne = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  
   const [profileData, setProfileData] = useState(null);
   const[pageLoader, setPageLoader]= useState(false)
   const studId = JSON.parse(localStorage.getItem("StudId"));

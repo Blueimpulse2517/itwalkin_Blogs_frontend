@@ -454,6 +454,26 @@ const [immage, setimmage] = useState()
                return () => document.removeEventListener("mousedown", handleClickOutside);
              }, []);
 
+             const [showdelete, setShowdelete]=useState(false)
+
+async function DeleteProfile(){
+  let confirm = window.confirm("are you sure to delete your Account? your account will be deleted permanently, click on 'Ok', if you wish delete your Account permanently ")
+if(confirm){
+  await axios.delete(`/EmpProfile/deleteEmployee/${empId}`)
+  .then((res)=>{
+    if(res.data==="success"){
+    alert("Account deleted successfully ")
+    navigate("/")
+    localStorage.clear()
+    }else{
+    alert("some thing went wrong try again")
+
+    }
+  }).catch((err)=>{
+    alert("some thing went wrong try again ")
+  })  
+}
+  }
   return (
     <>
 
@@ -486,7 +506,16 @@ const [immage, setimmage] = useState()
               <input className={`${styles.addfile} ${styles.EmpaddfileD}`} type="file" accept='.png, .jpg, .jpeg' onChange={prevewImage} />
               <div className={styles.Emploader}> {loader ? <TailSpin height={"40px"} /> : ""} </div>
             </div> */}
+ <div style={{position:"absolute", marginLeft:"50%", marginTop:"40px"}}>
+              <input type='checkbox' onClick={()=>{setShowdelete(prev=>!prev)}} />
+             <span>Delete Profile</span><br></br>
+             {showdelete?
+<button className={{}} style={{backgroundColor:"red", color:"white", 
+border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
+:""
+             }
 
+              </div>
           </div>
           {/* <div className={styles.saveDelete}>
             {file && !loader ? <button className={styles.EmpsaveImage} onClick={uploadImage}>Save</button> : ""}
@@ -632,7 +661,7 @@ const [immage, setimmage] = useState()
 <div style={{marginLeft:"12px"}}>
 <CustomTextEditor
  ref={editor} 
-        value={AboutCompany.toString()}
+        value={AboutCompany?.toString()}
         onChange={setAboutCompany}
       />
       </div>
@@ -773,7 +802,7 @@ const [immage, setimmage] = useState()
             <div style={{margin:"10px"}}>
             <label className={styles.MobileinputName}>
               <h4 className={styles.MobileName}>About us:</h4>
-              <CustomTextEditor ref={editor} value={AboutCompany.toString()} onChange={setAboutCompany} />
+              <CustomTextEditor ref={editor} value={AboutCompany?.toString()} onChange={setAboutCompany} />
               {/* <input maxLength="25" className={styles.Mobileinput} value={CompanyWebsite} onChange={(e) => { handleCompanyWebsite(e)}} type="text" /> */}
             </label>
             </div>  
