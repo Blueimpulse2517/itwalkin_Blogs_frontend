@@ -16,7 +16,7 @@ import { TailSpin } from "react-loader-spinner"
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../Config";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({isEmpregCheck, isOpen, onClose, children }) => {
 	const { instance } = useMsal();
 	
 	const [gmailuser, setGmailuser] = useState("")
@@ -85,10 +85,18 @@ const Modal = ({ isOpen, onClose, children }) => {
 			  let result = response.data
 			  let token = result.token
 			  let GuserId = result.id
-			  if (result.status == "success") {
+			  if(isEmpregCheck==true && result.action == "login"){
+				alert("Account already exists. Please log in")
+			  }
+			  else if (result.status == "success") {
 				localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
 				localStorage.setItem("EmpIdG", JSON.stringify(GuserId))
+				if(isEmpregCheck==true) {
+					navigate("/UpdateProfile", { state: { name: result.name, profileAlert: true  } })
+				} 
+				else{
 				navigate("/Search-Candidate", { state: { gserid: GuserId } })
+				}
 				onClose()
 			  }
 			}).catch((err) => {
@@ -273,7 +281,10 @@ const Modal = ({ isOpen, onClose, children }) => {
                 <>
 
       <div className={styles.BothsignUpWrapperModel}>
-        <p className={styles.Loginpage}>Employer Login </p>
+		{isEmpregCheck==true?
+		<p className={styles.Loginpage}>New Employer Registration </p>
+        :<p className={styles.Loginpage}>Employer Login </p>
+		}
 
 
         {/* <input maxLength="10" className={styles.inputs} type="number" placeholder='enter phone Number'
@@ -304,11 +315,12 @@ const Modal = ({ isOpen, onClose, children }) => {
         
         <h4 className={styles.OR}>OR</h4> */}
 
-
+        {isEmpregCheck===true?
+        <>
         <div className={styles.signUpWrapper} onClick={login} >
           <div className={styles.both}>
             <img className={styles.google} src={GoogleImage} />
-            <p className={styles.signUpwrap} >Continue with Google</p>
+            <p className={styles.signUpwrap} >Create Account with Google</p>
           </div>
         </div>
         
@@ -323,15 +335,38 @@ const Modal = ({ isOpen, onClose, children }) => {
         <div className={styles.signUpWrapper} onClick={microsoftLogin} >
           <div className={styles.both}>
             <img className={styles.google} src={MicosoftImage} />
-            <p className={styles.signUpwrap} >Continue with Microsoft</p>
+            <p className={styles.signUpwrap} >Create Account with Microsoft</p>
           </div>
         </div>
 		<div className={styles.signUpWrapper}  >
           <div className={styles.both}>
             <img className={styles.google} src={linkedIn} />
-            <p className={styles.signUpwrap} >Continue with Linkedin</p>
+            <p className={styles.signUpwrap} >Create Account with Linkedin</p>
           </div>
         </div>
+		</>
+		:
+		<>
+        <div className={styles.signUpWrapper} onClick={login} >
+          <div className={styles.both}>
+            <img className={styles.google} src={GoogleImage} />
+            <p className={styles.signUpwrap} >Continue with Google</p>
+          </div>
+        </div>
+		<div className={styles.signUpWrapper} onClick={microsoftLogin} >
+		<div className={styles.both}>
+		  <img className={styles.google} src={MicosoftImage} />
+		  <p className={styles.signUpwrap} >Continue with Microsoft</p>
+		</div>
+	  </div>
+	  <div className={styles.signUpWrapper}  >
+		<div className={styles.both}>
+		  <img className={styles.google} src={linkedIn} />
+		  <p className={styles.signUpwrap} >Continue with Linkedin</p>
+		</div>
+	  </div>
+	  </>
+		}
         {/* <div className={styles.signUpWrapper}  >
           <div className={styles.both}>
             <img className={styles.google} src={linkedIn} />

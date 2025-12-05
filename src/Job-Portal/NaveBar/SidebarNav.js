@@ -128,9 +128,9 @@ const resumeRedirect=()=>{
   if(StudentAuth)
     navigate("/resumes")
 else{
-  navigate("/Job-Seeker-Login", {
-    state: { loginpage: "resume" },
-  })
+  navigate("/resumes", {
+    state: { logoutresume: true },
+})
 }
 }
 
@@ -261,8 +261,8 @@ const [fraudAlert, setfraudAlert]=useState(false)
        {
         show?
         <div style={{marginLeft:"10px"}}>
-<p onClick={() => { navigate("/New-Registration");props.setShowSideNaveProps(false);setShow(false); window.scrollTo({top:0}) }} className={`${Styles.textinMobileSodeBar} `}>Employer Registration </p>
-<p onClick={() => { navigate("/Jobseeker-New-Registration");props.setShowSideNaveProps(false);setShow(false); window.scrollTo({top:0}) }}className={`${Styles.textinMobileSodeBar} `} >Job Seeker Registration</p>
+<p onClick={() => { navigate("/EmployeeLogin", {state: { loginpage: "EmpregCheck" }});props.setShowSideNaveProps(false);setShow(false); window.scrollTo({top:0}) }} className={`${Styles.textinMobileSodeBar} `}>Employer Registration </p>
+<p onClick={() => { navigate("/JobSeekerLogin", {state: { loginpage: "jsregCheck" }});props.setShowSideNaveProps(false);setShow(false); window.scrollTo({top:0}) }}className={`${Styles.textinMobileSodeBar} `} >Job Seeker Registration</p>
         </div>
         :""
        }

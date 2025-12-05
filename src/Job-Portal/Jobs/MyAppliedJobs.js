@@ -346,6 +346,7 @@ console.log(records)
               </li>
 
               <li className={`${styles.li} ${styles.Location}`}><b>Location</b></li>
+              <li className={`${styles.li} ${styles.Location}`}><b>External/ <br></br>Internal</b></li>
               <li className={`${styles.li} ${styles.Package}`}><b>CTC </b>
                 <p className={styles.arrowWrapper}>
                   <i onClick={SdescendingOrder} className={`${styles.arrow} ${styles.up}`}> </i>
@@ -460,6 +461,7 @@ console.log(records)
 </li>
                       <li className={`${styles.li} ${styles.Location}`}>{items.jobLocation[0].toUpperCase() +
                         items.jobLocation.slice(1)}</li>
+                       <li className={`${styles.li} ${styles.Location}`}>{items?.external?items.external==true?"External":"Internal":"N/A"}</li>
                       <li className={`${styles.li} ${styles.Package}`}>{items.salaryRange}LPA</li>
                       <li className={`${styles.li} ${styles.experiance}`}>{items.experiance}Yrs</li>
                       <li className={`${styles.li} ${styles.Qualif}`}>{items.qualification} </li>

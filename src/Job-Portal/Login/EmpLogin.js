@@ -73,10 +73,16 @@ function EmpLogin(props) {
             let result = response.data
             let token = result.token
             let GuserId = result.id
-            if (result.status == "success") {
+            if(loginpage==="EmpregCheck" && result.action == "login"){
+              alert("Account already exists. Please log in")
+              }
+            else if (result.status == "success") {
               localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
               localStorage.setItem("EmpIdG", JSON.stringify(GuserId))
-              if (loginpage==="fraud-form"){
+              if(loginpage==="EmpregCheck" ){
+                navigate("/UpdateProfile", { state: { gserid: GuserId, profileAlert: true  } })
+              }
+              else if (loginpage==="fraud-form"){
                 navigate("/fraud-form", { state: { gserid: GuserId } })
               }
               else
@@ -306,7 +312,11 @@ function EmpLogin(props) {
       {/* <div id={styles.inputWrapper}> */}
       {/* <div style={{ marginTop: "10px", marginLeft: "37%" }}> */}
       <div className={styles.BothsignUpWrapper}>
-        <p className={styles.Loginpage}>Employer Login page </p>
+        {loginpage==="EmpregCheck"?
+        <p className={styles.Loginpage}> New Employer Registration page </p>
+        :
+        <p className={styles.Loginpage}> Employer Login page </p>
+        }
 
         {/* 
         <input maxLength="10" className={styles.inputs} type="number" placeholder='enter phone Number'
@@ -337,27 +347,51 @@ function EmpLogin(props) {
         
         <h4 className={styles.OR}>OR</h4> */}
 
-
+{loginpage==="EmpregCheck"?
+          <>
         <div className={styles.signUpWrapper} onClick={login} >
           <div className={styles.both}>
             <img className={styles.google} src={GoogleImage} />
-            <p className={styles.signUpwrap} >Continue with Google</p>
+            <p className={styles.signUpwrap} > Create Account with Google</p>
           </div>
         </div>
 
         <div className={styles.signUpWrapper} onClick={microsoftLogin} >
           <div className={styles.both}>
             <img className={styles.google} src={MicosoftImage} />
-            <p className={styles.signUpwrap} >Continue with Microsoft</p>
+            <p className={styles.signUpwrap} > Create Account with Microsoft</p>
           </div>
         </div>
          <div className={styles.signUpWrapper}  >
           <div className={styles.both}>
             <img className={styles.google} src={linkedIn} />
-            <span className={styles.signUpwrap} >Continue with Linkedin</span>
+            <span className={styles.signUpwrap} > Create Account with Linkedin</span>
           </div>
         </div> 
+        </>
+        :
+        <>
+        <div className={styles.signUpWrapper} onClick={login} >
+          <div className={styles.both}>
+            <img className={styles.google} src={GoogleImage} />
+            <p className={styles.signUpwrap} > Continue with Google</p>
+          </div>
+        </div>
 
+        <div className={styles.signUpWrapper} onClick={microsoftLogin} >
+          <div className={styles.both}>
+            <img className={styles.google} src={MicosoftImage} />
+            <p className={styles.signUpwrap} > Continue with Microsoft</p>
+          </div>
+        </div>
+         <div className={styles.signUpWrapper}  >
+          <div className={styles.both}>
+            <img className={styles.google} src={linkedIn} />
+            <span className={styles.signUpwrap} > Continue with Linkedin</span>
+          </div>
+        </div> 
+        </>
+}
 
         {/* <div className={styles.signUpWrapper} >
           <div className={styles.both}>

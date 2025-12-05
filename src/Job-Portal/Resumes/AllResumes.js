@@ -5,7 +5,7 @@ import TemplateGallery from './TemplateGallery';
 import axios from 'axios';
 import styles from "../Jobs/Allobs.module.css"
 import Style from "./AllResumes.module.css"
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import TemplateThree from './TemplateThree';
 import TemplateFour from './TemplateFour';
 
@@ -15,7 +15,9 @@ function AllResumes() {
   const [profileData, setProfileData] = useState(null);
 
   const studId = JSON.parse(localStorage.getItem("StudId"));
-
+  let location = useLocation()
+  const { logoutresume } = location.state || {};
+  
   async function getProfile() {
     const headers = {
       authorization: studId + " " + atob(JSON.parse(localStorage.getItem("StudLog")))
@@ -42,8 +44,10 @@ function AllResumes() {
     }
   }
 
+
   useEffect(() => {
-    getProfile();
+    if(logoutresume!==true)
+     getProfile();
   }, []);
 
    const navigate = useNavigate()
@@ -67,7 +71,7 @@ function AllResumes() {
        :
        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Your resume preview</h1>}
       {!selectedTemplate && (
-        <TemplateGallery onSelect={setSelectedTemplate} />
+        <TemplateGallery onSelect={setSelectedTemplate} logoutresume={logoutresume}/>
       )}
 
       {selectedTemplate && profileData && (
