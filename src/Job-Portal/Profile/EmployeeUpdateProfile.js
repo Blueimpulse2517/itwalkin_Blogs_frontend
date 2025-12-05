@@ -3,7 +3,7 @@ import styles from "./SudentUpdateProfile.module.css"
 import imageCompression from 'browser-image-compression';
 import axios from 'axios';
 import logo from "../img/Blue.jpg"
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import profileDp from "../img/user_3177440.png"
 import delet from "../img/icons8-delete-48.png"
 import { TailSpin } from "react-loader-spinner"
@@ -474,10 +474,64 @@ if(confirm){
   })  
 }
   }
+
+                  let location = useLocation()
+                  const { profileAlert } = location.state || {};
+                  const [profileCompletionAlert, setprofileCompletionAlert]=useState(false)
+  
+                            const alertRef = useRef(null);
+                            useEffect(() => {
+                              const handleClickOutside = (event) => {
+                                // If clicked outside alert box and it's open
+                                if (alertRef.current && !alertRef.current.contains(event.target)) {
+                                  setprofileCompletionAlert(false); // close the alert
+                                }
+                              };
+                            
+                              document.addEventListener('mousedown', handleClickOutside);
+                            
+                              return () => {
+                                document.removeEventListener('mousedown', handleClickOutside);
+                              };
+                            }, []);
+  
+                   useEffect(()=>{
+                      setprofileCompletionAlert(profileAlert);
+                   },[profileAlert]) 
+
   return (
     <>
 
       <div className={styles.EntireFullWrapper}>
+
+      <div ref={alertRef} style={{position:"relative"}}>
+      {profileCompletionAlert&&
+                         <>
+         <div className={styles.profileCompletionAlert}> 
+        
+       Welcome to ITWalkin!<br></br> Your profile has been created. Please complete your profile for a better experience!
+          <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
+            <button
+              onClick={() => { setprofileCompletionAlert(false)}}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+                         </>
+
+                         }
+          </div>
+
         <div className={styles.EntireWrapper} style={{height:"100%"}}>
         {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
              width:"28px"}} onClick={()=>{navigate(-1)}}  src={Arrowimage} /> */}

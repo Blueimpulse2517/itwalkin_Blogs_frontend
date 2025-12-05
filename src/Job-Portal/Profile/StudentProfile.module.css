@@ -663,3 +663,134 @@ overflow:hidden;
     width:58px;
     border: 1px solid  rgb(40, 4, 99);
 }
+/* Upload Card */
+.youtubeCard {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 220px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Blue Upload Button */
+.uploadBtnBlue {
+  background: rgb(40,4,99);
+  color: white;
+  padding: 12px 35px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Drag drop text */
+.dropText {
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Video Preview */
+.videoPreview {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+}
+
+/* Green Upload Button */
+.uploadBtnGreen {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: rgb(40,4,99);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+/* Loader text */
+.loadingText {
+  color: blue;
+  margin-top: 10px;
+}
+
+/* Error message */
+.errorTextRed {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Success URL */
+.successUrl {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Wrapper around preview */
+.previewWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Remove Video UI */
+.removeVideoBtn {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: #e41313;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.removeVideoBtn:hover {
+  background: #e41313;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .youtubeCard {
+    padding: 15px;
+    border-radius: 12px;
+  }
+  .uploadBtnBlue {
+    width: 100%;
+    font-size: 16px;
+  }
+  .uploadBtnGreen {
+    width: 100%;
+  }
+}
+
+@media (max-width: 475px) {
+  .youtubeCard {
+    width:90%;
+  }
+
+}

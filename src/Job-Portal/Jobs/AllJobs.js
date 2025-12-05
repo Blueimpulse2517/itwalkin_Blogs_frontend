@@ -151,12 +151,14 @@ function AllJobs({nopageFilter,setNoPageFilter,searchKey, setsearchKey,Filterere
 
  // ---------------------------fake alert-----------
  const [activeAlertId, setActiveAlertId] = useState(null);
- 
+ const[external, setExternal]=useState(false);
+
  const handleApplyClick = (id) => {
    setActiveAlertId(id);
  };
  
  const handleOkClick1 = (Link,id) => {
+  setExternal(true)
   setActiveAlertId(null); // close alert
   applyforJob(id);
   applyforOtherJob(Link)
@@ -204,11 +206,12 @@ function AllJobs({nopageFilter,setNoPageFilter,searchKey, setsearchKey,Filterere
     setLoader(true)
     // setTimeout(async () => {
 
-      await axios.put(`/jobpost/updatforJobApply/${jobId}`, { jobSeekerId, date }, { headers })
+      await axios.put(`/jobpost/updatforJobApply/${jobId}`, { jobSeekerId, date, external }, { headers })
         .then((res) => {
           if (res.data) {
             setLoader(false)
             getjobs()
+            setExternal(false)
           }
         }).catch((err) => {
           alert("server issue occured", err)

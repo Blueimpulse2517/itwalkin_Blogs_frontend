@@ -19,8 +19,9 @@ import { signInWithPopup, OAuthProvider, getAuth } from "firebase/auth";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../Config";
 
-const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
+const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 	const { instance } = useMsal();
+
 
 
 	const [gmailuser, setGmailuser] = useState("")
@@ -31,6 +32,7 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 	const [showotp, setshowotp] = useState(false)
 	const [Loader, setLoader] = useState(false)
 
+ 
 	const [ipAddress, setIPAddress] = useState('')
 	// ......Modal....
 	const [open, setOpen] = React.useState(false);
@@ -52,7 +54,7 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 
 
 	let location = useLocation()
-
+	const { loginpage } = location.state || {};
 	let navigate = useNavigate()
 
 	const login = useGoogleLogin({
@@ -80,10 +82,19 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 						let result = response.data
 						let token = result.token
 						let Id = result.id
-						if (result.status == "success") {
+						if(isregCheck==true && result.action == "login"){
+							alert("Account already exists. Please log in")
+						  }
+						
+						else if (result.status == "success") {
 							localStorage.setItem("StudLog", JSON.stringify(btoa(token)))
-							navigate("/alljobs", { state: { name: result.name } })
 							localStorage.setItem("StudId", JSON.stringify(Id))
+                            if(isregCheck==true) {
+								navigate("/Update-Profile", { state: { name: result.name, profileAlert: true  } })
+							} 
+							else{
+							navigate("/alljobs", { state: { name: result.name } })
+							}
 							onClose()
 						}
 					}).catch((err) => {
@@ -284,7 +295,9 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 				<>
 
 					<div className={styles.BothsignUpWrapperModel}>
-						<p className={styles.Loginpage}> Job Seeker Login  </p>
+						{isregCheck==true?
+												<p className={styles.Loginpage}>New Job Seeker Registration</p>:
+						<p className={styles.Loginpage}>Job Seeker Login</p>}
 
 						{/* <input maxLength="10" className={styles.inputs} type="number" placeholder='enter phone Number'
             value={PhoneNumber} autoComplete="on" onChange={(e) => { setPhoneNumber(e.target.value) }} />
@@ -312,8 +325,31 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
                         :""}
             <h4 className={styles.OR}>OR</h4> */}
 
-
+                      {isregCheck==true?
+					  <>
 						<div className={styles.signUpWrapper} onClick={login} >
+							<div className={styles.both}>
+								<img className={styles.google} src={GoogleImage} />
+								<span className={styles.signUpwrap} >Create Account with Google</span>
+							</div>
+						</div>
+
+						<div className={styles.signUpWrapper} onClick={microsoftLogin} >
+							<div className={styles.both}>
+								<img className={styles.google} src={MicosoftImage} />
+								<span className={styles.signUpwrap} >Create Account with Microsoft</span>
+							</div>
+						</div>
+						<div className={styles.signUpWrapper}>
+							<div className={styles.both}>
+								<img className={styles.google} src={linkedIn} />
+								<span className={styles.signUpwrap} >Create Account with Linkedin</span>
+					  </div>
+					  </div>
+					  </>
+					  :
+					  <>
+                      <div className={styles.signUpWrapper} onClick={login} >
 							<div className={styles.both}>
 								<img className={styles.google} src={GoogleImage} />
 								<span className={styles.signUpwrap} >Continue with Google</span>
@@ -332,6 +368,9 @@ const Modal = ({ isStuOpen, onClose, children, msalInstance }) => {
 								<span className={styles.signUpwrap} >Continue with Linkedin</span>
 					  </div>
 					  </div>
+					  </>
+
+					  }
 
 						{/* <div className={styles.signUpWrapper}>
 							<div className={styles.both}>

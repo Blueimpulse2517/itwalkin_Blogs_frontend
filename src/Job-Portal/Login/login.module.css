@@ -9,13 +9,13 @@
 .ModelWrapper{
     position: fixed;
         background: white;
-        height: 146px;
-        width: 240px;
+        height: 151px;
+        width: 275px;
         border: 1px solid #000;
         border-radius: 10px;
         box-shadow: 2px solid black;
         z-index:100;
-        margin-left:75%;
+        margin-left:64%;
 }
 /* .ModelWrapper::after {
     content: "";
@@ -94,7 +94,7 @@
 .signUpWrapper {
     display: flex;
     flex-wrap: nowrap;
-    width: 210px;
+    width: 243px;
     /* margin-left: 38%; */
     /* padding: 0.1%; */
     border: 1px solid black;

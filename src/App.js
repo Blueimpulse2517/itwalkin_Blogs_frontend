@@ -1111,6 +1111,7 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
               />
             } /> */}
              <Route path="/consultation-services" element={<ConsultationServices />} />
+             <Route path="/resumes" element={<AllResumes />} />
             <Route path="/Blogs" element={<Blogs 
             showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
             ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}
@@ -1206,7 +1207,6 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
             <Route path="/scanner" element={<QRScanner />} />
             <Route path="/enter-cabin" element={<JobseekerEnterCabin />} />
              <Route path="resume-form" element={<ResumeForm />}></Route>
-              <Route path="/resumes" element={<AllResumes url={axios.defaults.baseURL}/>}></Route> 
               <Route path="/alljobs" element={<Jobs url={axios.defaults.baseURL} 
                showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
                ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}

@@ -52,23 +52,31 @@ function Nav(props) {
   }
 
   let menuRef = useRef();
+  let regmenuRef = useRef();
   let imgRef = useRef();
 
   let SmenuRef = useRef();
   let SimgRef = useRef();
   let newReg = useRef();
   let Reg = useRef();
-
-  window.addEventListener("click", (e) => {
-    if (e.target !== newReg.current && e.target !== Reg.current) {
-      setShowRegister(false)
-    }
-  })
+ 
+  const[isregCheck, setisregCheck]=useState(false);
+  const[isEmpregCheck, setisEmpregCheck]=useState(false);
+  // window.addEventListener("click", (e) => {
+  //   if (e.target !== newReg.current && e.target !== Reg.current) {
+  //     setShowRegister(false)
+  //   }
+  // })
   window.addEventListener("click", (e) => {
     if (e.target !== menuRef.current && e.target !== imgRef.current) {
       setShowprofile(false)
     }
   })
+  // window.addEventListener("click", (e) => {
+  //   if (e.target !== regmenuRef.current && e.target !== regmenuRef.current) {
+  //     setShowRegister(false)
+  //   }
+  // })
 
 // window.addEventListener("click", (e) => {
   //   if (e.target !== SmenuRef.current && e.target !== SimgRef.current) {
@@ -160,9 +168,21 @@ function Nav(props) {
     props.setShowSideNave((prev) => !prev)
   }
   const [ShowRegister, setShowRegister] = useState(false)
+  useEffect(()=>{
+       console.log("rs",ShowRegister)
+  },[ShowRegister])
+  let regRef=useRef();
+  
+  window.addEventListener("click", (e) => {
+    if (e.target !== regRef.current && e.target !== regRef.current) {
+      setShowRegister(false)
+    }
+  })
 
   function handleOpenAccont(){
+    // console.log("abc")
     setShowRegister((prev)=>!prev)
+    // setisregCheck(true)
   }
 
   // const [showMessage, setShowMessage] = useState(false);
@@ -807,10 +827,12 @@ function Nav(props) {
                       <div>
                       <NavLink to="/" className={Styles.HomeJobs} style={navLinkStyles}><i style={{ marginLeft: 0, marginRight: "5px" }} class="fa-solid fa-house"></i>Home</NavLink>   
                       </div>
-                      <div ref={alertRef} style={{position:"relative"}}>
-                        <div onClick={()=>setresumeAlert((prev)=>prev=!prev)} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}>
+                        {/* <div ref={alertRef} style={{position:"relative"}}> */}
+                        <div onClick={()=>{navigate("/resumes", {
+                                  state: { logoutresume: true },
+                              })}} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}>
                            Resume Builder <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup></div>
-                         {resumeAlert&&
+                      {/*   {resumeAlert&&
                          <>
                             <div
         style={{
@@ -869,7 +891,7 @@ function Nav(props) {
                          </>
 
                          }
-                        </div>
+                        </div> */}
                         <div><NavLink to="/consultation-services" className={Styles.AllJobJobSeeker}  style={navLinkStyles}>Consultation Services </NavLink></div>
 
                         {/* <div ref={consultAlertRef} style={{position:"relative"}}>
@@ -1149,15 +1171,23 @@ function Nav(props) {
                       <NavLink to="/Search-Candidate-Home" className={` ${Styles.HomeSearchCandidate}`} style={navLinkStyles}>Employer </NavLink>
                       </div>
                       <div>
-                         <p className={` ${Styles.openAccount}`} onClick={handleOpenAccont} ref={Reg} >Open an Account</p>
-                         {
+                         <p className={` ${Styles.openAccount}`} ref={regRef} onClick={handleOpenAccont} >Open an Account</p>
+                         {/* {
                            ShowRegister?
                            <div className={Styles.dropdownwrapperHomeRegistration} ref={newReg} >
                            <p onClick={()=>{navigate("/New-Registration");setShowRegister(false)}}>Employer Registration</p>
                            <p onClick={()=>{navigate("/Jobseeker-New-Registration");setShowRegister(false)}}>Job Seeker Registration</p>
                            </div>
                            :""
-                         }
+                         } */}
+
+                    {ShowRegister?
+                      <div style={{right:"17%", width:"100px"}} className={Styles.dropdownwrapperHomeRegistration} ref={regmenuRef} >
+                        <p onClick={() => { handleEmpOpen(); handleStuClose(); setisEmpregCheck(true) }}>Employer Registration</p>
+                        <p onClick={() => { handleStuOpen(); handleClose(); setisregCheck(true) }}>Job Seeker Registration</p>
+                      </div>
+
+                    : ""}
                       </div>
                       <div>
                       <img className={` ${Styles.HomeprofileIcon}`} src={loginuser} ref={imgRef} onClick={() => setShowprofile((prev) => !prev)} />
@@ -1165,8 +1195,8 @@ function Nav(props) {
                     <div className={Styles.Alldownwrapper} >
 
                       <div style={{  }} className={Styles.dropdownwrapperHome} ref={menuRef} >
-                        <p onClick={() => { handleEmpOpen(); handleStuClose() }}>Employer Login</p>
-                        <p onClick={() => { handleStuOpen(); handleClose() }}>Job Seeker Login</p>
+                        <p onClick={() => { handleEmpOpen(); handleStuClose();setisEmpregCheck(false) }}>Employer Login</p>
+                        <p onClick={() => { handleStuOpen(); handleClose();setisregCheck(false) }}>Job Seeker Login</p>
                       </div>
                     </div>
 
@@ -1272,8 +1302,8 @@ function Nav(props) {
                   
                   <>
                   <div ref={loginModalRef}>
-                    <StuModal  isStuOpen={Stuopen} onClose={() => { handleStuClose() }} />
-                    <Modal isOpen={open} onClose={() => { handleClose() }} />
+                    <StuModal isregCheck={isregCheck}  isStuOpen={Stuopen} onClose={() => { handleStuClose() }} />
+                    <Modal isEmpregCheck={isEmpregCheck} isOpen={open} onClose={() => { handleClose() }} />
                     </div>
                   </>
 
@@ -1534,16 +1564,18 @@ className={props.ShowSideNave ? "fas fa-times" : "fas fa-bars"} ref={SimgRef} on
                       <div style={{display:"flex", flexDirection:"column"}}>
 
                       <div ref={alertRef} style={{position:"relative", marginBottom: "-41px", zIndex:"999"}}>
-                        <div onClick={()=>setresumeAlert((prev)=>prev=!prev)} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}> Resume Builder 
+                        <div onClick={()=>{navigate("/resumes", {
+                                  state: { logoutresume: true },
+                              })}} className={Styles.AllJobJobSeeker} style={{cursor:"pointer"}}> Resume Builder 
                         <sup style={{border:"2px solid white",borderRadius:"25px",padding:"1px",fontFamily:"monospace"}}>Beta</sup>
                         </div>
-                        {resumeAlert&&
+                        {/* {resumeAlert&&
                          <>
                             <div
         style={{
           width: '75%',
           padding: '20px',
-          backgroundColor: 'rgb(40,4,99)',
+          backgroundColor: 'rgb(114, 99, 138)',
           color: 'white',
           fontSize: '12px',
           borderRadius: '5px',
@@ -1594,8 +1626,8 @@ onClick={() => {
         </div>
                          </>
 
-                         }
-                        </div>
+                         } */}
+                        </div> 
             
 
                        <div ref={dropdownRef} style={{ position: "relative" }}>

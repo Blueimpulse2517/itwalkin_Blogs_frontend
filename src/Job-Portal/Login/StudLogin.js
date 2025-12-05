@@ -42,6 +42,7 @@ useEffect(() => {
 
 
   let location = useLocation()
+  const { loginpage } = location.state || {};
 
   let navigate = useNavigate()
 
@@ -72,12 +73,20 @@ useEffect(() => {
             let result = response.data
             let token = result.token
             let Id = result.id
-        console.log(result)
-
-            if (result.status == "success") {
+        // console.log(result)
+          if(loginpage==="jsregCheck" && result.action == "login"){
+              alert("Account already exists. Please log in")
+              }
+           else if (result.status == "success") {
               localStorage.setItem("StudLog", JSON.stringify(btoa(token)))
+              localStorage.setItem("StudId", JSON.stringify(Id)) 
+              if(loginpage==="jsregCheck" ){
+                navigate("/Update-Profile", {state:{name:result.name, profileAlert: true }})
+              }
+              else{
               navigate("/alljobs", {state:{name:result.name}})
-              localStorage.setItem("StudId", JSON.stringify(Id))   
+              }
+                
             }
           }).catch((err) => {
             alert("server issue occured")
@@ -240,8 +249,11 @@ useEffect(() => {
  */}
  
 <div className={styles.BothsignUpWrapper}>
-<p className={styles.Loginpage}> Job Seeker Login page  </p>
-
+  {loginpage==="jsregCheck"?
+    <p className={styles.Loginpage} style={{marginLeft:"27px"}}> New Job Seeker Registration page</p>
+    :
+  <p className={styles.Loginpage}> Job Seeker Login page  </p>
+  }
 {/* <div className={styles.signUpWrapper}  >
         <div className={styles.both}>
           <img className={styles.google} src={linkedIn} />
@@ -279,7 +291,31 @@ useEffect(() => {
 
 
 
+{loginpage==="jsregCheck"?
+<>
+      <div className={styles.signUpWrapper} onClick={login} >
+        <div className={styles.both}>
+          <img className={styles.google} src={GoogleImage} />
+          <span className={styles.signUpwrap} > Create Account with Google</span>
+        </div>
+       </div>
 
+      <div className={styles.signUpWrapper} onClick={microsoftLogin}  >
+        <div className={styles.both}>
+          <img className={styles.google} src={MicosoftImage} />
+          <span className={styles.signUpwrap} >Create Account with Microsoft</span>
+        </div>
+      </div>
+
+       <div className={styles.signUpWrapper}  >
+        <div className={styles.both}>
+          <img className={styles.google} src={linkedIn} />
+          <span className={styles.signUpwrap} >Create Account with Linkedin</span>
+        </div>
+      </div> 
+      </>
+      :
+      <>
       <div className={styles.signUpWrapper} onClick={login} >
         <div className={styles.both}>
           <img className={styles.google} src={GoogleImage} />
@@ -300,6 +336,9 @@ useEffect(() => {
           <span className={styles.signUpwrap} >Continue with Linkedin</span>
         </div>
       </div> 
+      </>
+
+}
 
 
       {/* <div className={styles.signUpWrapper}  >

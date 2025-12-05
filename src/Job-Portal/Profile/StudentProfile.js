@@ -18,33 +18,47 @@ function StudentProfile() {
 
   const tabs = ["Personal Info", "Job Info", "Education", "Skills", "Feedback","YouTube Video"];
 const [PageLoader, setPageLoader] = useState(false)
+// const fileInputRef = useRef(null);
 
-const [youtubeLink, setYoutubeLink] = useState(profileData?.[0]?.youtubeLink || "");
+// const [videoFile, setVideoFile] = useState(null);
+// const [videoPreview, setVideoPreview] = useState("");
+// const [videoUrl, setVideoUrl] = useState("");
+// const [ytUploading, setYtUploading] = useState(false);
+// const [ytError, setYtError] = useState("");
 
-function handleYoutubeLinkChange(e) {
-  setYoutubeLink(e.target.value);
-}
-function getYoutubeVideoId(url) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-}
 
-  // useEffect(() => {
-  //   async function fetchProfile() {
-  //     try {
-  //       const res = await fetch("https://api.example.com/user/profile"); // Replace with actual endpoint
-  //       if (!res.ok) throw new Error("Failed to fetch profile data");
-  //       const data = await res.json();
-  //       setProfileData(data);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetchProfile();
-  // }, []);
+
+
+// const uploadVideoToYouTube = async () => {
+//   if (!videoFile) {
+//     setYtError("Please select a video first.");
+//     return;
+//   }
+
+//   const formData = new FormData();
+//   formData.append("video", videoFile);
+
+//   try {
+//     setYtUploading(true);
+//     setYtError("");
+//     setVideoUrl("");
+
+//     const res = await axios.post(
+//       "http://localhost:3000/api/uploadToYouTube", //-----------------dummy api used to test frontend
+//       formData,
+//       {
+//         headers: { "Content-Type": "multipart/form-data" }
+//       }
+//     );
+
+//     setVideoUrl(res.data.url);
+//   } catch (err) {
+//     setYtError("Upload failed. Try again.");
+//   } finally {
+//     setYtUploading(false);
+//   }
+// };
+
 
 let navigate = useNavigate()
 
@@ -69,6 +83,80 @@ let navigate = useNavigate()
     useEffect(() => {
         getProfile()
     }, [])
+
+  // -----------you tube code----------  
+
+const [videoFile, setVideoFile] = useState(null);
+const [videoPreview, setVideoPreview] = useState("");
+const [videoUrl, setVideoUrl] = useState(""); // existing URL
+const [ytUploading, setYtUploading] = useState(false);
+const [ytError, setYtError] = useState("");
+const fileInputRef = useRef(null);
+
+useEffect(() => {
+  if (profileData && profileData?.url) {
+    setVideoUrl(profileData[0].url?profileData[0].url:"");
+    setVideoPreview(""); // YouTube preview replaces local preview
+  }
+}, [profileData]);
+
+const removeLocalVideo = () => {
+  setVideoPreview("");
+  setVideoFile(null);
+  setYtError("");
+
+  if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
+};
+
+const deleteYouTubeVideo = async () => {
+  try {
+    const response = await axios.post("/api/deleteYouTubeVideo", {
+      url: videoUrl
+    });
+
+    setVideoUrl("");
+    setVideoPreview("");
+    alert("Video deleted successfully!");
+
+  } catch (error) {
+    alert("Failed to delete YouTube video.");
+  }
+};
+
+const uploadVideoToYouTube = async (file) => {
+  if (!file) {
+    setYtError("No video selected.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("video", file);
+
+  try {
+    setYtUploading(true);
+    setYtError("");
+    setVideoUrl("");
+
+    const res = await axios.post(
+      "http://localhost:3000/api/uploadToYouTube",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" }
+      }
+    );
+
+    setVideoUrl(res.data.url);
+    setVideoPreview("");  
+
+  } catch (err) {
+    setYtError("Upload failed.");
+  } finally {
+    setYtUploading(false);
+  }
+};
+
     const[showApprovedStatus, setShowApprovedStatus]=useState(false)
 
     function updateprofile() {
@@ -86,6 +174,7 @@ let navigate = useNavigate()
   if (error) return <p className={styles.errorText}>{error}</p>;
   if (!profileData) return null;
 
+  
 
   return (
     <div className={styles.container}>
@@ -306,32 +395,125 @@ let navigate = useNavigate()
           </div>
         )}
 
-{activeTab === "YouTube Videos" && (
+{/* YOUTUBE TAB */}
+
+{/* YOUTUBE TAB */}
+
+{/* YOUTUBE TAB */}
+{activeTab === "YouTube Video" && (
   <div className={styles.infoSection}>
-    <h3>YouTube Video</h3>
-    <input
-      type="text"
-      placeholder="Paste YouTube link here"
-      value={youtubeLink}
-      onChange={handleYoutubeLinkChange}
-      style={{width:"100%", padding:"8px", marginBottom:"10px"}}
-    />
-    
-    {/* {youtubeLink && (
-      <div style={{marginTop:"10px"}}>
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${getYoutubeVideoId(youtubeLink)}`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+    <h3>YouTube Video Upload</h3>
+
+    {ytUploading && <p className={styles.loadingText}>Uploading… please wait...</p>}
+    {ytError && <p className={styles.errorTextRed}>{ytError}</p>}
+    {/* UPLOAD CARD */}
+    <div
+      className={styles.youtubeCard}
+      onClick={() => {
+        if (!videoPreview && !videoUrl)
+          fileInputRef.current.click();
+      }}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith("video/")) {
+          setVideoFile(file);
+          setVideoPreview(URL.createObjectURL(file));
+          setVideoUrl("");
+        }
+      }}
+    >
+      {/* Hidden File Input */}
+      <input
+  type="file"
+  accept="video/*"
+  ref={fileInputRef}
+  style={{ display: "none" }}
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setVideoFile(file);
+      setVideoPreview(URL.createObjectURL(file));
+      setVideoUrl("");
+      setYtError("");
+
+      // IMPORTANT — pass file directly to upload function
+      uploadVideoToYouTube(file);
+    }
+  }}
+/>
+
+
+      {/* CASE 1 — NO VIDEO SELECTED */}
+      {!videoPreview && !videoUrl && (
+        <>
+          <button className={styles.uploadBtnBlue}>Upload Video to YouTube</button>
+          <p className={styles.dropText}>
+            or drop a file,<br /> paste video or URL
+          </p>
+        </>
+      )}
+
+      {/* CASE 2 — LOCAL VIDEO PREVIEW */}
+      {videoPreview && (
+        <div className={styles.previewWrapper}>
+          <video src={videoPreview} controls className={styles.videoPreview} />
+
+          <button
+            className={styles.removeVideoBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              removeLocalVideo();
+            }}
+          >
+            Delete Video
+          </button>
+        </div>
+      )}
+
+      {/* CASE 3 — EXISTING YOUTUBE VIDEO PREVIEW */}
+      {videoUrl && !videoPreview && (
+        <div className={styles.previewWrapper}>
+          <iframe
+            className={styles.youtubeFrame}
+            src={videoUrl.replace("watch?v=", "embed/")}
+            allowFullScreen
+          ></iframe>
+
+          <button
+            className={styles.removeVideoBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteYouTubeVideo();
+            }}
+          >
+            Delete YouTube Video
+          </button>
+        </div>
+      )}
+    </div>
+
+    {/* UPLOAD TO YOUTUBE BUTTON */}
+    {/* {!videoUrl && (
+      <div style={{display:"flex", justifyContent:"center"}}>
+      <button
+        onClick={uploadVideoToYouTube}
+        disabled={ytUploading}
+        className={styles.uploadBtnGreen}
+      >
+        {ytUploading ? "Uploading..." : "Upload to YouTube"}
+      </button>
       </div>
     )} */}
+
+
+
   </div>
 )}
+
+
+
 
       </div>
     </div>

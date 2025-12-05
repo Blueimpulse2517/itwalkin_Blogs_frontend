@@ -80,7 +80,7 @@ const Magnifier = ({ src, alt, className }) => {
   );
 };
 
-const TemplateGallery = ({ onSelect }) => {
+const TemplateGallery = ({ onSelect, logoutresume }) => {
   const [resumeAlert, setResumeAlert] = useState({ show: false, selected: null });
   const alertRef = useRef(null);
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ const TemplateGallery = ({ onSelect }) => {
       onClick={() => setResumeAlert({ show: true, selected: "one" })}
     >
       <p style={{ marginBottom: "30px", fontWeight: "bold" }}>
-     <h3>2+ YRS OF EXPERIENCE RESUME</h3><br></br>
+     <h2 style={{color:"#280463"}}>2+ YRS OF EXPERIENCE RESUME</h2><br></br>
         This template is suitable for IT professionals with 2+ years of experience. 
         You can add up to 20 bullet points
       </p>
@@ -124,7 +124,7 @@ const TemplateGallery = ({ onSelect }) => {
       onClick={() => setResumeAlert({ show: true, selected: "two" })}
     >
       <p>
-     <h3>FRESHER RESUME</h3><br></br>
+     <h2 style={{color:"#280463"}}>FRESHER RESUME</h2><br></br>
         This template is suitable for recent graduates across all domains. 
         You can add up to 12 bullet points to highlight education, skills, and academic projects.
       </p>
@@ -141,7 +141,7 @@ const TemplateGallery = ({ onSelect }) => {
       onClick={() => setResumeAlert({ show: true, selected: "three" })}
     >
       <p>
-      <h3>FRESHER RESUME</h3><br></br>
+      <h2 style={{color:"#280463"}}>FRESHER RESUME</h2><br></br>
         This template is suitable for recent graduates across all domains. 
         You can add up to 12 bullet points to highlight education, skills, and academic projects.
       </p>
@@ -155,7 +155,7 @@ const TemplateGallery = ({ onSelect }) => {
       onClick={() => setResumeAlert({ show: true, selected: "four" })}
     >
       <p>
-      <h3>FULL STACK DEVELOPER RESUME</h3><br></br>
+      <h2 style={{color:"#280463"}}>FULL STACK DEVELOPER RESUME</h2><br></br>
        This template is ideal for aspiring Full Stack Developers, providing up to 12 bullet points to highlight education, frontend and backend skills, frameworks, and key projects.
       </p>
       <Magnifier src={template4} alt="Template Four" className="blurred" />
@@ -166,6 +166,81 @@ const TemplateGallery = ({ onSelect }) => {
 
 
       {resumeAlert.show && (
+        logoutresume==true?
+        <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 9998,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        
+        }}
+      >
+        <div
+          ref={alertRef}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: '300px',
+            padding: '20px',
+            backgroundColor: 'rgb(40,4,99)',
+            color: 'white',
+            fontSize: '12px',
+            borderRadius: '5px',
+            zIndex: 9999,
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+           
+          }}
+        >
+Login as a Job Seeker to explore opportunities and create a strong resume!
+          <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+            <button
+             onClick={() => { 
+              navigate("/Job-Seeker-Login", {
+              state: { loginpage: "resume" },
+            }); setResumeAlert({ show: false, selected: null })}}
+            
+             style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+               
+              }}
+            >
+             Login as  Jobseeker
+            </button>
+            <button
+              onClick={() => {
+                setResumeAlert({ show: false, selected: null })
+              }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#f44336',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                 
+                
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+        :
         <div
           style={{
             position: 'fixed',
