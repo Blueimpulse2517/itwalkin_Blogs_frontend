@@ -73,7 +73,7 @@ function AppledJobs(props) {
           alert("backend arror occured")
         })
     }, 1000)
-  }
+  } 
 
   // useEffect(() => {
   // }, [])

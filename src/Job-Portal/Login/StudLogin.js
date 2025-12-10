@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import React from 'react'
 import styles from "./login.module.css"
 import axios from "axios"
@@ -40,6 +40,21 @@ useEffect(() => {
     .catch(error => console.log(error))
 }, []);
 
+  const [regAlert, setRegAlert] = useState(false);
+  const alertRef = useRef(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+    if (alertRef.current && !alertRef.current.contains(event.target)) {
+      setRegAlert(false);
+    }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []); 
 
   let location = useLocation()
   const { loginpage } = location.state || {};
@@ -75,7 +90,8 @@ useEffect(() => {
             let Id = result.id
         // console.log(result)
           if(loginpage==="jsregCheck" && result.action == "login"){
-              alert("Account already exists. Please log in")
+              // alert("Account already exists. Please log in")
+              setRegAlert(true)
               }
            else if (result.status == "success") {
               localStorage.setItem("StudLog", JSON.stringify(btoa(token)))
@@ -247,7 +263,86 @@ useEffect(() => {
         </div>
       </div>
  */}
+  {regAlert==true &&
+
+<div style={{position:"relative"}}>	 
+ <div
+ style={{
+   position: 'absolute',
+   top:'2px',
+   left:0,
+   width: '100vw',
  
+   zIndex: 9998,
+   display: 'flex',
+   alignItems: 'top',
+   justifyContent: 'center',
+ 
+ }}
+>
+ <div
+   ref={alertRef}
+   onClick={(e) => e.stopPropagation()}
+   style={{
+     width: '300px',
+     padding: '20px',
+     backgroundColor: 'rgb(40,4,99)',
+     color: 'white',
+     fontSize: '12px',
+     borderRadius: '5px',
+     zIndex: 9999,
+     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+     textAlign: 'center',
+    
+   }}
+ >
+  Account Already Exists!
+   <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+     <button
+      onClick={() => { 
+       navigate("/JobSeekerLogin"); 
+ setRegAlert(false);
+}
+}
+     
+      style={{
+         padding: '8px 16px',
+         backgroundColor: '#4CAF50',
+         color: 'white',
+         border: 'none',
+         borderRadius: '5px',
+         fontSize: '12px',
+         cursor: 'pointer',
+        
+       }}
+     >
+      Login as Jobseeker
+     </button>
+     <button
+       onClick={() => { 
+ navigate("/"); 
+ setRegAlert(false);
+ }}
+       style={{
+         padding: '8px 16px',
+         backgroundColor: '#f44336',
+         color: 'white',
+         border: 'none',
+         borderRadius: '5px',
+         fontSize: '12px',
+         cursor: 'pointer',
+          
+         
+       }}
+     >
+       Home
+     </button>
+   </div>
+ </div>
+</div>
+
+</div>
+}
 <div className={styles.BothsignUpWrapper}>
   {loginpage==="jsregCheck"?
     <p className={styles.Loginpage} style={{marginLeft:"27px"}}> New Job Seeker Registration page</p>

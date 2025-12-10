@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react"
+import { useState, useEffect, createContext, useRef } from "react"
 import React from 'react'
 import styles from "./login.module.css"
 import axios from "axios"
@@ -42,6 +42,22 @@ function EmpLogin(props) {
       .catch(error => console.log(error))
   }, []);
 
+    const [regAlert, setRegAlert] = useState(false);
+    const alertRef = useRef(null);
+    
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+      if (alertRef.current && !alertRef.current.contains(event.target)) {
+        setRegAlert(false);
+      }
+      };
+    
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []); 
+
  let location = useLocation()
   const { loginpage } = location.state || {};
 
@@ -74,7 +90,8 @@ function EmpLogin(props) {
             let token = result.token
             let GuserId = result.id
             if(loginpage==="EmpregCheck" && result.action == "login"){
-              alert("Account already exists. Please log in")
+              // alert("Account already exists. Please log in")
+              setRegAlert(true)
               }
             else if (result.status == "success") {
               localStorage.setItem("EmpLog", JSON.stringify(btoa(token)))
@@ -311,6 +328,86 @@ function EmpLogin(props) {
 
       {/* <div id={styles.inputWrapper}> */}
       {/* <div style={{ marginTop: "10px", marginLeft: "37%" }}> */}
+      {regAlert==true &&
+<div style={{position:"relative"}}>	 
+ <div
+ style={{
+   position: 'absolute',
+   top:'2px',
+   left:0,
+   width: '100vw',
+ //   height: '100vh',
+ //   backgroundColor: 'rgba(0, 0, 0, 0.4)',
+   zIndex: 9998,
+   display: 'flex',
+   alignItems: 'top',
+   justifyContent: 'center',
+ 
+ }}
+>
+ <div
+   ref={alertRef}
+   onClick={(e) => e.stopPropagation()}
+   style={{
+     width: '300px',
+     padding: '20px',
+     backgroundColor: 'rgb(40,4,99)',
+     color: 'white',
+     fontSize: '12px',
+     borderRadius: '5px',
+     zIndex: 9999,
+     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+     textAlign: 'center',
+    
+   }}
+ >
+  Account Already Exists!
+   <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+     <button
+      onClick={() => { 
+       navigate("/EmployeeLogin"); 
+ setRegAlert(false);
+}
+}
+     
+      style={{
+         padding: '8px 16px',
+         backgroundColor: '#4CAF50',
+         color: 'white',
+         border: 'none',
+         borderRadius: '5px',
+         fontSize: '12px',
+         cursor: 'pointer',
+        
+       }}
+     >
+      Login as Employer
+     </button>
+     <button
+       onClick={() => { 
+ navigate("/"); 
+ setRegAlert(false);
+ }}
+       style={{
+         padding: '8px 16px',
+         backgroundColor: '#f44336',
+         color: 'white',
+         border: 'none',
+         borderRadius: '5px',
+         fontSize: '12px',
+         cursor: 'pointer',
+          
+         
+       }}
+     >
+       Home
+     </button>
+   </div>
+ </div>
+</div>
+
+</div>
+}
       <div className={styles.BothsignUpWrapper}>
         {loginpage==="EmpregCheck"?
         <p className={styles.Loginpage}> New Employer Registration page </p>

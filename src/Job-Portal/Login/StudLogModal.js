@@ -52,6 +52,21 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 			.catch(error => console.log(error))
 	}, []);
 
+	const [regAlert, setRegAlert] = useState(false);
+	const alertRef = useRef(null);
+  
+	useEffect(() => {
+	  const handleClickOutside = (event) => {
+		if (alertRef.current && !alertRef.current.contains(event.target)) {
+		  setRegAlert(false);
+		}
+	  };
+  
+	  document.addEventListener('mousedown', handleClickOutside);
+	  return () => {
+		document.removeEventListener('mousedown', handleClickOutside);
+	  };
+	}, []);
 
 	let location = useLocation()
 	const { loginpage } = location.state || {};
@@ -83,7 +98,8 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 						let token = result.token
 						let Id = result.id
 						if(isregCheck==true && result.action == "login"){
-							alert("Account already exists. Please log in")
+							// alert("Account already exists. Please log in")
+							setRegAlert(true)
 						  }
 						
 						else if (result.status == "success") {
@@ -135,6 +151,7 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 			navigate("/BIAddmin@Profile")
 		}
 	}, [])
+
 
 
 	// async function Studlogin() {
@@ -267,10 +284,12 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 			});
 	}
 
+	
 
 
 	return (
 		<>
+		
 
 			{/* <div
 			style={{
@@ -286,7 +305,92 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 				zIndex:100
 			}}
 		> */}
+		     {regAlert==true?
+
+	     <div style={{position:"relative"}}>	 
+        <div
+        style={{
+          position: 'absolute',
+          top:'2px',
+          left:0,
+          width: '100vw',
+        //   height: '100vh',
+        //   backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 9998,
+          display: 'flex',
+          alignItems: 'top',
+          justifyContent: 'center',
+        
+        }}
+      >
+        <div
+          ref={alertRef}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: '300px',
+            padding: '20px',
+            backgroundColor: 'rgb(40,4,99)',
+            color: 'white',
+            fontSize: '12px',
+            borderRadius: '5px',
+            zIndex: 9999,
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+           
+          }}
+        >
+         Account Already Exists!
+          <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+            <button
+             onClick={() => { 
+              navigate("/JobSeekerLogin"); 
+			  setRegAlert(false);
+			  onClose();
+			}
+			}
+            
+             style={{
+                padding: '8px 16px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+               
+              }}
+            >
+             Login as Jobseeker
+            </button>
+            <button
+              onClick={() => { 
+				navigate("/"); 
+				setRegAlert(false);
+				onClose();
+			  }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#f44336',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                 
+                
+              }}
+            >
+              Home
+            </button>
+          </div>
+        </div>
+      </div>
+
+	  </div>
+           :
 			<div style={{height:"150px"}} className={styles.ModelWrapper} >
+
+				
 				<p onClick={onClose} style={
 					{ position: "absolute", marginLeft: "85%", marginTop: "0px", cursor: "pointer", display: "inline" }}>
 
@@ -392,6 +496,7 @@ const Modal = ({ isregCheck,isStuOpen, onClose, children, msalInstance }) => {
 				</>
 
 			</div>
+        }
 			{/* </div> */}
 		</>
 	);
