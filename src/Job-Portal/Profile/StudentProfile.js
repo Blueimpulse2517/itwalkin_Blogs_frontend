@@ -16,6 +16,7 @@ function StudentProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+
   const tabs = ["Personal Info", "Job Info", "Education", "Skills", "Feedback","YouTube Video"];
 const [PageLoader, setPageLoader] = useState(false)
 // const fileInputRef = useRef(null);
@@ -92,6 +93,8 @@ const [videoUrl, setVideoUrl] = useState(""); // existing URL
 const [ytUploading, setYtUploading] = useState(false);
 const [ytError, setYtError] = useState("");
 const fileInputRef = useRef(null);
+const [uploadConsent, setuploadConsent] = useState(false);
+const [disclaimerConsent, setdisclaimerConsent] = useState(false);
 
 useEffect(() => {
   if (profileData && profileData?.url) {
@@ -404,7 +407,31 @@ const uploadVideoToYouTube = async (file) => {
   <div className={styles.infoSection}>
     <h3>YouTube Video Upload</h3>
 
-    {ytUploading && <p className={styles.loadingText}>Uploading… please wait...</p>}
+    <div>
+      <label style={{cursor:"pointer"}}>
+        <input
+          type="checkbox"
+          checked={uploadConsent}
+          onChange={(e) => setuploadConsent(e.target.checked)}
+        />
+        You agree to upload only interview clip
+      </label>
+
+      <br />
+
+      <label style={{cursor:"pointer"}}>
+        <input
+          type="checkbox"
+          checked={disclaimerConsent}
+          onChange={(e) => setdisclaimerConsent(e.target.checked)}
+          
+        />
+        Itwalkin is not responsible for misuse of this video by the employer        
+        </label>
+        <p>Note:  This video will required by ITWalkin Admin. This video will be shared only to fortune 500 employer</p>
+</div>
+
+    {/* {ytUploading && <p className={styles.loadingText}>Uploading… please wait...</p>} */}
     {ytError && <p className={styles.errorTextRed}>{ytError}</p>}
     {/* UPLOAD CARD */}
     <div
@@ -448,7 +475,9 @@ const uploadVideoToYouTube = async (file) => {
       {/* CASE 1 — NO VIDEO SELECTED */}
       {!videoPreview && !videoUrl && (
         <>
-          <button className={styles.uploadBtnBlue}>Upload Video to YouTube</button>
+          <button disabled={!(uploadConsent && disclaimerConsent)} 
+          style={{backgroundColor: uploadConsent && disclaimerConsent ?"rgb(40,4,99)":"grey" }} className={styles.uploadBtnBlue}>
+            Upload Video to YouTube</button>
           <p className={styles.dropText}>
             or drop a file,<br /> paste video or URL
           </p>
@@ -456,7 +485,13 @@ const uploadVideoToYouTube = async (file) => {
       )}
 
       {/* CASE 2 — LOCAL VIDEO PREVIEW */}
-      {videoPreview && (
+      {ytUploading?
+      <div style={{display:"flex", flexDirection:"column"}}>
+      <Puff height="80" width="80" color="#4fa94d" ariaLabel="bars-loading"  />
+      <div><p style={{color:"red"}}>Uploading.......</p></div>
+      </div>
+      :
+      (videoPreview && (
         <div className={styles.previewWrapper}>
           <video src={videoPreview} controls className={styles.videoPreview} />
 
@@ -470,7 +505,8 @@ const uploadVideoToYouTube = async (file) => {
             Delete Video
           </button>
         </div>
-      )}
+      ))
+    }
 
       {/* CASE 3 — EXISTING YOUTUBE VIDEO PREVIEW */}
       {videoUrl && !videoPreview && (

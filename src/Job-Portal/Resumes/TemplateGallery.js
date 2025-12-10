@@ -3,7 +3,7 @@ import './gallery.css';
 import template1 from "../img/template1.png";
 import template2 from "../img/template2.png";
 import template3 from "../img/template3.png";
-import template4 from "../img/template4.JPG";
+import template4 from "../img/template4.png";
 import { useNavigate } from 'react-router-dom';
 import TemplateTwo from './TemplateTwo';
 
@@ -110,7 +110,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
       onClick={() => setResumeAlert({ show: true, selected: "one" })}
     >
       <p style={{ marginBottom: "30px", fontWeight: "bold" }}>
-     <h2 style={{color:"#280463"}}>2+ YRS OF EXPERIENCE RESUME</h2><br></br>
+     <h2 style={{color:"#280463"}}>Mid Level (2+ YRS) <br></br>Generic Resume</h2><br></br>
         This template is suitable for IT professionals with 2+ years of experience. 
         You can add up to 20 bullet points
       </p>
@@ -118,37 +118,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
       {/* <p>Template 1</p> */}
     </div>
 
-    <div
-      style={{ width: "600px", fontWeight: "bold" }}
-      className="template-card template2"
-      onClick={() => setResumeAlert({ show: true, selected: "two" })}
-    >
-      <p>
-     <h2 style={{color:"#280463"}}>FRESHER RESUME</h2><br></br>
-        This template is suitable for recent graduates across all domains. 
-        You can add up to 12 bullet points to highlight education, skills, and academic projects.
-      </p>
-      <Magnifier src={template3} alt="Template Two" className="blurred" />
-      {/* <p>Template 2</p> */}
-    </div>
-  </div>
-
-  {/* Second row: Template 3 & 4 */}
-  <div style={{ display: "flex", gap: "40px", flexWrap:"wrap" }}>
-    <div
-      style={{ fontWeight: "bold" }}
-      className="template-card template3"
-      onClick={() => setResumeAlert({ show: true, selected: "three" })}
-    >
-      <p>
-      <h2 style={{color:"#280463"}}>FRESHER RESUME</h2><br></br>
-        This template is suitable for recent graduates across all domains. 
-        You can add up to 12 bullet points to highlight education, skills, and academic projects.
-      </p>
-      <Magnifier src={template3} alt="Template Three" className="blurred" />
-      {/* <p>Template 3</p> */}
-    </div>
-
+    
     <div
       style={{ fontWeight: "bold" }}
       className="template-card template4"
@@ -160,6 +130,37 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
       </p>
       <Magnifier src={template4} alt="Template Four" className="blurred" />
       {/* <p>Template 4</p> */}
+    </div>
+  </div>
+
+  {/* Second row: Template 3 & 4 */}
+  <div style={{ display: "flex", gap: "40px", flexWrap:"wrap" }}>
+    <div
+      style={{ fontWeight: "bold" }}
+      className="template-card template3"
+      onClick={() => setResumeAlert({ show: true, selected: "three" })}
+    >
+      <p>
+      <h2 style={{color:"#280463"}}>Entry Level-Pro<br></br>Designed for fresher with Skills like Pro</h2><br></br>
+        This template is suitable for recent graduates across all domains. 
+        You can add up to 12 bullet points to highlight education, skills, and academic projects.
+      </p>
+      <Magnifier src={template3} alt="Template Three" className="blurred" />
+      {/* <p>Template 3</p> */}
+    </div>
+
+    <div
+      style={{ width: "600px", fontWeight: "bold" }}
+      className="template-card template2"
+      onClick={() => setResumeAlert({ show: true, selected: "two" })}
+    >
+      <p>
+     <h2 style={{color:"#280463"}}>Entry Level-Ambition<br></br>Designed to achieve your Ambition</h2><br></br>
+        This template is suitable for recent graduates across all domains. 
+        You can add up to 12 bullet points to highlight education, skills, and academic projects.
+      </p>
+      <Magnifier src={template2} alt="Template Two" className="blurred" />
+      {/* <p>Template 2</p> */}
     </div>
   </div>
 </div>
