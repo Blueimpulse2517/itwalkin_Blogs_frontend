@@ -8,16 +8,19 @@ import Style from "./AllResumes.module.css"
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import TemplateThree from './TemplateThree';
 import TemplateFour from './TemplateFour';
+import TemplateFive from './TemplateFive';
+import TemplateSix from './TemplateSix';
 
   
 function AllResumes() {
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  // const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [profileData, setProfileData] = useState(null);
 
   const studId = JSON.parse(localStorage.getItem("StudId"));
   let location = useLocation()
   const { logoutresume } = location.state || {};
-  
+  const { selectedTemplate } = location.state || {};
+
   async function getProfile() {
     const headers = {
       authorization: studId + " " + atob(JSON.parse(localStorage.getItem("StudLog")))
@@ -43,7 +46,6 @@ function AllResumes() {
       alert("Something went wrong");
     }
   }
-
 
   useEffect(() => {
     if(logoutresume!==true)
@@ -71,7 +73,7 @@ function AllResumes() {
        :
        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Your resume preview</h1>}
       {!selectedTemplate && (
-        <TemplateGallery onSelect={setSelectedTemplate} logoutresume={logoutresume}/>
+        <TemplateGallery logoutresume={logoutresume}/>
       )}
 
       {selectedTemplate && profileData && (
@@ -80,11 +82,19 @@ function AllResumes() {
           <button
   class={Style.jobdetailBackBtnContainer }
   onClick={() => {
-    setSelectedTemplate(null); // First reset the template view
+     // First reset the template view
     
   }}
 >
-  <div class={Style.backbtn} >Back</div>
+  <div class={Style.backbtn} 
+  onClick={() => {
+    if (window.history.length > 1) {
+       navigate(-1);
+      } else {
+         navigate('/resumes'); 
+       }
+  }}
+  >Back</div>
 </button>
 
 <button
@@ -100,6 +110,8 @@ function AllResumes() {
           {selectedTemplate === 'two' && <TemplateTwo data={profileData} />}
           {selectedTemplate === 'three' && <TemplateThree data={profileData} />}
           {selectedTemplate === 'four' && <TemplateFour data={profileData} />}
+          {selectedTemplate === 'five' && <TemplateFive data={profileData} />}
+          {selectedTemplate === 'six' && <TemplateSix data={profileData} />}
 
         </div>
         
@@ -109,6 +121,6 @@ function AllResumes() {
   );
 }
 
-
 export default AllResumes;
+
 

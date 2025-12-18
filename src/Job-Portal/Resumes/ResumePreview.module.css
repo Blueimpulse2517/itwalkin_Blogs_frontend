@@ -1,0 +1,137 @@
+/* Back button wrapper */
+.backWrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px 0px 0px 15px;
+    background-color: #f2f2f2;
+  }
+  
+  /* Back button */
+  .resumebackbtn {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #280463;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Page wrapper */
+  .previewWrapper {
+    margin-top: -40px;
+  }
+  
+  /* Preview section */
+  .previewContainer {
+    min-height: 100vh;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 30px;
+    overflow-x: auto;
+  }
+  
+  /* Resume image – desktop zoom */
+  .previewImage {
+    width: 100%;
+    max-width: 900px;
+    transform: scale(1.05); /* slight zoom */
+    transform-origin: top center;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Alert box */
+  .alertBox {
+    width: 300px;
+    padding: 20px;
+    background-color: rgb(40, 4, 99);
+    color: white;
+    font-size: 12px;
+    border-radius: 5px;
+    z-index: 9999;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Button group */
+  .btnGroup {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  /* Buttons */
+  .successBtn {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .dangerBtn {
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  /* ================= MOBILE RESPONSIVE ================= */
+  @media (max-width: 768px) {
+    .previewWrapper {
+      margin-top: 0;
+    }
+  
+    .previewContainer {
+      padding: 15px;
+      align-items: flex-start;
+    }
+  
+    .previewImage {
+      max-width: 100%;
+      transform: scale(0.9); /* zoom-out for mobile */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+  
+    .alertBox {
+      width: 90%;
+      font-size: 13px;
+    }
+  
+    .resumebackbtn {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .previewImage {
+      transform: scale(0.95);
+    }
+  }
+  
+

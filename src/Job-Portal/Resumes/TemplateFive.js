@@ -1,0 +1,328 @@
+import React, { useEffect, useState } from 'react';
+import styles from "./TemplateFive.module.css";
+import { generatePDF } from './generatePDF';
+import axios from 'axios';
+
+const TemplateFive = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  
+  const [profileData, setProfileData] = useState(null);
+  const[pageLoader, setPageLoader]= useState(false)
+  const studId = JSON.parse(localStorage.getItem("StudId"));
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setPageLoader(true);
+      const userid = JSON.parse(localStorage.getItem("StudId"));
+      try {
+        const res = await axios.get(`/StudentProfile/viewProfile/${studId}`);
+        setProfileData(res.data.result);
+        console.log("response", res.data.result);
+  
+        // Store profile image as Base64 to avoid CORS issues later
+        if (res.data.result?.Gpicture) {
+          try {
+            const base64 = await toDataURL(res.data.result.Gpicture);
+            localStorage.setItem("profileImageBase64", base64);
+          } catch (err) {
+            console.error("Image conversion failed:", err);
+          }
+        }
+  
+        setPageLoader(false);
+      } catch (err) {
+        alert("Something went wrong while fetching profile");
+        setPageLoader(false);
+      }
+    };
+  
+    // Helper function to convert image to Base64
+    const toDataURL = async (url) => {
+      const res = await fetch(url, { mode: "cors" });
+      const blob = await res.blob();
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    };
+  
+    fetchProfile();
+  }, [studId]);
+  
+
+  // This ensures A4 format even on mobile when downloading
+  const handleDownloadPDF = () => {
+    const resumeElement = document.getElementById('template-one');
+    const oldClass = resumeElement.className;
+  
+    // Temporarily lock viewport zoom
+    const viewportMeta = document.querySelector('meta[name=viewport]');
+    const oldViewport = viewportMeta ? viewportMeta.content : null;
+    if (viewportMeta) viewportMeta.content = "width=device-width, initial-scale=1, maximum-scale=1";
+  
+    resumeElement.className = oldClass + ' force-a4';
+  
+    setTimeout(() => {
+      generatePDF('template-one', `${profileData.name}_ITwalkin_resume.pdf`);
+      resumeElement.className = oldClass;
+  
+      // Restore zoom settings
+      if (viewportMeta && oldViewport) {
+        viewportMeta.content = oldViewport;
+      }
+    }, 300);
+  };
+  
+  return (
+    <div className="resume-container">
+      
+      <div id="template-one" className="template-one">
+        {/* Header */}
+        <div className="resume-header">
+          <div className="header-left">
+            <div style={{display:"flex"}}>
+            {/* <div >
+            {console.log("Image URL:", profileData?.Gpicture)}
+            {profileData? (
+              (profileData?.imageConsent === true && (
+                <img
+                  src={profileData.Gpicture}
+                  alt="Candidate"
+                  style={{ borderRadius: "47%" }}
+                />
+              ))
+          ) : (
+          <p>Loading...</p>
+         )}
+
+              
+            </div> */}
+              <div><h1 style={{marginTop:"21%"}} className="resume-name">{profileData ? profileData.name : "Loading..."}</h1></div>
+              
+            </div>
+            <p className="summary">{pageLoader?<p>Loading...</p>:(profileData ? profileData.profileSummary : "No profile summary added")}</p>
+          </div>
+          <div className="header-right">
+          <div >
+            {console.log("Image URL:", profileData?.Gpicture)}
+            {profileData? (
+              (profileData?.imageConsent === true && (
+                <img
+                  src={profileData.Gpicture}
+                  alt="Candidate"
+                  style={{ borderRadius: "47%" }}
+                />
+              ))
+          ) : (
+          <p>Loading...</p>
+         )}
+
+              
+            </div>
+            <p>{pageLoader?<p>Loading...</p>:(profileData ? profileData.address : "No Address added")}</p>
+            <p className="email">{pageLoader?<p>Loading...</p>:(profileData ? profileData.email : "No email added")}</p>
+            <p style={{marginTop:"-7px"}}>{pageLoader?<p>Loading...</p>:(profileData ? profileData.phoneNumber : "No phone added")}</p>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div  style={{marginTop:"-24px"}} className="resume-body">
+          {/* Left Section */}
+          <div className="left-section">
+          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+            <div>
+  <h2 style={{ fontWeight: "700" }} className="section-title">
+    EXPERIENCE
+  </h2>
+  </div>
+  <div>
+  <h4  className='texp'>
+    ( TOTAL EXPERIENCE - {profileData ? `${profileData.Experiance} Years )` : "Loading..."} 
+  </h4>
+  </div>
+</div>
+
+            {pageLoader ? (
+  <p>Loading...</p>
+) : (
+  profileData?.experiences?.length > 0 ? (
+    profileData.experiences.map((exp, index) => (
+      <div className="experience" key={index}>
+        <h3>
+          {exp.company}{exp.location && `, ${exp.location}`} — <strong>{exp.role}</strong>
+        </h3>
+
+        <div style={{ display: "flex", gap: "4px", alignItems:"center" }}>
+          <p className="date">
+            {exp.startDate?
+            <>
+              {new Date(exp.startDate).toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })}</> :<p>No Date Added</p>
+            }
+          </p>
+
+          {exp.endDate ? (
+            <>
+              <span style={{marginTop:"4px"}}>-</span>
+              <p className="date">
+                {new Date(exp.endDate).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </p>
+            </>
+          ):<><div style={{marginTop:"4px"}}>-</div><p className="date">Present</p></>}
+        </div>
+
+        {exp.descriptions?.length > 0 && (
+          <ul>
+            {exp.descriptions.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))
+  ) : (
+    <p>No experiences added</p>
+  )
+)}
+
+          </div>
+
+          {/* Right Section */}
+          
+          <div className="right-section">
+          {/* <div style={{ marginLeft: "28px" }} className="certification">
+  <h4 style={{ marginLeft: "-19px" }}>CERTIFICATION</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.certifications ? (
+    <ul style={{ paddingLeft: "20px" ,marginTop:"-15px"}}>
+      {profileData.certifications.map((cert, index) => (
+        <li key={index}>{cert.trim()}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No certification added</p>
+  )}
+</div> */}
+
+            {/* <div className="total-exp">
+              <h4>Total Experience</h4>
+              <p>{profileData ? `${profileData.Experiance} Years` : "Loading..."}</p>
+            </div> */}
+
+            <div className="skills">
+              <h4 style={{marginLeft:"10px"}}>CORE TECHNICAL SKILLS</h4>
+              {pageLoader ? (
+  <p>Loading...</p>
+) : profileData?.skills?.some(
+    (g) => g.heading?.toLowerCase() === "testing"
+  ) ? (
+  profileData.skills
+    .filter((group) => group.heading?.toLowerCase() === "testing")
+    .map((group, i) => (
+      <div style={{ marginLeft: "32px" }} className="skill-section" key={i}>
+        <h5>{group.heading}</h5>
+        <ul>
+          {group.items?.map((skill, j) => (
+            <li key={j}>{skill}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+) : (
+  <p>No testing skills added</p>
+)}
+
+            </div>
+            <div style={{ marginLeft: "28px" }} className="certification">
+  <h4 style={{ marginLeft: "-19px" }}>CERTIFICATION</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.certifications ? (
+    <ul style={{ paddingLeft: "20px" ,marginTop:"-15px"}}>
+      {profileData.certifications.map((cert, index) => (
+        <li key={index}>{cert.trim()}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No certification added</p>
+  )}
+</div>
+            <div className="skills">
+  {/* <h4>LANGUAGES </h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : (
+    profileData && profileData.languages && profileData.languages.length > 0 ? (
+      profileData.languages.map((group, i) => (
+        <div className="skill-section" key={i}>
+          <ul>
+            <li key={i}>{group}</li>
+          </ul>
+        </div>
+      ))
+    ) : (
+      <p>No languages added</p>
+    )
+  )}
+</div> */}
+</div>
+<div className="certification">
+  <h4 style={{color:"#007bff",fontWeight:"900",marginBottom:"4px"}}>QUALIFICATION:</h4>
+  {pageLoader ? (
+    <p>Loading...</p>
+  ) : profileData && profileData.qualificationDetails && profileData.qualificationDetails.length > 0 ? (
+    profileData.qualificationDetails.map((qual, index) => (
+      <div className="education-info" key={index}>
+        <span>{index+1}.</span>
+        <span className="degree">{qual.degree || "-"}</span>
+        <span className="separator">,</span>
+        <span className="percentage">{qual.score || "-"}</span>
+        <span className="separator">,</span>
+        <span className="college">{qual.collegeName || "-"}</span>
+        <span className="separator">,</span>
+        <span className="location">{qual.stateCode || "-"}</span>
+        <span className="separator">,</span>
+        <span className="country">{qual.countryCode || "-"}</span>
+      </div>
+    ))
+  ) : (
+    <p>No Qualification added</p>
+  )}
+</div>
+
+        
+            
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      {/* Download Button */}
+      <div className="download-button-container">
+        <button
+          className="download-button"
+          onClick={handleDownloadPDF}
+        >
+          Download Template 1 PDF
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default TemplateFive;
+
+

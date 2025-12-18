@@ -94,6 +94,16 @@
     cursor: pointer;
     
   }
+  .statusBadgeReject {
+    background-color: red;
+    color: black;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-weight: 500;
+    cursor: pointer;
+    
+  }
+
   
   /* Tabs */
   .tabs {

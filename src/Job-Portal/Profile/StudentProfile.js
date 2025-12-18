@@ -16,7 +16,6 @@ function StudentProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
   const tabs = ["Personal Info", "Job Info", "Education", "Skills", "Feedback","YouTube Video"];
 const [PageLoader, setPageLoader] = useState(false)
 // const fileInputRef = useRef(null);
@@ -26,7 +25,6 @@ const [PageLoader, setPageLoader] = useState(false)
 // const [videoUrl, setVideoUrl] = useState("");
 // const [ytUploading, setYtUploading] = useState(false);
 // const [ytError, setYtError] = useState("");
-
 
 
 
@@ -59,7 +57,6 @@ const [PageLoader, setPageLoader] = useState(false)
 //     setYtUploading(false);
 //   }
 // };
-
 
 let navigate = useNavigate()
 
@@ -197,7 +194,8 @@ const uploadVideoToYouTube = async (file) => {
         <div className={styles.actions}>
           <button style={{width:"147px"}}  className={styles.editBtn} onClick={updateprofile}>Edit Profile</button>
           <button className={styles.downloadBtn} onClick={resumedownload}>Download Resume</button>
-          <span style={{width:"120px",textAlign:"center"}}  className={styles.statusBadge} onClick={()=>setShowApprovedStatus(prev=>!prev)}>Account Status</span>
+          <div className={profileData[0].isApproved ? styles.statusBadge:styles.statusBadgeReject} style={{display:"flex"}}><strong>Account Status: </strong>{profileData[0].isApproved?"Approved":"Under verification"}</div>
+          {/* <span style={{width:"120px",textAlign:"center"}}  className={styles.statusBadge} onClick={()=>setShowApprovedStatus(prev=>!prev)}>Account Status</span> */}
         </div>
         
       </div>
@@ -238,16 +236,22 @@ const uploadVideoToYouTube = async (file) => {
             </div>
             {showApprovedStatus &&
             (profileData[0].isApproved?
-             <div className={styles.aprovedStatus}>
-              <div><strong style={{color:"Black"}}>Account Status</strong></div>
-              <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
-             </div>
+            //  <div className={styles.aprovedStatus}>
+            //   <div><strong style={{color:"Black"}}>Account Status</strong></div>
+            //   <div><strong style={{color:"green"}}>Congratulations—your account has been approved</strong></div>
+            //  </div>
+            <div>
+              <strong>Account Status</strong><br></br>Congratulations—your account has been approved
+            </div>
              :
-             <div className={styles.aprovedStatus}>
-              <div><strong style={{color:"Black"}}>Account Status</strong></div>
-              <div><strong style={{color:"red"}}></strong></div>
-              <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
-             </div> 
+             <div>
+              <strong>Account Status</strong><br></br>Your account is in under Verfication process
+            </div>
+            //  <div className={styles.aprovedStatus}>
+            //   <div><strong style={{color:"Black"}}>Account Status</strong></div>
+            //   <div><strong style={{color:"red"}}></strong></div>
+            //   <div><strong style={{color:"red"}}>Your account is in under Verfication process</strong></div>
+            //  </div> 
             )
           }
           </div>
@@ -289,7 +293,6 @@ const uploadVideoToYouTube = async (file) => {
        <strong>Experience : </strong> 
        {profileData[0].Experiance?`${profileData[0].Experiance} Yrs`:"####"} 
            </div>
-
 
 
             {/* <div>
@@ -471,7 +474,6 @@ const uploadVideoToYouTube = async (file) => {
   }}
 />
 
-
       {/* CASE 1 — NO VIDEO SELECTED */}
       {!videoPreview && !videoUrl && (
         <>
@@ -544,10 +546,8 @@ const uploadVideoToYouTube = async (file) => {
     )} */}
 
 
-
   </div>
 )}
-
 
 
 
@@ -557,3 +557,4 @@ const uploadVideoToYouTube = async (file) => {
 }
 
 export default StudentProfile;
+
