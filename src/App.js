@@ -90,6 +90,7 @@ import InterviewScreen from "./Job-Portal/QRCode/InterviewScreen";
 import MyAppliedDrives from "./Job-Portal/Jobs/MyAppliedDrives";
 import HomeWalkin from "./Job-Portal/Jobs/AllHomeWalkins";
 import ConsultationServices from "./Job-Portal/Consultation Services/ConsultationServices";
+import ResumePreview from "./Job-Portal/Resumes/ResumePreview";
 // import ConsultationServices from "./Job-Portal/Consultation Services/ConsultationServices";
 
 
@@ -1207,6 +1208,7 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
             <Route path="/scanner" element={<QRScanner />} />
             <Route path="/enter-cabin" element={<JobseekerEnterCabin />} />
              <Route path="resume-form" element={<ResumeForm />}></Route>
+             <Route path="/resume-preview" element={<ResumePreview></ResumePreview>}></Route>
               <Route path="/alljobs" element={<Jobs url={axios.defaults.baseURL} 
                showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
                ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}

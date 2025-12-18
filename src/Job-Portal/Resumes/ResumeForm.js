@@ -3,14 +3,16 @@ import axios from 'axios';
 import styles from "./ResumeForm.module.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useScreenSize from '../SizeHook';
-
+import { SKILL_LIBRARY } from "./SkillLibrary";
 
 const ResumeForm = () => {
+
   const initialState = {
     name: '',
     profileSummary: '',
     address: '',
     email: '',
+    linkedin:'',
     qualification: '',
     college: '',
     totalExperience: '',
@@ -18,7 +20,8 @@ const ResumeForm = () => {
       { company: '', role: '', startDate: '', endDate: '', descriptions: [''] },
     ],
     certifications: [''],
-    skills: [{ heading: '', items: [''] }],
+    skills: [{ heading: '', items: [] }],
+    // skills: [{ heading: '', items: [''] }],
     languages: [''],
     qualificationDetails: [
       { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' },
@@ -26,7 +29,10 @@ const ResumeForm = () => {
     personalDetails: [{
       gender: "",
       maritalStatus: "",
-      dob: ""  
+      dob: "",
+      fatherName: "",
+    motherName: "",
+    nationality: ""  
     }],
     achievements: [""],
     interests: [""],
@@ -71,7 +77,6 @@ const ResumeForm = () => {
   };
 
 
-
   const navigate  = useNavigate();
   const screenSize = useScreenSize();
   const [formData, setFormData] = useState(initialState);
@@ -83,7 +88,6 @@ const ResumeForm = () => {
   const handleConscentChange = (value) => {
     setImageConsent(value);
   };
-
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -118,11 +122,12 @@ const ResumeForm = () => {
             : [{ company: "", role: "", startDate: "", endDate: "", descriptions: [""] }],
           certifications: result.certifications?.length ? result.certifications : [""],
           skills: result.skills?.length
-            ? result.skills.map(skill => ({
-              heading: skill.heading || "",
-              items: skill.items?.length ? skill.items : [""],
-            }))
-            : [{ heading: "", items: [""] }],
+  ? result.skills.map(skill => ({
+      heading: skill.heading || "",
+      items: skill.items?.length ? skill.items : [],
+    }))
+  : [{ heading: "", items: [] }],
+
           languages: result.languages?.length ? result.languages : [""],
           personalDetails:[{
             gender: result.personalDetails[0]?.gender || "",
@@ -159,6 +164,70 @@ const ResumeForm = () => {
 console.log(imageConsent, formData)
   },[imageConsent])
 
+  const [skillSearch, setSkillSearch] = useState("");
+const [activeSkillIndex, setActiveSkillIndex] = useState(null);
+const skillBoxRef = useRef([]);
+
+const selectSkillHeading = (index, heading) => {
+  const updated = [...formData.skills];
+  updated[index].heading = heading;
+  updated[index].items = []; // reset skills when heading changes
+  setFormData({ ...formData, skills: updated });
+  setSkillSearch("");
+};
+
+const addSkillChip = (sectionIndex, skill) => {
+  const updated = [...formData.skills];
+  if (!updated[sectionIndex].items.includes(skill)) {
+    updated[sectionIndex].items.push(skill);
+  }
+  setFormData({ ...formData, skills: updated });
+  setSkillSearch("");
+};
+
+const removeSkillChip = (sectionIndex, skill) => {
+  const updated = [...formData.skills];
+  updated[sectionIndex].items = updated[sectionIndex].items.filter(
+    (s) => s !== skill
+  );
+  setFormData({ ...formData, skills: updated });
+};
+
+useEffect(() => {
+  const handleOutsideClick = (e) => {
+    const activeRef = skillBoxRef.current[activeSkillIndex];
+
+    if (activeRef && !activeRef.contains(e.target)) {
+      setActiveSkillIndex(null);
+    }
+  };
+
+  document.addEventListener("mousedown", handleOutsideClick);
+  return () =>
+    document.removeEventListener("mousedown", handleOutsideClick);
+}, [activeSkillIndex]);
+
+// const[hasValidSkillSections, sethasValidSkillSections]=useState(false)
+// useEffect(() => {
+//   const isSkills = formData.skills.some(
+//     (section) =>
+//       section.heading?.trim() !== "" ||
+//       section.items.some((item) => item.trim() !== "")
+//   );
+
+//   sethasValidSkillSections(isSkills);
+// }, [formData.skills]);
+let hasValidSkillSections = formData.skills.some
+( (section) => section.heading?.trim().length > 0 || 
+section.items.some( (item) => typeof item === "string" && item.trim().length > 0 )
+)
+
+useEffect(()=>{
+  console.log("is skills:",hasValidSkillSections)
+  console.log(formData.skills)
+},[formData])
+ 
+
   const containerStyle = {
     maxWidth: '900px',
     margin: '0 auto',
@@ -191,6 +260,7 @@ console.log(imageConsent, formData)
     border: '1px solid #ccc',
     borderRadius: '4px',
     resize: 'vertical',
+    
   };
 
   const buttonStyle = {
@@ -256,15 +326,91 @@ console.log(imageConsent, formData)
     });
   };
 
-  const removeQualificationRow = (index) => {
-    const updated = [...formData.qualificationDetails];
-    updated.splice(index, 1);
-    if (updated.length === 0) {
-      updated.push({ degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' });
-    }
-    setFormData({ ...formData, qualificationDetails: updated });
-  };
+  // const removeQualificationRow = (index) => {
+  //   const updated = [...formData.qualificationDetails];
+  //   updated.splice(index, 1);
+  //   if (updated.length === 0) {
+  //     updated.push({ degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' });
+  //   }
+  //   setFormData({ ...formData, qualificationDetails: updated });
+  // };
 
+  const removeQualificationRow = (index) => {
+    setFormData((prev) => {
+      const updated = [...prev.qualificationDetails];
+      updated.splice(index, 1);
+  
+      if (updated.length === 0) {
+        updated.push({
+          degree: "",
+          score: "",
+          collegeName: "",
+          stateCode: "",
+          countryCode: "",
+        });
+      }
+  
+      const nextState = {
+        ...prev,
+        qualificationDetails: updated,
+      };
+  
+      // 🔑 Call API with UPDATED data
+      cancelSubmit(nextState);
+  
+      return nextState;
+    });
+  };
+  
+
+  const cancelSubmit = async (data = formData) => {
+    let userid = JSON.parse(localStorage.getItem("StudId"));
+    const headers = {
+      authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog")))
+    };
+  
+    const {
+      name,
+      email,
+      totalExperience,
+      profileSummary,
+      address,
+      experiences,
+      certifications,
+      skills,
+      languages,
+      qualificationDetails,
+      personalDetails,
+      achievements,
+      interests,
+      projects
+    } = data;
+  
+    const Experiance = totalExperience;
+  
+    await axios.put(
+      `/StudentProfile/updatProfile/${studId}`,
+      {
+        name,
+        email,
+        Experiance,
+        profileSummary,
+        address,
+        experiences,
+        certifications,
+        skills,
+        languages,
+        qualificationDetails,
+        imageConsent,
+        personalDetails,
+        achievements,
+        interests,
+        projects
+      },
+      { headers }
+    );
+  };
+  
   // ---------- EXPERIENCE ----------
   const handleExperienceChange = (index, key, value) => {
     const updated = [...formData.experiences];
@@ -351,17 +497,56 @@ console.log(imageConsent, formData)
     setFormData({ ...formData, skills: updated });
   };
 
-  const addSkillSection = () => {
-    setFormData({ ...formData, skills: [...formData.skills, { heading: '', items: [''] }] });
-  };
+  // const addSkillSection = () => {
+  //   setFormData((prev) => {
+  //     if (formstate === "nontech") {
+  //       const hasComputer = prev.skills.some(s => s.heading === "Computer");
+  //       const hasTyping = prev.skills.some(s => s.heading === "Typing");
+  
+  //       if (!hasComputer) {
+  //         return {
+  //           ...prev,
+  //           skills: [...prev.skills, { heading: "Computer", items: [] }],
+  //         };
+  //       }
+  
+  //       if (!hasTyping) {
+  //         return {
+  //           ...prev,
+  //           skills: [...prev.skills, { heading: "Typing", items: [] }],
+  //         };
+  //       }
+  
+  //       return prev;
+  //     }
 
+  //     return {
+  //       ...prev,
+  //       skills: [...prev.skills, { heading: "", items: [] }],
+  //     };
+  //   });
+  // };
+  
+  const addSkillSection = () => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: [...prev.skills, { heading: "", items: [] }],
+    }));
+  };
+  
+
+  // const removeSkillSection = (index) => {
+  //   const updated = [...formData.skills];
+  //   updated.splice(index, 1);
+  //   if (updated.length === 0) updated.push({ heading: '', items: [''] });
+  //   setFormData({ ...formData, skills: updated });
+  // };
   const removeSkillSection = (index) => {
     const updated = [...formData.skills];
     updated.splice(index, 1);
-    if (updated.length === 0) updated.push({ heading: '', items: [''] });
     setFormData({ ...formData, skills: updated });
   };
-
+  
   // ---------- LANGUAGES ----------
   const handleLanguageChange = (index, value) => {
     const updated = [...formData.languages];
@@ -386,7 +571,6 @@ console.log(imageConsent, formData)
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
 
     const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails, personalDetails, achievements, interests, projects } = formData;
-
 
 
     if (
@@ -543,7 +727,6 @@ console.log(imageConsent, formData)
       </div>
 
 
-
       <div style={containerStyle}>
         <div style={{display:"flex",justifyContent:"center"}}>
           <div><h1>Resume Builder Form</h1></div>
@@ -597,6 +780,9 @@ console.log(imageConsent, formData)
         <textarea style={inputStyle} placeholder="Profile Summary" value={formData.profileSummary} onChange={(e) => handleChange('profileSummary', e.target.value)} />
         <input type="text" ref={venueInputRef} value={formData.address} onChange={(e) => handleChange('address', e.target.value)} style={inputStyle} placeholder="Current Address" />
         <input style={inputStyle} disabled placeholder="Email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
+        {formstate==="fullstack" &&
+        <input style={inputStyle}  placeholder="Linkedin url" value={formData.linkedin?formData.linkedin:""} onChange={(e) => handleChange('linkedin', e.target.value)} />
+      }
         <input style={inputStyle} disabled placeholder="Total Experience" value={formData.totalExperience} onChange={(e) => handleChange('totalExperience', e.target.value)} />
         <input style={inputStyle} disabled placeholder="Qualification" value={formData.qualification} />
         <input style={inputStyle} disabled placeholder="College" value={formData.college} />
@@ -604,34 +790,124 @@ console.log(imageConsent, formData)
         {/* QUALIFICATION DETAILS */}
         {screenSize.width > 850 ?
         <>
-        <h2>Qualification</h2>
+        <h2>Education</h2>
+        <button style={buttonStyle} type="button" onClick={addQualificationRow}>+ Add New Education</button>
+
         <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" , marginLeft:"0%"}}>
+          
           <thead>
             <tr style={{ background: "#eee" }}>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Degree/Masters/School</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>% or CGPA</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>College Name</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>State Code</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Country Code</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Action</th>
+            <th style={{ border: "1px solid #ccc", padding: "8px" }}>School/College/University Name</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Degree</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Field of study (Degree/Masters/School)</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Grade (% or CGPA)</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>year of passing</th>
+              {/* <th style={{ border: "1px solid #ccc", padding: "8px" }}>State Code</th> */}
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Location (Country/Region)</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>City</th>
+              {/* <th style={{ border: "1px solid #ccc", padding: "8px" }}>Action</th> */}
             </tr>
           </thead>
           <tbody>
-            {formData.qualificationDetails.map((q, i) => (
-              <tr key={i}>
-                <td><input style={inputStyles} placeholder="Degree" value={q.degree} onChange={(e) => handleQualificationChange(i, "degree", e.target.value)} /></td>
-                <td><input style={inputStyles} placeholder="% or CGPA" value={q.score} onChange={(e) => handleQualificationChange(i, "score", e.target.value)} /></td>
-                <td><input maxLength={20} style={inputStyles} placeholder="College Name" value={q.collegeName} onChange={(e) => handleQualificationChange(i, "collegeName", e.target.value)} /></td>
-                <td><input style={inputStyles} placeholder="State Code" value={q.stateCode} onChange={(e) => handleQualificationChange(i, "stateCode", e.target.value)} /></td>
-                <td><input style={inputStyles} placeholder="Country Code" value={q.countryCode} onChange={(e) => handleQualificationChange(i, "countryCode", e.target.value)} /></td>
-                <td>
-                  <button style={buttonStyles} type="button" onClick={() => removeQualificationRow(i)}>Remove</button>
-                </td>
-              </tr>
-            ))}
+          {formData.qualificationDetails.map((q, i) => (
+  <React.Fragment key={i}>
+    {/* ROW 1: INPUTS (UNCHANGED INLINE STYLES) */}
+    <tr>
+      <td>
+        <input
+          maxLength={20}
+          style={inputStyles}
+          placeholder="College Name"
+          value={q.collegeName}
+          onChange={(e) =>
+            handleQualificationChange(i, "collegeName", e.target.value)
+          }
+        />
+      </td>
+
+      <td>
+        <input
+          style={{ ...inputStyles, width: "76%" }}
+          placeholder="Degree"
+          value={q.degree}
+          onChange={(e) =>
+            handleQualificationChange(i, "degree", e.target.value)
+          }
+        />
+      </td>
+
+      <td>
+        <input
+          style={inputStyles}
+          placeholder="field"
+          value={q.field ? q.field : "N/A"}
+        />
+      </td>
+
+      <td>
+        <input
+          style={{ ...inputStyles, width: "76%" }}
+          placeholder="% or CGPA"
+          value={q.score}
+          onChange={(e) =>
+            handleQualificationChange(i, "score", e.target.value)
+          }
+        />
+      </td>
+
+      <td>
+        <input
+          style={{ ...inputStyles, width: "76%" }}
+          placeholder="yop"
+          value={q.yop ? q.yop : "N/A"}
+        />
+      </td>
+
+      <td>
+        <input
+          style={inputStyles}
+          placeholder="Country Code"
+          value={q.countryCode}
+          onChange={(e) =>
+            handleQualificationChange(i, "countryCode", e.target.value)
+          }
+        />
+      </td>
+
+      <td>
+        <input
+          style={{ ...inputStyles, width: "70%" }}
+          placeholder="City"
+          value={q.city ? q.city : "N/A"}
+        />
+      </td>
+    </tr>
+
+    {/* ROW 2: BUTTONS (RIGHT SIDE, NO STYLE CHANGE) */}
+    <tr>
+      <td colSpan={7} style={{ textAlign: "right" }}>
+        <button
+          style={{ ...buttonStyles, marginRight:"2px"}}
+          type="button"
+          onClick={handleSubmit}
+        >
+          save
+        </button>
+
+        <button
+          style={buttonStyles}
+          type="button"
+          onClick={() => {removeQualificationRow(i)}}
+        >
+          Cancel
+        </button>
+      </td>
+    </tr>
+  </React.Fragment>
+))}
+
           </tbody>
         </table>
-        <button style={buttonStyle} type="button" onClick={addQualificationRow}>Add Row</button>
        </>:
        <>
        {/* QUALIFICATION DETAILS */}
@@ -711,20 +987,181 @@ console.log(imageConsent, formData)
 
         {/* SKILLS */}
         <h2>Skills</h2>
-        {formData.skills.map((skill, i) => (
-          <div key={i} style={sectionStyle}>
-            <input style={inputStyle} placeholder="Enter Skill Subheading Frontend/Backend" value={skill.heading} onChange={(e) => handleSkillChange(i, 'heading', e.target.value)} />
-            {skill.items.map((item, j) => (
-              <div key={j}>
-                <input style={inputStyle} placeholder={`Skill ${j + 1}. HTML/CSS/Js/React.js,Java etc`} value={item} onChange={(e) => handleSkillItemChange(i, j, e.target.value)} />
-                <button style={buttonStyle} type="button" onClick={() => removeSkillItem(i, j)}>Remove Skill</button>
-              </div>
-            ))}
-            <button style={buttonStyle} type="button" onClick={() => addSkillItem(i)}>Add Skill</button>
-            <button style={{ ...buttonStyle, marginLeft: "2px" }} type="button" onClick={() => removeSkillSection(i)}>Remove Section</button>
+{/* {formData.skills.length===0
+?
+<button style={buttonStyle} type="button" onClick={addSkillSection}>
+  + Add Skill Section
+</button>
+: */}
+
+<>
+  {(formstate === "nontech"
+    ? formData.skills
+        .map((skill, originalIndex) => ({ skill, originalIndex }))
+        .filter(
+          ({ skill }) =>
+            skill.heading === "Computer" || skill.heading === "Typing" || skill.heading === "" 
+        )
+    : formData.skills
+        .map((skill, originalIndex) => ({ skill, originalIndex }))
+        .filter(
+          ({ skill }) =>
+            skill.heading !== "Computer" && skill.heading !== "Typing"
+        )
+  ).map(({ skill, originalIndex }) => {
+    const isNonTech = formstate === "nontech";
+
+    const suggestions =
+      skill.heading &&
+      SKILL_LIBRARY[skill.heading] &&
+      (
+        (isNonTech &&
+          (skill.heading === "Computer" ||
+           skill.heading === "Typing")) ||
+        (!isNonTech &&
+          skill.heading !== "Computer" &&
+          skill.heading !== "Typing")
+      )
+        ? SKILL_LIBRARY[skill.heading].filter((s) =>
+            s.toLowerCase().includes(skillSearch.toLowerCase())
+          )
+        : [];
+
+    return (
+      <div key={originalIndex} style={sectionStyle}>
+        {/* HEADING SELECTOR */}
+        <label><b>Skill Category</b></label>
+        <select
+          style={inputStyle}
+          value={skill.heading}
+          onChange={(e) =>
+            selectSkillHeading(originalIndex, e.target.value)
+          }
+        >
+          <option value="">Select Heading</option>
+
+          {(isNonTech
+            ? ["Computer", "Typing"]
+            : Object.keys(SKILL_LIBRARY).filter(
+                (h) => h !== "Computer" && h !== "Typing"
+              )
+          ).map((h) => (
+            <option key={h} value={h}>
+              {h}
+            </option>
+          ))}
+        </select>
+
+        {/* SELECTED SKILL CHIPS */}
+        <div style={{ marginBottom: "10px" }}>
+          {skill.items.map((item) => (
+            <span
+              key={item}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "6px 10px",
+                background: "#e6e6e6",
+                borderRadius: "20px",
+                marginRight: "6px",
+                marginBottom: "6px",
+                fontSize: "13px",
+              }}
+            >
+              {item}
+              <button
+                type="button"
+                onClick={() =>
+                  removeSkillChip(originalIndex, item)
+                }
+                style={{
+                  marginLeft: "6px",
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+
+        {/* ADD SKILL INPUT */}
+        {skill.heading && (
+          <div ref={(el) => (skillBoxRef.current[originalIndex] = el)}>
+            <input
+              style={inputStyle}
+              placeholder="Add skill"
+              value={skillSearch}
+              onFocus={() => setActiveSkillIndex(originalIndex)}
+              onChange={(e) => setSkillSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && skillSearch.trim()) {
+                  addSkillChip(originalIndex, skillSearch.trim());
+                  e.preventDefault();
+                }
+              }}
+            />
+
+            {/* DROPDOWN */}
+            {activeSkillIndex === originalIndex &&
+              suggestions.length > 0 && (
+                <div
+                  style={{
+                    border: "1px solid #ccc",
+                    maxHeight: "160px",
+                    overflowY: "auto",
+                    background: "#fff",
+                  }}
+                >
+                  {suggestions.map((s) => (
+                    <div
+                      key={s}
+                      onClick={() =>
+                        addSkillChip(originalIndex, s)
+                      }
+                      style={{
+                        padding: "8px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              )}
           </div>
-        ))}
-        <button style={buttonStyle} type="button" onClick={addSkillSection}>Add Skill Section</button>
+        )}
+
+        <button
+          type="button"
+          style={{ ...buttonStyle, marginTop: "10px" }}
+          onClick={() => removeSkillSection(originalIndex)}
+        >
+          Remove Section
+        </button>
+      </div>
+    );
+  })}
+
+  {/* ADD SKILL SECTION BUTTON */}
+  {(formstate !== "nontech" ||
+    !formData.skills.some((s) => s.heading === "Computer") ||
+    !formData.skills.some((s) => s.heading === "Typing")) && (
+    <button
+      type="button"
+      style={buttonStyle}
+      onClick={addSkillSection}
+    >
+      + Add Skills
+    </button>
+  )}
+</>
+
+{/* } */}
+
         {formstate=="freshers" &&
         <>
         <h2>Languages</h2>
@@ -770,15 +1207,49 @@ console.log(imageConsent, formData)
       </label>
 
       </div> */}
-      {formstate=="freshers" &&
+      {formstate=="freshers" || formstate=="nontech" &&
       <>
        <div>
       {/* PERSONAL DETAILS */}
       <h2>Personal Details</h2>
 
+
+      {/* Father Name */}
+<h3>Father Name:</h3>
+<input
+  type="text"
+  name="fatherName"
+  value={formData?.personalDetails[0]?.fatherName}
+  placeholder="Enter father name"
+  onChange={handlePersonalChange}
+  style={inputStyle}
+/>
+
+{/* Mother Name */}
+<h3>Mother Name:</h3>
+<input
+  type="text"
+  name="motherName"
+  value={formData?.personalDetails[0]?.motherName}
+  placeholder="Enter mother name"
+  onChange={handlePersonalChange}
+  style={inputStyle}
+/>
+
+{/* Nationality */}
+<h3>Nationality:</h3>
+<input
+  type="text"
+  name="nationality"
+  value={formData?.personalDetails[0]?.nationality}
+  placeholder="Enter nationality"
+  onChange={handlePersonalChange}
+  style={inputStyle}
+/>
+
       {/* Gender */}
-      <h3>Gender:</h3>
-      <div>
+<h3>Gender:</h3>
+<div>
         <label>
           <input
             type="radio"
@@ -933,3 +1404,5 @@ console.log(imageConsent, formData)
 };
 
 export default ResumeForm;
+
+

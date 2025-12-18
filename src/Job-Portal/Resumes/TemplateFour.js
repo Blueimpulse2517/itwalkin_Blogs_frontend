@@ -181,14 +181,21 @@ const TemplateFour = () => {
 
           
             <div className={styles.sectionTitle}>TECHNICAL STACK</div>
-            {profileData.skills?.map((group, i) => (
-    <div  className="skill-section" key={i}>
+            {profileData.skills
+  ?.filter((group) =>
+    ["frontend", "backend", "fullstack"].includes(
+      group.heading?.toLowerCase()
+    )
+  )
+  .map((group, i) => (
+    <div className="skill-section" key={i}>
       <div className={styles.subTitleBlue}>{group.heading}</div>
       <p className={styles.subList}>
-        {group.items&& group.items.join(",")}
+        {group.items && group.items.join(", ")}
       </p>
     </div>
   ))}
+
            
 
         
@@ -238,3 +245,5 @@ const TemplateFour = () => {
 };
 
 export default TemplateFour;
+
+
