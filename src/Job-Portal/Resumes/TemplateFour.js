@@ -87,9 +87,19 @@ const TemplateFour = () => {
             <span>•</span>
             <span>✉ {profileData?.email|| ""}</span>
             <span>•</span>
-            <span>🔗 linkedin.com</span>
+            <span>🔗<a
+        href={
+          profileData.linkedin?.startsWith("http")
+            ? profileData.linkedin
+            : `https://${profileData.linkedin}`
+        }
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.link}
+        style={{textDecoration:"none"}}
+      > {profileData?.linkedin|| ""} </a></span>
             <span>•</span>
-            <span>📍 {profileData?.email|| ""}</span>
+            <span>📍 {profileData?.address|| ""}</span>
           </div>
         </div>
            
@@ -183,7 +193,7 @@ const TemplateFour = () => {
             <div className={styles.sectionTitle}>TECHNICAL STACK</div>
             {profileData.skills
   ?.filter((group) =>
-    ["frontend", "backend", "fullstack"].includes(
+    ["frontend", "backend", "fullstack", "devops", "database"].includes(
       group.heading?.toLowerCase()
     )
   )
@@ -205,13 +215,18 @@ const TemplateFour = () => {
           <div className={styles.sectionBlock}>
             <div className={styles.sectionTitle}>PROJECTS & PORTFOLIO</div>
 
-            {(proj.length ? proj : [1, 2]).slice(0, 2).map((p, i) => (
-              <div key={i} className={styles.projectEntry}>
-                <div className={styles.projectTitle}>
-                <div key={i} className={styles.achItem}>• {p}</div>
-                </div>
-              </div>
-            ))}
+            {proj && proj.length > 0 ? (
+  proj.map((p, i) => (
+    <div key={i} className={styles.projectEntry}>
+      <div className={styles.projectTitle}>
+        <div className={styles.achItem}>• {p}</div>
+      </div>
+    </div>
+  ))
+) : (
+  <div className={styles.achItem}>N/A</div>
+)}
+
           </div>
 
           {/* ACHIEVEMENTS */}

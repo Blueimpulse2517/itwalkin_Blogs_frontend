@@ -293,9 +293,9 @@ const TemplateFive = () => {
         <span className="separator">,</span>
         <span className="college">{qual.collegeName || "-"}</span>
         <span className="separator">,</span>
-        <span className="location">{qual.stateCode || "-"}</span>
+        <span className="location">{qual.city || "-"}</span>
         <span className="separator">,</span>
-        <span className="country">{qual.countryCode || "-"}</span>
+        <span className="country">{qual.country || "-"}</span>
       </div>
     ))
   ) : (

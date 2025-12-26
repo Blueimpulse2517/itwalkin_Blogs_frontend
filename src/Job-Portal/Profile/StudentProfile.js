@@ -140,17 +140,19 @@ const uploadVideoToYouTube = async (file) => {
     setVideoUrl("");
 
     const res = await axios.post(
-      "http://localhost:3000/api/uploadToYouTube",
+      "/StudentProfile/uploadToYouTube",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" }
       }
     );
-
+console.log("video upload response",res)
     setVideoUrl(res.data.url);
     setVideoPreview("");  
+    setYtError("Upload successful.");
 
   } catch (err) {
+    console.log("video upload response",err)
     setYtError("Upload failed.");
   } finally {
     setYtUploading(false);
@@ -186,9 +188,9 @@ const uploadVideoToYouTube = async (file) => {
         </div>
 
         <div className={styles.details}>
-          <h2 className={styles.name}>{profileData[0].name?profileData[0].name:"#####"}</h2>
-          <p className={styles.email}>{profileData[0].email?profileData[0].email:"#####"}</p>
-          <p className={styles.city}>{profileData[0].city?profileData[0].city:"#####"}</p>
+          <h2 className={styles.name}>{profileData[0].name?profileData[0].name:""}</h2>
+          <p className={styles.email}>{profileData[0].email?profileData[0].email:""}</p>
+          <p className={styles.city}>{profileData[0].city?profileData[0].city:""}</p>
         </div>
         </div>
         <div className={styles.actions}>
@@ -223,16 +225,16 @@ const uploadVideoToYouTube = async (file) => {
           <div className={styles.infoSection}>
             <h3>Personal Information</h3>
             <div>
-              <strong>Name</strong><br></br> {profileData[0].name?profileData[0].name:"#####"}
+              <strong>Name</strong><br></br> {profileData[0].name?profileData[0].name:""}
             </div>
             <div>
-              <strong>Email</strong><br></br> {profileData[0].email?profileData[0].email:"#####"}
+              <strong>Email</strong><br></br> {profileData[0].email?profileData[0].email:""}
             </div>
             <div>
-              <strong>Phone</strong><br></br> {profileData[0].phoneNumber?profileData[0].phoneNumber:"#####"}
+              <strong>Phone</strong><br></br> {profileData[0].phoneNumber?profileData[0].phoneNumber:""}
             </div>
             <div>
-              <strong>City</strong><br></br> {profileData[0].city?profileData[0].city:"#####"}
+              <strong>City</strong><br></br> {profileData[0].city?profileData[0].city:""}
             </div>
             {showApprovedStatus &&
             (profileData[0].isApproved?
@@ -261,7 +263,7 @@ const uploadVideoToYouTube = async (file) => {
           <div className={styles.infoSection}>
             <h3>Employment Details</h3>
             <div>
-              <strong>Current Employer :</strong> {profileData[0].currentEmp?profileData[0].currentEmp:"####"}
+              <strong>Current Employer :</strong> {profileData[0].currentEmp?profileData[0].currentEmp:""}
             </div>
             {/* <div>
               <strong>Role:</strong> {profileData[0].currentRole}
@@ -280,18 +282,18 @@ const uploadVideoToYouTube = async (file) => {
     </span>
   ))
 ) : (
-  "#####"
+  ""
 )}
 
 </div>
 <div>
        <strong>Expected CTC : </strong> 
-       {profileData[0].currentCTC? `${profileData[0].currentCTC} LPA`:"####"} 
+       {profileData[0].currentCTC? `${profileData[0].currentCTC} LPA`:""} 
            </div>
 
            <div>
        <strong>Experience : </strong> 
-       {profileData[0].Experiance?`${profileData[0].Experiance} Yrs`:"####"} 
+       {profileData[0].Experiance?`${profileData[0].Experiance} Yrs`:""} 
            </div>
 
 
@@ -322,17 +324,17 @@ const uploadVideoToYouTube = async (file) => {
           <div className={styles.educationSection}>
             <h3>Educational Details</h3>
             <div style={{display:"flex",}}>
-                  <strong style={{marginTop:"-4px"}}>10<sup>th</sup>: </strong> {profileData[0].tenth?profileData[0].tenth:"#####"}
+                  <strong style={{marginTop:"-4px"}}>10<sup>th</sup>: </strong> {profileData[0].tenth?profileData[0].tenth:""}
             </div>
             <div style={{display:"flex", }}>
-                  <strong style={{marginTop:"-4px"}}>12<sup>th</sup>: </strong> {profileData[0].twelfth?profileData[0].twelfth:"#####"}
+                  <strong style={{marginTop:"-4px"}}>12<sup>th</sup>: </strong> {profileData[0].twelfth?profileData[0].twelfth:""}
             </div>
             <div style={{display:"flex", }}>
                  <div> <strong>Degree/Diploma: </strong></div>
-                  <div> {profileData[0].degree?profileData[0].degree:"#####"}</div>
+                  <div> {profileData[0].degree?profileData[0].degree:""}</div>
             </div>
             <div style={{display:"flex", }}>
-                  <strong>Masters: </strong> {profileData[0].college?profileData[0].college:"#####"}
+                  <strong>Masters: </strong> {profileData[0].college?profileData[0].college:""}
             </div>
             {/* {showApprovedStatus &&
             (profileData[0].isApproved?
@@ -354,7 +356,7 @@ const uploadVideoToYouTube = async (file) => {
         {activeTab === "Skills" && (
           <div className={styles.infoSection}>
            <div style={{display:"flex",}}>
-                  <strong> Skills: </strong> {profileData[0].Skills?profileData[0].Skills:"#####"}
+                  <strong> Skills: </strong> {profileData[0].Skills?profileData[0].Skills:""}
             </div>
             {/* {showApprovedStatus &&
             (profileData[0].isApproved?
@@ -383,7 +385,7 @@ const uploadVideoToYouTube = async (file) => {
                 <p>{item.comment}</p>
               </div>
             ))} */}
-            {profileData[0].message?profileData[0].message:"#####" }
+            {profileData[0].message?profileData[0].message:"No FeedBack" }
             {/* {showApprovedStatus &&
             (profileData[0].isApproved?
              <div className={styles.aprovedStatus}>
@@ -431,7 +433,7 @@ const uploadVideoToYouTube = async (file) => {
         />
         Itwalkin is not responsible for misuse of this video by the employer        
         </label>
-        <p>Note:  This video will required by ITWalkin Admin. This video will be shared only to fortune 500 employer</p>
+        <p><span style={{fontWeight:"bold"}}>Note:</span>This video will required by ITWalkin Admin. This video will be shared only to fortune 500 employer</p>
 </div>
 
     {/* {ytUploading && <p className={styles.loadingText}>Uploading… please wait...</p>} */}
