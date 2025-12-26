@@ -52,7 +52,11 @@ const ResumePreview = ({ logoutresume }) => {
 
       {/* Preview */}
       <div className={styles.previewWrapper}>
-        <div className={styles.previewContainer}>
+         <div style={{display:"flex",justifyContent:"center", backgroundColor:"#f2f2f2"}}>
+         <h1>This is how your Resume will look</h1>
+         </div>
+        <div className={styles.previewContainer} >
+           
           <img
             src={img}
             alt="Resume Preview"
@@ -108,6 +112,21 @@ const ResumePreview = ({ logoutresume }) => {
                         if (resumeAlert.selected === "one") {
                           navigate("/resume-form", {
                             state: { formstate: "experience" }
+                          });
+                        }
+                        else if (resumeAlert.selected === "two") {
+                          navigate("/resume-form", {
+                            state: { formstate: "entrylevelambition" }
+                          });
+                        }
+                        else if (resumeAlert.selected === "three") {
+                          navigate("/resume-form", {
+                            state: { formstate: "entrylevelpro" }
+                          });
+                        }
+                        else if (resumeAlert.selected === "five") {
+                          navigate("/resume-form", {
+                            state: { formstate: "testing" }
                           });
                         }
                        else if (resumeAlert.selected === "six") {

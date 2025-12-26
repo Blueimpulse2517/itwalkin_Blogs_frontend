@@ -13,6 +13,7 @@ const ResumeForm = () => {
     address: '',
     email: '',
     linkedin:'',
+    objective:'I wan to excel in the field with hard work, perseverance and dedication.',
     qualification: '',
     college: '',
     totalExperience: '',
@@ -24,7 +25,7 @@ const ResumeForm = () => {
     // skills: [{ heading: '', items: [''] }],
     languages: [''],
     qualificationDetails: [
-      { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' },
+      { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '',isSaved: false, yop: '', city:'' ,country:'', studyField:''}
     ],
     personalDetails: [{
       gender: "",
@@ -32,7 +33,7 @@ const ResumeForm = () => {
       dob: "",
       fatherName: "",
     motherName: "",
-    nationality: ""  
+    Nationality: ""  
     }],
     achievements: [""],
     interests: [""],
@@ -106,6 +107,7 @@ const ResumeForm = () => {
           ...prev,
           name: result.name || "",
           email: result.email || "",
+          linkedin: result.linkedin || "",
           profileSummary: result.profileSummary || "",
           totalExperience: result.Experiance || "",
           address: result.address || "",
@@ -132,6 +134,9 @@ const ResumeForm = () => {
           personalDetails:[{
             gender: result.personalDetails[0]?.gender || "",
             maritalStatus: result.personalDetails[0]?.maritalStatus || "",
+            fatherName: result.personalDetails[0]?.fatherName || "",
+            motherName: result.personalDetails[0]?.motherName || "",
+            Nationality: result.personalDetails[0]?.Nationality || "",
             dob: result.personalDetails[0]?.dob
               ? new Date(result.personalDetails[0].dob).toISOString().split("T")[0]
               : "",
@@ -149,8 +154,13 @@ const ResumeForm = () => {
               collegeName: q.collegeName || "",
               stateCode: q.stateCode || "",
               countryCode: q.countryCode || "",
+              yop: q.yop || "",
+              city: q.city || "",
+              country: q.country || "",
+              studyField: q.studyField || "",
+              isSaved: true 
             }))
-            : [{ degree: "", score: "", collegeName: "", stateCode: "", countryCode: "" }],
+            : [{ degree: "", score: "", collegeName: "", stateCode: "", countryCode: "", yop:"", city:"", country:"" }],
         }));
       } catch (err) {
         alert("Something went wrong while fetching profile");
@@ -297,6 +307,7 @@ useEffect(()=>{
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
   // ---------- BASIC INPUT CHANGE ----------
   const handleChange = (field, value) => {
     let charLimit = null;
@@ -311,9 +322,16 @@ useEffect(()=>{
   // ---------- QUALIFICATION ----------
   const handleQualificationChange = (index, key, value) => {
     const updated = [...formData.qualificationDetails];
-    updated[index][key] = value;
+  
+    updated[index] = {
+      ...updated[index],
+      [key]: value,
+      isSaved: false 
+    };
+  
     setFormData({ ...formData, qualificationDetails: updated });
   };
+  
 
   const addQualificationRow = () => {
     if (formData.qualificationDetails.length >= 5) return;
@@ -321,7 +339,7 @@ useEffect(()=>{
       ...formData,
       qualificationDetails: [
         ...formData.qualificationDetails,
-        { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '' },
+        { degree: '', score: '', collegeName: '', stateCode: '', countryCode: '', isSaved: false, yop:'', city:'', country:'', studyField:'' },
       ],
     });
   };
@@ -347,6 +365,10 @@ useEffect(()=>{
           collegeName: "",
           stateCode: "",
           countryCode: "",
+          yop:"",
+          city:"",
+          country:"",
+          studyField:""
         });
       }
   
@@ -362,6 +384,26 @@ useEffect(()=>{
     });
   };
   
+  const clearQualificationRow = (index) => {
+    const updatedQualifications = [...formData.qualificationDetails];
+  
+    updatedQualifications[index] = {
+      degree: '',
+      score: '',
+      collegeName: '',
+      studyField: '',
+      yop: '',
+      countryCode: '',
+      city: '',
+      stateCode: ''
+    };
+  
+    setFormData({
+      ...formData,
+      qualificationDetails: updatedQualifications
+    });
+  };
+  
 
   const cancelSubmit = async (data = formData) => {
     let userid = JSON.parse(localStorage.getItem("StudId"));
@@ -372,6 +414,7 @@ useEffect(()=>{
     const {
       name,
       email,
+      linkedin,
       totalExperience,
       profileSummary,
       address,
@@ -393,6 +436,7 @@ useEffect(()=>{
       {
         name,
         email,
+        linkedin,
         Experiance,
         profileSummary,
         address,
@@ -565,12 +609,34 @@ useEffect(()=>{
     setFormData({ ...formData, languages: updated });
   };
 
+  const handleQualificationSave = async (index) => {
+    const updated = [...formData.qualificationDetails];
+    updated[index].isSaved = true;
+  
+    const nextState = {
+      ...formData,
+      qualificationDetails: updated
+    };
+  
+    setFormData(nextState);
+  
+    // send cleaned data (no isSaved)
+    const payload = {
+      ...nextState,
+      qualificationDetails: nextState.qualificationDetails.map(
+        ({ isSaved, ...rest }) => rest
+      )
+    };
+  
+    await handleSubmit();
+  };
+  
   // ---------- SUBMIT ----------
   const handleSubmit = async () => {
     let userid = JSON.parse(localStorage.getItem("StudId"))
     const headers = { authorization: userid + " " + atob(JSON.parse(localStorage.getItem("StudLog"))) };
 
-    const {name,email,totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails, personalDetails, achievements, interests, projects } = formData;
+    const {name,email, linkedin, totalExperience,profileSummary, address, experiences, certifications, skills, languages, qualificationDetails, personalDetails, achievements, interests, projects } = formData;
 
 
     if (
@@ -598,10 +664,10 @@ useEffect(()=>{
     }
     console.log("personal details",personalDetails)
     console.log("ach",achievements)
-    console.log("int",interests)
+    console.log("int",linkedin)
     const Experiance=totalExperience;
     await axios.put(`/StudentProfile/updatProfile/${studId}`, {
-      name, email,Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails,imageConsent,personalDetails, achievements, interests, projects
+      name, email, linkedin, Experiance, profileSummary, address, experiences, certifications, skills, languages, qualificationDetails,imageConsent,personalDetails, achievements, interests, projects
     }, { headers })
       .then((res) => {
         let result = (res.data)
@@ -660,6 +726,18 @@ useEffect(()=>{
  const goToHelp=()=>{
   //  window.open("#")
  }
+
+ const FORMSTATE_MAP = {
+  nontech: ["Computer", "Typing"],
+  testing: ["Testing"],
+  fullstack: ["Frontend", "Backend", "Database", "DevOps"],
+  frontend: ["Frontend"],
+  backend: ["Backend", "Database"],
+  entrylevelpro:Object.keys(SKILL_LIBRARY).filter(
+    (h) => h !== "Testing"
+  ),
+  default: Object.keys(SKILL_LIBRARY),
+};
 
  let location = useLocation()
    const { formstate } = location.state || {};
@@ -735,16 +813,18 @@ useEffect(()=>{
         {successMessage && <p>{successMessage}</p>}
         <div >
         {/* {console.log("pd",profileData[0]?.Gpicture )} */}
-            {profileData? (
-              // console.log("pd",profileData[0]?.Gpicture )
-                <img
-                  src={profileData[0]?.Gpicture}
-                  alt="Candidate"
-                  style={{ borderRadius: "47%" }}
-                />
-          ) : (
-          <p>Loading...</p>
-         )}
+        {profileData ? (
+  imageConsent === true ? (
+    <img
+      src={profileData[0]?.Gpicture}
+      alt="Candidate"
+      style={{ borderRadius: "47%" }}
+    />
+  ) : null
+) : (
+  <p>Loading...</p>
+)}
+
 <div style={{ padding: "10px", fontFamily: "Arial" }}>
       <p style={{ fontWeight: "bold" }}>
         Would you like to include a photo from Google in your resume?
@@ -776,12 +856,15 @@ useEffect(()=>{
               
             </div>
 
-        <input style={inputStyle} disabled placeholder="Name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} />
+        <input style={inputStyle}  placeholder="Name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} />
+        {formstate!=="nontech"?
         <textarea style={inputStyle} placeholder="Profile Summary" value={formData.profileSummary} onChange={(e) => handleChange('profileSummary', e.target.value)} />
-        <input type="text" ref={venueInputRef} value={formData.address} onChange={(e) => handleChange('address', e.target.value)} style={inputStyle} placeholder="Current Address" />
+        :
+        <textarea style={inputStyle} placeholder="Objective" value={formData.objective} onChange={(e) => handleChange('objective', e.target.value)} />
+        }<input type="text" ref={venueInputRef} value={formData.address} onChange={(e) => handleChange('address', e.target.value)} style={inputStyle} placeholder="Current Address" />
         <input style={inputStyle} disabled placeholder="Email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
         {formstate==="fullstack" &&
-        <input style={inputStyle}  placeholder="Linkedin url" value={formData.linkedin?formData.linkedin:""} onChange={(e) => handleChange('linkedin', e.target.value)} />
+        <input style={inputStyle}  placeholder="Linkedin" value={formData.linkedin?formData.linkedin:""} onChange={(e) => handleChange('linkedin', e.target.value)} />
       }
         <input style={inputStyle} disabled placeholder="Total Experience" value={formData.totalExperience} onChange={(e) => handleChange('totalExperience', e.target.value)} />
         <input style={inputStyle} disabled placeholder="Qualification" value={formData.qualification} />
@@ -815,7 +898,7 @@ useEffect(()=>{
     <tr>
       <td>
         <input
-          maxLength={20}
+          maxLength={40}
           style={inputStyles}
           placeholder="College Name"
           value={q.collegeName}
@@ -839,8 +922,11 @@ useEffect(()=>{
       <td>
         <input
           style={inputStyles}
-          placeholder="field"
-          value={q.field ? q.field : "N/A"}
+          placeholder="study field"
+          value={q.studyField}
+          onChange={(e) =>
+            handleQualificationChange(i, "studyField", e.target.value)
+          }
         />
       </td>
 
@@ -859,17 +945,20 @@ useEffect(()=>{
         <input
           style={{ ...inputStyles, width: "76%" }}
           placeholder="yop"
-          value={q.yop ? q.yop : "N/A"}
+          value={q.yop}
+          onChange={(e) =>
+            handleQualificationChange(i, "yop", e.target.value)
+          }
         />
       </td>
 
       <td>
         <input
           style={inputStyles}
-          placeholder="Country Code"
-          value={q.countryCode}
+          placeholder="Country"
+          value={q.country}
           onChange={(e) =>
-            handleQualificationChange(i, "countryCode", e.target.value)
+            handleQualificationChange(i, "country", e.target.value)
           }
         />
       </td>
@@ -878,7 +967,10 @@ useEffect(()=>{
         <input
           style={{ ...inputStyles, width: "70%" }}
           placeholder="City"
-          value={q.city ? q.city : "N/A"}
+          value={q.city}
+          onChange={(e) =>
+            handleQualificationChange(i, "city", e.target.value)
+          }
         />
       </td>
     </tr>
@@ -886,12 +978,23 @@ useEffect(()=>{
     {/* ROW 2: BUTTONS (RIGHT SIDE, NO STYLE CHANGE) */}
     <tr>
       <td colSpan={7} style={{ textAlign: "right" }}>
+      {!q.isSaved && (
+  <button
+    style={{ ...buttonStyles, marginRight: "2px" }}
+    type="button"
+    onClick={() => handleQualificationSave(i)}
+  >
+    Save
+  </button>
+)}
+
+
         <button
           style={{ ...buttonStyles, marginRight:"2px"}}
           type="button"
-          onClick={handleSubmit}
+          onClick={() => {clearQualificationRow(i)}}
         >
-          save
+          Cancel
         </button>
 
         <button
@@ -899,7 +1002,7 @@ useEffect(()=>{
           type="button"
           onClick={() => {removeQualificationRow(i)}}
         >
-          Cancel
+          Delete
         </button>
       </td>
     </tr>
@@ -995,170 +1098,168 @@ useEffect(()=>{
 : */}
 
 <>
-  {(formstate === "nontech"
-    ? formData.skills
-        .map((skill, originalIndex) => ({ skill, originalIndex }))
-        .filter(
-          ({ skill }) =>
-            skill.heading === "Computer" || skill.heading === "Typing" || skill.heading === "" 
-        )
-    : formData.skills
-        .map((skill, originalIndex) => ({ skill, originalIndex }))
-        .filter(
-          ({ skill }) =>
-            skill.heading !== "Computer" && skill.heading !== "Typing"
-        )
-  ).map(({ skill, originalIndex }) => {
-    const isNonTech = formstate === "nontech";
+  {(() => {
+    const allowedHeadings =
+      FORMSTATE_MAP[formstate] || FORMSTATE_MAP.default;
 
-    const suggestions =
-      skill.heading &&
-      SKILL_LIBRARY[skill.heading] &&
-      (
-        (isNonTech &&
-          (skill.heading === "Computer" ||
-           skill.heading === "Typing")) ||
-        (!isNonTech &&
-          skill.heading !== "Computer" &&
-          skill.heading !== "Typing")
-      )
-        ? SKILL_LIBRARY[skill.heading].filter((s) =>
-            s.toLowerCase().includes(skillSearch.toLowerCase())
-          )
-        : [];
+    const filteredSkills = formData.skills
+      .map((skill, originalIndex) => ({ skill, originalIndex }))
+      .filter(({ skill }) => {
+        if (!skill.heading) return true;
+        return allowedHeadings.includes(skill.heading);
+      });
 
     return (
-      <div key={originalIndex} style={sectionStyle}>
-        {/* HEADING SELECTOR */}
-        <label><b>Skill Category</b></label>
-        <select
-          style={inputStyle}
-          value={skill.heading}
-          onChange={(e) =>
-            selectSkillHeading(originalIndex, e.target.value)
-          }
-        >
-          <option value="">Select Heading</option>
+      <>
+        {filteredSkills.map(({ skill, originalIndex }) => {
+          const suggestions =
+            skill.heading && SKILL_LIBRARY[skill.heading]
+              ? SKILL_LIBRARY[skill.heading].filter((s) =>
+                  s.toLowerCase().includes(skillSearch.toLowerCase())
+                )
+              : [];
 
-          {(isNonTech
-            ? ["Computer", "Typing"]
-            : Object.keys(SKILL_LIBRARY).filter(
-                (h) => h !== "Computer" && h !== "Typing"
-              )
-          ).map((h) => (
-            <option key={h} value={h}>
-              {h}
-            </option>
-          ))}
-        </select>
-
-        {/* SELECTED SKILL CHIPS */}
-        <div style={{ marginBottom: "10px" }}>
-          {skill.items.map((item) => (
-            <span
-              key={item}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "6px 10px",
-                background: "#e6e6e6",
-                borderRadius: "20px",
-                marginRight: "6px",
-                marginBottom: "6px",
-                fontSize: "13px",
-              }}
-            >
-              {item}
-              <button
-                type="button"
-                onClick={() =>
-                  removeSkillChip(originalIndex, item)
+          return (
+            <div key={originalIndex} style={sectionStyle}>
+              {/* HEADING SELECTOR */}
+              <label><b>Skill Category</b></label>
+              <select
+                style={inputStyle}
+                value={skill.heading}
+                onChange={(e) =>
+                  selectSkillHeading(originalIndex, e.target.value)
                 }
-                style={{
-                  marginLeft: "6px",
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
               >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
+                <option value="">Select Heading</option>
+                {allowedHeadings.map((h) => (
+                  <option key={h} value={h}>
+                    {h}
+                  </option>
+                ))}
+              </select>
 
-        {/* ADD SKILL INPUT */}
-        {skill.heading && (
-          <div ref={(el) => (skillBoxRef.current[originalIndex] = el)}>
-            <input
-              style={inputStyle}
-              placeholder="Add skill"
-              value={skillSearch}
-              onFocus={() => setActiveSkillIndex(originalIndex)}
-              onChange={(e) => setSkillSearch(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && skillSearch.trim()) {
-                  addSkillChip(originalIndex, skillSearch.trim());
-                  e.preventDefault();
-                }
-              }}
-            />
-
-            {/* DROPDOWN */}
-            {activeSkillIndex === originalIndex &&
-              suggestions.length > 0 && (
-                <div
-                  style={{
-                    border: "1px solid #ccc",
-                    maxHeight: "160px",
-                    overflowY: "auto",
-                    background: "#fff",
-                  }}
-                >
-                  {suggestions.map((s) => (
-                    <div
-                      key={s}
+              {/* SELECTED SKILL CHIPS */}
+              <div style={{ marginBottom: "10px" }}>
+                {skill.items.map((item) => (
+                  <span
+                    key={item}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      padding: "6px 10px",
+                      background: "#e6e6e6",
+                      borderRadius: "20px",
+                      marginRight: "6px",
+                      marginBottom: "6px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {item}
+                    <button
+                      type="button"
                       onClick={() =>
-                        addSkillChip(originalIndex, s)
+                        removeSkillChip(originalIndex, item)
                       }
                       style={{
-                        padding: "8px",
+                        marginLeft: "6px",
+                        border: "none",
+                        background: "transparent",
                         cursor: "pointer",
+                        fontWeight: "bold",
                       }}
                     >
-                      {s}
-                    </div>
-                  ))}
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+
+              {/* ADD SKILL INPUT */}
+              {skill.heading && (
+                <div
+                  ref={(el) =>
+                    (skillBoxRef.current[originalIndex] = el)
+                  }
+                >
+                  <input
+                    style={inputStyle}
+                    placeholder="Add skill"
+                    value={skillSearch}
+                    onFocus={() =>
+                      setActiveSkillIndex(originalIndex)
+                    }
+                    onChange={(e) =>
+                      setSkillSearch(e.target.value)
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && skillSearch.trim()) {
+                        addSkillChip(
+                          originalIndex,
+                          skillSearch.trim()
+                        );
+                        e.preventDefault();
+                      }
+                    }}
+                  />
+
+                  {/* DROPDOWN */}
+                  {activeSkillIndex === originalIndex &&
+                    suggestions.length > 0 && (
+                      <div
+                        style={{
+                          border: "1px solid #ccc",
+                          maxHeight: "160px",
+                          overflowY: "auto",
+                          background: "#fff",
+                        }}
+                      >
+                        {suggestions.map((s) => (
+                          <div
+                            key={s}
+                            onClick={() =>
+                              addSkillChip(originalIndex, s)
+                            }
+                            style={{
+                              padding: "8px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {s}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                 </div>
               )}
-          </div>
+
+              <button
+                type="button"
+                style={{ ...buttonStyle, marginTop: "10px" }}
+                onClick={() => removeSkillSection(originalIndex)}
+              >
+                Remove Section
+              </button>
+            </div>
+          );
+        })}
+
+        {/* ADD SKILL SECTION BUTTON */}
+        {allowedHeadings.some(
+          (h) => !formData.skills.some((s) => s.heading === h)
+        ) && (
+          <button
+            type="button"
+            style={buttonStyle}
+            onClick={addSkillSection}
+          >
+            + Add Skills
+          </button>
         )}
-
-        <button
-          type="button"
-          style={{ ...buttonStyle, marginTop: "10px" }}
-          onClick={() => removeSkillSection(originalIndex)}
-        >
-          Remove Section
-        </button>
-      </div>
+      </>
     );
-  })}
-
-  {/* ADD SKILL SECTION BUTTON */}
-  {(formstate !== "nontech" ||
-    !formData.skills.some((s) => s.heading === "Computer") ||
-    !formData.skills.some((s) => s.heading === "Typing")) && (
-    <button
-      type="button"
-      style={buttonStyle}
-      onClick={addSkillSection}
-    >
-      + Add Skills
-    </button>
-  )}
+  })()}
 </>
+
 
 {/* } */}
 
@@ -1209,7 +1310,7 @@ useEffect(()=>{
       </div> */}
       {formstate=="freshers" || formstate=="nontech" &&
       <>
-       <div>
+       {/* <div> */}
       {/* PERSONAL DETAILS */}
       <h2>Personal Details</h2>
 
@@ -1240,8 +1341,8 @@ useEffect(()=>{
 <h3>Nationality:</h3>
 <input
   type="text"
-  name="nationality"
-  value={formData?.personalDetails[0]?.nationality}
+  name="Nationality"
+  value={formData?.personalDetails[0]?.Nationality}
   placeholder="Enter nationality"
   onChange={handlePersonalChange}
   style={inputStyle}
@@ -1324,8 +1425,12 @@ useEffect(()=>{
         onChange={handlePersonalChange}
         style={{width:"20%",height:"10px"}}
       />
+     </>
+     }
 
       {/* ACHIEVEMENTS */}
+      {(formstate=="freshers"  || formstate=="fullstack"  ||formstate=="entrylevelpro"  ||formstate=="entrylevelambition") &&
+      <>
       <h2>Achievements</h2>
       {formData?.achievements?.map((item, index) => (
         <div key={index} style={{  marginBottom: "10px" }}>
@@ -1347,8 +1452,13 @@ useEffect(()=>{
         </div>
       ))}
       <button onClick={() => addField("achievements")} style={buttonStyle}>Add Achievement</button>
+       </>
+      }
 
       {/* INTERESTS */}
+      {/* {console.log("fomrstate",formstate)} */}
+      {(formstate=="freshers" || formstate=="nontech"  ||formstate=="entrylevelpro")&&
+      <>
       <h2>Interests</h2>
       {formData?.interests?.map((item, index) => (
         <div key={index} style={{  marginBottom: "10px" }}>
@@ -1371,7 +1481,10 @@ useEffect(()=>{
         </div>
       ))}
       <button onClick={() => addField("interests")} style={buttonStyle}>Add Interest</button>
-
+     </>
+     }
+     {(formstate=="freshers"  ||formstate=="fullstack" ||formstate=="entrylevelpro" ||formstate=="entrylevelambition")&&
+     <>
       <h2>Projects</h2>
       {formData?.projects?.map((item, index) => (
         <div key={index} style={{  marginBottom: "10px" }}>
@@ -1393,8 +1506,8 @@ useEffect(()=>{
           </button>
         </div>
       ))}
-      <button onClick={() => addField("interests")} style={buttonStyle}>Add Projects</button>
-    </div>
+      <button onClick={() => addField("projects")} style={buttonStyle}>Add Projects</button>
+    {/* </div> */}
     </>
     }
         <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Save</button>

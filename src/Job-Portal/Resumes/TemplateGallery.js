@@ -42,7 +42,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
             openPreview("one", template1)
           }}
         >
-          <h2>Mid Level (2+ YRS)<br />Generic Resume</h2>
+          <h2>Generic Resume<br />Mid Level (2+ YRS)</h2>
           <p>
             This template is suitable for IT professionals with 2+ years of
             experience. You can add up to 20 bullet points.
@@ -61,8 +61,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         >
           <h2>Full Stack Developer Resume</h2>
           <p>
-            Ideal for aspiring Full Stack Developers with frontend & backend
-            skills.
+            This resume is created for Full Stack Web Developer
           </p>
           <img src={template4} alt="Template Four" className="blurred" />
         </div>
@@ -94,8 +93,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         >
           <h2>Entry Level – Pro</h2>
           <p>
-            Suitable for fresh graduates to highlight skills, education and
-            projects.
+           Designed for a fresher with skills like Pro
           </p>
           <img src={template5} alt="Template Three" className="blurred" />
         </div>
@@ -112,7 +110,7 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         >
           <h2>Entry Level – Ambition</h2>
           <p>
-            Designed for freshers to build a strong first resume.
+            Designed to achieve your Ambition
           </p>
           <img src={template2} alt="Template Two" className="blurred" />
         </div>

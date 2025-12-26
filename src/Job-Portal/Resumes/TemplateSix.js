@@ -54,7 +54,7 @@ const TemplateSix = () => {
 
         {/* OBJECTIVE */}
         <Section title="Objective">
-          <p>I wan to excel in the field with hard work, perseverance andand dedication.</p>
+          <p>{profileData.objective?profileData.objective:"I wan to excel in the field with hard work, perseverance and dedication."}</p>
         </Section>
 
         {/* EDUCATION */}
@@ -73,7 +73,7 @@ const TemplateSix = () => {
                 <tr key={i}>
                   <td>{q.degree}</td>
                   <td>{q.collegeName}</td>
-                  <td>{q.passingYear || "-"}</td>
+                  <td>{q.yop || "-"}</td>
                   <td>{q.score || "-"}</td>
                 </tr>
               ))}
@@ -131,7 +131,7 @@ const TemplateSix = () => {
       })
     : "N/A"}</p>
             <p><strong>Gender:</strong> {profileData.personalDetails?.[0]?.gender || "N/A"}</p>
-            <p><strong>Nationality:</strong> Indian</p>
+            <p><strong>Nationality:</strong> {profileData.personalDetails?.[0]?.Nationality || "N/A"}</p>
             <p><strong>Languages Known:</strong> {profileData.languages?.join(", ")}</p>
           </div>
         </Section>
