@@ -36,9 +36,9 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() => { 
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else 
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else 
             openPreview("one", template1)
           }}
         >
@@ -53,9 +53,9 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() => { 
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else 
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else 
             openPreview("four", template4)
           }}
         >
@@ -69,9 +69,9 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() => { 
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else 
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else 
             openPreview("five", template3)
           }}
         >
@@ -85,9 +85,9 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() => { 
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else 
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else 
             openPreview("three", template5)}
           }
         >
@@ -101,9 +101,9 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() =>{ 
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else 
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else 
             openPreview("two", template2)
 
           } }
@@ -118,11 +118,11 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
         <div
           className="template-card"
           onClick={() => {
-            if (logoutresume === true) {
-              setResumeAlert(true);
-            } else {
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else {
               openPreview("six", template6);
-            }
+           
           }}
           >
           <h2>Non-Tech Resume</h2>

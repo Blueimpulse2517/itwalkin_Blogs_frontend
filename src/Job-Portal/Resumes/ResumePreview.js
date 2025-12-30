@@ -2,10 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./ResumePreview.module.css";
 
-const ResumePreview = ({ logoutresume }) => {
+const ResumePreview = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-
+  const studId = localStorage.getItem("StudId");
+   const logoutresume = !(Boolean(studId));
   const [resumeAlert, setResumeAlert] = useState({
     show: false,
     selected: null
