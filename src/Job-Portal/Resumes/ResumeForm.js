@@ -1347,7 +1347,16 @@ useEffect(()=>{
   onChange={handlePersonalChange}
   style={inputStyle}
 />
-
+<>
+        <h2>Languages</h2>
+        {formData.languages.map((lang, i) => (
+          <div key={i}>
+            <input style={inputStyle} placeholder="Language" value={lang} onChange={(e) => handleLanguageChange(i, e.target.value)} />
+            <button style={buttonStyle} type="button" onClick={() => removeLanguage(i)}>Remove</button>
+          </div>
+        ))}
+        <button style={buttonStyle} type="button" onClick={() => addLanguage()}>Add</button>
+        </>
       {/* Gender */}
 <h3>Gender:</h3>
 <div>

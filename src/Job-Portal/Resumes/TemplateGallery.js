@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./gallery.css";
-import template1 from "../img/template1.png";
+import template1 from "../img/template1.JPG";
 import template2 from "../img/template2.png";
-import template3 from "../img/template3.png";
+import template3 from "../img/template3.jpg";
 import template4 from "../img/template4.png";
-import template5 from "../img/template5.png";
+import template5 from "../img/template5.jpg";
 import template6 from "../img/template6.png";
 import { useNavigate } from "react-router-dom";
 
