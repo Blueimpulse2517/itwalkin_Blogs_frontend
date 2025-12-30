@@ -1087,6 +1087,7 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
               searchIcon={searchIcon}
               />
             } />
+             <Route path="/resume-preview" element={<ResumePreview></ResumePreview>}></Route>
 
 {/* <Route path="/test" element={
               <Test
@@ -1208,7 +1209,6 @@ const [showMobileSearchIcon, setShowMobileSearchIcon]= useState(true)
             <Route path="/scanner" element={<QRScanner />} />
             <Route path="/enter-cabin" element={<JobseekerEnterCabin />} />
              <Route path="resume-form" element={<ResumeForm />}></Route>
-             <Route path="/resume-preview" element={<ResumePreview></ResumePreview>}></Route>
               <Route path="/alljobs" element={<Jobs url={axios.defaults.baseURL} 
                showMobileSearchIcon={showMobileSearchIcon} setShowMobileSearchIcon={setShowMobileSearchIcon}
                ShowSideNave={ShowSideNave} setShowSideNave={setShowSideNave}

@@ -44,6 +44,20 @@
     flex: 1 1 340px;
     height:395px;  
   }
+
+  .dateWrapper {
+    position: relative;
+  }
+  
+  .fakePlaceholder {
+    position: absolute;
+    left: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    color: black;
+    pointer-events: none;
+  }
+  
   @media(max-width:1024px){
     .consult-card{
      height:545px;

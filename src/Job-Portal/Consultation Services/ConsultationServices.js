@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Consultation.module.css";
 import { useNavigate,useParams } from "react-router-dom";
+import useScreenSize from "../SizeHook";
 
 
 const ConsultationCard = ({ title, description, price, onBook }) => {
@@ -39,7 +40,7 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showPopup]);
-
+  const screenSize = useScreenSize();
   return (
     <div className={styles["consult-card"]}>
     <div className={styles["card-content"]}>
@@ -49,12 +50,17 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
     </div>
    
     <div className={styles["card-footer"]}>
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        min={new Date().toISOString().split("T")[0]}
-      />
+    <div className={styles.dateWrapper}>
+    {screenSize.width < 480 && 
+    (!date && <span className={styles.fakePlaceholder}>dd - mm - yyyy</span>)
+}
+  <input
+    type="date"
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+  />
+</div>
+
   
       <div className={styles["button-wrapper"]}>
         <button className={styles.bookbutton} onClick={handleBook}>
@@ -93,7 +99,7 @@ const ConsultationServices = () => {
 
   const [resumeAlert, setResumeAlert] = useState(false);
     const alertRef = useRef(null);
-  
+
     useEffect(() => {
       const handleClickOutside = (event) => {
         if (alertRef.current && !alertRef.current.contains(event.target)) {
