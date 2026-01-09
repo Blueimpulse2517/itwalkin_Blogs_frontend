@@ -225,20 +225,34 @@ const TemplateOne = () => {
 
             <div className="skills">
               <h4 style={{marginLeft:"10px"}}>CORE TECHNICAL SKILLS</h4>
-              {pageLoader?<p>Loading...</p>:(profileData && profileData.skills && profileData.skills.length > 0 ? (
-  profileData.skills.map((group, i) => (
-    <div style={{marginLeft:"32px"}} className="skill-section" key={i}>
-      <h5>{group.heading}</h5>
-      <ul>
-        {group.items&& group.items.map((skill, j) => (
-          <li key={j}>{skill}</li>
-        ))}
-      </ul>
-    </div>
-  ))
+              {pageLoader ? (
+  <p>Loading...</p>
+) : profileData?.skills && profileData.skills.length > 0 ? (
+  profileData.skills
+    .filter(
+      (group) =>
+        group.heading &&
+        group.heading.toLowerCase() !== "computer" &&
+        group.heading.toLowerCase() !== "computer skills"
+    )
+    .map((group, i) => (
+      <div
+        style={{ marginLeft: "32px" }}
+        className="skill-section"
+        key={i}
+      >
+        <h5>{group.heading}</h5>
+        <ul>
+          {group.items?.map((skill, j) => (
+            <li key={j}>{skill}</li>
+          ))}
+        </ul>
+      </div>
+    ))
 ) : (
   <p>No skills added</p>
-))}
+)}
+
 
             </div>
             <div style={{ marginLeft: "28px" }} className="certification">

@@ -711,7 +711,7 @@ function Nav(props) {
                         </div>
                         : ""}
                  </div> 
-                 <div>
+                 {/* <div>
                  {props.flashVisible && (
                        <div className={Styles.blast}>
                          <img
@@ -723,7 +723,7 @@ function Nav(props) {
                          />
                        </div>
                      )}
-                 </div> 
+                 </div>  */}
                  <div>
                       {
                        <div className={Styles.blast}>

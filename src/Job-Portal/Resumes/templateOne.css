@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   align-items: center;
   font-family: Arial, sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   color: #333;
   margin-left:7%;
 }
@@ -35,10 +35,10 @@
   /* font-style: italic; */
 }
 
-.location,
+/* .location,
 .country {
   text-transform: uppercase;
-}
+} */
 
 .separator {
   margin: 0;
@@ -53,11 +53,12 @@
   border: 1px solid #ddd;
   padding: 20px;
   width: 239mm;       /* A4 width */
-  min-height: 297mm;  /* A4 height */
+  height: 297mm;  /* A4 height */
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   margin: 0 auto;
   box-sizing: border-box;
   position: relative; /* For button positioning */
+  overflow-y: hidden;
 }
 
 /* Header */
@@ -88,7 +89,7 @@
 
 .summary {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -140,27 +141,27 @@
 .experience ul {
   margin: 0;
   padding-left: 18px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .certification h4,
 .total-exp h4,
 .skills h4 {
   color: #007bff;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .skill-section h5 {
   margin: 5px 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .skill-section ul {
   margin: 0;
   padding-left: 40px;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* Download button bottom-right */
@@ -174,7 +175,7 @@
   color: white;
   border: none;
   padding: 10px 16px;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   border-radius: 4px;
 }
@@ -253,7 +254,7 @@
   .resume-container {
     transform-origin: top left;
     transform: scale(0.78); /* Adjust zoom level */
-    /* width: 142.8%; 
+    /* width: 122.8%; 
     overflow-x: auto;  */
   }
   .download-button-container {
