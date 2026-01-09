@@ -143,8 +143,8 @@ const TemplateSix = () => {
             true to the best of my knowledge.
           </p>
           <p className={styles.thankYou}>Thank You.</p>
-          <p><strong>Place:</strong> {profileData.address}</p>
-          <p><strong>Date:</strong> __________</p>
+          <p className={styles.place}><strong>Place:</strong> {profileData.address}</p>
+          <p className={styles.date}><strong>Date:</strong> __________</p>
         </Section>
       </div>
 

@@ -827,7 +827,7 @@ useEffect(()=>{
 
 <div style={{ padding: "10px", fontFamily: "Arial" }}>
       <p style={{ fontWeight: "bold" }}>
-        Would you like to include a photo from Google in your resume?
+      Your google profile picture will be used on your resume. Make sure you have latest profile picture updated in Google account. Please confirm, Do you want to Add  your google profile picture in resume
       </p>
 
       <label style={{ display: "block", margin: "5px 0" }}>
@@ -1014,21 +1014,9 @@ useEffect(()=>{
        </>:
        <>
        {/* QUALIFICATION DETAILS */}
-<h2>Qualification</h2>
+<h2>Education</h2>
 {formData.qualificationDetails.map((q, i) => (
   <div key={i} style={{ ...sectionStyle, display: "flex", flexWrap: "wrap", gap: "10px" }}>
-    <input
-      style={{ ...inputStyle, flex: "1 1 180px" }}
-      placeholder="Degree/Masters/School"
-      value={q.degree}
-      onChange={(e) => handleQualificationChange(i, "degree", e.target.value)}
-    />
-    <input
-      style={{ ...inputStyle, flex: "1 1 120px" }}
-      placeholder="% or CGPA"
-      value={q.score}
-      onChange={(e) => handleQualificationChange(i, "score", e.target.value)}
-    />
     <input
       style={{ ...inputStyle, flex: "1 1 200px" }}
       placeholder="College Name"
@@ -1037,21 +1025,50 @@ useEffect(()=>{
       onChange={(e) => handleQualificationChange(i, "collegeName", e.target.value)}
     />
     <input
-      style={{ ...inputStyle, flex: "1 1 120px" }}
-      placeholder="State Code"
-      value={q.stateCode}
-      onChange={(e) => handleQualificationChange(i, "stateCode", e.target.value)}
+      style={{ ...inputStyle, flex: "1 1 180px" }}
+      placeholder="Degree/Masters/School"
+      value={q.degree}
+      onChange={(e) => handleQualificationChange(i, "degree", e.target.value)}
+    />
+    <input
+      style={{ ...inputStyle, flex: "1 1 180px" }}
+      placeholder="Study Field"
+      value={q.studyField}
+      onChange={(e) => handleQualificationChange(i, "studyField", e.target.value)}
     />
     <input
       style={{ ...inputStyle, flex: "1 1 120px" }}
-      placeholder="Country Code"
-      value={q.countryCode}
-      onChange={(e) => handleQualificationChange(i, "countryCode", e.target.value)}
+      placeholder="% or CGPA"
+      value={q.score}
+      onChange={(e) => handleQualificationChange(i, "score", e.target.value)}
     />
-    <button style={buttonStyle} type="button" onClick={() => removeQualificationRow(i)}>Remove</button>
+    
+    <input
+      style={{ ...inputStyle, flex: "1 1 120px" }}
+      placeholder="YOP"
+      value={q.yop}
+      onChange={(e) => handleQualificationChange(i, "yop", e.target.value)}
+    />
+    <input
+      style={{ ...inputStyle, flex: "1 1 120px" }}
+      placeholder="Country"
+      value={q.country}
+      onChange={(e) => handleQualificationChange(i, "country", e.target.value)}
+    />
+    <input
+      style={{ ...inputStyle, flex: "1 1 120px" }}
+      placeholder="State Code"
+      value={q.city}
+      onChange={(e) => handleQualificationChange(i, "city", e.target.value)}
+    />
+    <div style={{display:"flex", gap:"4px"}}>
+    <button style={buttonStyle} type="button" onClick={() => handleQualificationSave(i)}>Save</button>
+    <button style={buttonStyle} type="button" onClick={() => clearQualificationRow(i)}>Cancel</button>
+    <button style={buttonStyle} type="button" onClick={() => removeQualificationRow(i)}>Delete</button>
+    </div>
   </div>
 ))}
-<button style={buttonStyle} type="button" onClick={addQualificationRow}>Add Row</button>
+<button style={buttonStyle} type="button" onClick={addQualificationRow}>Add Education</button>
 
        </>
        
