@@ -10,6 +10,7 @@ import TemplateThree from './TemplateThree';
 import TemplateFour from './TemplateFour';
 import TemplateFive from './TemplateFive';
 import TemplateSix from './TemplateSix';
+import TemplateSeven from './TemplateSeven';
 
   
 function AllResumes() {
@@ -113,7 +114,7 @@ function AllResumes() {
           {selectedTemplate === 'four' && <TemplateFour data={profileData} />}
           {selectedTemplate === 'five' && <TemplateFive data={profileData} />}
           {selectedTemplate === 'six' && <TemplateSix data={profileData} />}
-
+          {selectedTemplate === 'seven' && <TemplateSeven data={profileData} />}
         </div>
         
       )}

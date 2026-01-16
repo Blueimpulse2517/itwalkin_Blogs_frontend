@@ -6,6 +6,8 @@ import template3 from "../img/template3.jpg";
 import template4 from "../img/template4.png";
 import template5 from "../img/template5.jpg";
 import template6 from "../img/template6.png";
+import template7 from "../img/template7.jpg";
+
 import { useNavigate } from "react-router-dom";
 
 const TemplateGallery = ({ onSelect, logoutresume }) => {
@@ -130,6 +132,23 @@ const TemplateGallery = ({ onSelect, logoutresume }) => {
             Best suited for non-technical job roles.
           </p>
           <img src={template6} alt="Template Six" className="blurred" />
+        </div>
+
+        <div
+          className="template-card"
+          onClick={() => {
+            // if (logoutresume === true) {
+            //   setResumeAlert(true);
+            // } else {
+              openPreview("seven", template6);
+           
+          }}
+          >
+          <h2>Non-Tech Resume for Freshers</h2>
+          <p>
+          Perfect for freshers applying to entry-level non-technical positions.
+          </p>
+          <img src={template7} alt="Template Seven" className="blurred" />
         </div>
       </div>
       {resumeAlert && (

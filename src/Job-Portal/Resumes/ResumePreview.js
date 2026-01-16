@@ -135,6 +135,11 @@ const ResumePreview = () => {
                             state: { formstate: "nontech" }
                           });
                         }
+                        else if (resumeAlert.selected === "seven") {
+                          navigate("/resume-form", {
+                            state: { formstate: "nontech" }
+                          });
+                        }
                         else if (resumeAlert.selected === "four") {
                           navigate("/resume-form", {
                             state: { formstate: "fullstack" }
