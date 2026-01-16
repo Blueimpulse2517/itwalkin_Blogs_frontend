@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TemplateSix.module.css";
+import styles from "./TemplateSeven.module.css";
 import axios from "axios";
 import { generatePDF } from "./generatePDF";
 
-const TemplateSix = () => {
+const TemplateSeven = () => {
   const [profileData, setProfileData] = useState(null);
   const studId = JSON.parse(localStorage.getItem("StudId"));
 
@@ -59,6 +59,17 @@ const TemplateSix = () => {
           <p>{profileData.objective?profileData.objective:"I wan to excel in the field with hard work, perseverance and dedication."}</p>
         </Section>
 
+        {/* EXPERIENCE */}
+        <Section title="Experience">
+          <ul>
+            {profileData.experiences?.map((e, i) => (
+              <li key={i}>
+                {e.company} – {e.role}
+              </li>
+            ))}
+          </ul>
+        </Section>
+
         {/* EDUCATION */}
         <Section title="Educational Qualifications">
           <table className={styles.table}>
@@ -96,7 +107,7 @@ const TemplateSix = () => {
       </p>
     ) : null;
   })}
-</Section>
+     </Section>
 
 
         {/* HOBBIES */}
@@ -108,16 +119,7 @@ const TemplateSix = () => {
           </ul>
         </Section>
 
-        {/* EXPERIENCE */}
-        <Section title="Experience">
-          <ul>
-            {profileData.experiences?.map((e, i) => (
-              <li key={i}>
-                {e.company} – {e.role}
-              </li>
-            ))}
-          </ul>
-        </Section>
+
 
         {/* PERSONAL DETAILS */}
         <Section title="Personal Details">
@@ -145,13 +147,13 @@ const TemplateSix = () => {
             true to the best of my knowledge.
           </p>
           <p className={styles.thankYou}>Thank You.</p>
-          <p className={styles.place}><strong>Place:</strong></p>
+          <p className={styles.place}><strong>Place:</strong> </p>
           <p className={styles.date}><strong>Date:</strong> __________</p>
         </Section>
       </div>
 
       <button onClick={handleDownloadPDF} className={styles.downloadBtn}>
-        Download Template 6 PDF
+        Download Template 7 PDF
       </button>
     </div>
   );
@@ -164,6 +166,6 @@ const Section = ({ title, children }) => (
   </>
 );
 
-export default TemplateSix;
+export default TemplateSeven;
 
 

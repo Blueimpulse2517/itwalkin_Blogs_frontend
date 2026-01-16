@@ -456,14 +456,18 @@ const [immage, setimmage] = useState()
 
              const [showdelete, setShowdelete]=useState(false)
 
+             const [delAlert, setDelAlert] = useState(false);
+            const [delcompletionAlert, setDelcompletionAlert] = useState(false);
+
 async function DeleteProfile(){
-  let confirm = window.confirm("are you sure to delete your Account? your account will be deleted permanently, click on 'Ok', if you wish delete your Account permanently ")
-if(confirm){
+//   let confirm = window.confirm("are you sure to delete your Account? your account will be deleted permanently, click on 'Ok', if you wish delete your Account permanently ")
+// if(confirm){
   await axios.delete(`/EmpProfile/deleteEmployee/${empId}`)
   .then((res)=>{
     if(res.data==="success"){
-    alert("Account deleted successfully ")
-    navigate("/")
+    // alert("Account deleted successfully ")
+    // navigate("/")
+    setDelcompletionAlert(true)
     localStorage.clear()
     }else{
     alert("some thing went wrong try again")
@@ -472,7 +476,7 @@ if(confirm){
   }).catch((err)=>{
     alert("some thing went wrong try again ")
   })  
-}
+// }
   }
 
                   let location = useLocation()
@@ -509,7 +513,7 @@ if(confirm){
                          <>
          <div className={styles.profileCompletionAlert}> 
         
-       Welcome to ITWalkin!<br></br> Your profile has been created. Please complete your profile for a better experience!
+       Welcome to ITWalkin!<br></br> Your account has been created. Please complete your profile for a better experience!
           <div  style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"5px" }}>
             <button
               onClick={() => { setprofileCompletionAlert(false)}}
@@ -531,6 +535,148 @@ if(confirm){
 
                          }
           </div>
+
+{/* -------- popup delete------- */}
+{delAlert &&
+          <div style={{position:"fixed", zIndex:"99"}}>	 
+<div
+style={{
+ position: 'absolute',
+ top:'2px',
+ left:0,
+ width: '100vw',
+ zIndex: 9998,
+ display: 'flex',
+ alignItems: 'top',
+ justifyContent: 'center',
+
+}}
+>
+<div
+//  ref={delRef}
+ onClick={(e) => e.stopPropagation()}
+ style={{
+   width: '300px',
+   padding: '20px',
+   backgroundColor: 'rgb(40,4,99)',
+   color: 'white',
+   fontSize: '12px',
+   borderRadius: '5px',
+   zIndex: 9999,
+   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+   textAlign: 'center',
+  
+ }}
+>
+Are you sure to delete your Account?
+ <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+   <button
+	onClick={() => { 
+   DeleteProfile();
+	 setDelAlert(false)
+   }
+   }
+   
+	style={{
+	   padding: '8px 16px',
+	   backgroundColor: '#4CAF50',
+	   color: 'white',
+	   border: 'none',
+	   borderRadius: '5px',
+	   fontSize: '12px',
+	   cursor: 'pointer',
+	  
+	 }}
+   >
+	  Ok
+   </button>
+   <button
+	 onClick={() => {  
+	   setDelAlert(false);
+	 }}
+	 style={{
+	   padding: '8px 16px',
+	   backgroundColor: '#f44336',
+	   color: 'white',
+	   border: 'none',
+	   borderRadius: '5px',
+	   fontSize: '12px',
+	   cursor: 'pointer',
+		
+	   
+	 }}
+   >
+	 Cancel
+   </button>
+ </div>
+</div>
+</div>
+
+</div>
+}
+
+
+{/* -----------delete completion popup---- */}
+{delcompletionAlert &&
+          <div style={{position:"fixed", zIndex:"99"}}>	  
+<div
+style={{
+ position: 'absolute',
+ top:'2px',
+ left:0,
+ width: '100vw',
+ zIndex: 9998,
+ display: 'flex',
+ alignItems: 'top',
+ justifyContent: 'center',
+
+}}
+>
+<div
+//  ref={delRef}
+ onClick={(e) => e.stopPropagation()}
+ style={{
+   width: '300px',
+   padding: '20px',
+   backgroundColor: 'rgb(40,4,99)',
+   color: 'white',
+   fontSize: '12px',
+   borderRadius: '5px',
+   zIndex: 9999,
+   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+   textAlign: 'center',
+  
+ }}
+>
+Account deleted successfully!
+ <div style={{ marginTop: '15px', display: "flex", justifyContent: "center", gap: "5px" }}>
+   <button
+	onClick={() => { 
+    navigate("/");
+	 setDelAlert(false)
+   }
+   }
+   
+	style={{
+	   padding: '8px 16px',
+	   backgroundColor: '#4CAF50',
+	   color: 'white',
+	   border: 'none',
+	   borderRadius: '5px',
+	   fontSize: '12px',
+	   cursor: 'pointer',
+	  
+	 }}
+   >
+	  Ok
+   </button>
+ </div>
+</div>
+</div>
+
+</div>
+}
+
 
         <div className={styles.EntireWrapper} style={{height:"100%"}}>
         {/* <img style={{ height:"25px", color:"grey", marginTop:"20px", marginLeft:"8%", cursor:"pointer",
@@ -565,7 +711,7 @@ if(confirm){
              <span>Delete Profile</span><br></br>
              {showdelete?
 <button className={{}} style={{backgroundColor:"red", color:"white", 
-border:"none",padding: "4px 8px"}} onClick={DeleteProfile}>Delete</button>
+border:"none",padding: "4px 8px"}} onClick={()=>{setDelAlert(true)}}>Delete</button>
 :""
              }
 

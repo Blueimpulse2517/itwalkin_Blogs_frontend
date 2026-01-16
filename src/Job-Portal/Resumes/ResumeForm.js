@@ -238,13 +238,20 @@ useEffect(()=>{
 },[formData])
  
 
-  const containerStyle = {
-    maxWidth: '900px',
+  const containerStylemobile = {
+    // maxWidth: '900px',
     margin: '0 auto',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
   };
 
+  const containerStyle = {
+    // maxWidth: '900px',
+    margin: '0 auto',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+  display:"flex", flexWrap:"wrap", gap:"10px", justifyContent:"space-between"
+  };
   const sectionStyle = {
     background: '#f8f8f8',
     border: '1px solid #ddd',
@@ -281,6 +288,7 @@ useEffect(()=>{
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+  
   };
   const buttonStyles = {
     marginTop: '0px',
@@ -804,12 +812,13 @@ useEffect(()=>{
       </button>
       </div>
 
-
-      <div style={containerStyle}>
-        <div style={{display:"flex",justifyContent:"center"}}>
+      <div style={{display:"flex",justifyContent:"center"}}>
           <div><h1>Resume Builder Form</h1></div>
         </div>
+              <div style={screenSize.width > 850 ?containerStyle:containerStylemobile} >
 
+        {/* -----------------left container------- */}
+        <div style={{ width: screenSize.width > 850 ? "48%" : "100%" }}>
         {successMessage && <p>{successMessage}</p>}
         <div >
         {/* {console.log("pd",profileData[0]?.Gpicture )} */}
@@ -880,13 +889,13 @@ useEffect(()=>{
           
           <thead>
             <tr style={{ background: "#eee" }}>
-            <th style={{ border: "1px solid #ccc", padding: "8px" }}>School/College/University Name</th>
+            <th style={{ border: "1px solid #ccc", padding: "8px" }}>School/College/<br></br>University Name</th>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>Degree</th>
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Field of study (Degree/Masters/School)</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Field of study (Degree/Masters<br></br>/School)</th>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>Grade (% or CGPA)</th>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>year of passing</th>
               {/* <th style={{ border: "1px solid #ccc", padding: "8px" }}>State Code</th> */}
-              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Location (Country/Region)</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Location (Country/<br></br>Region)</th>
               <th style={{ border: "1px solid #ccc", padding: "8px" }}>City</th>
               {/* <th style={{ border: "1px solid #ccc", padding: "8px" }}>Action</th> */}
             </tr>
@@ -954,7 +963,7 @@ useEffect(()=>{
 
       <td>
         <input
-          style={inputStyles}
+          style={{ ...inputStyles, width: "76%" }}
           placeholder="Country"
           value={q.country}
           onChange={(e) =>
@@ -1094,7 +1103,10 @@ useEffect(()=>{
           </div>
         ))}
         <button style={buttonStyle} type="button" onClick={addExperience}>Add Experience</button>
+        </div>
 
+        {/* ---------------------------------right container------------- */}
+        <div style={{ width: screenSize.width > 850 ? "48%" : "100%" }}>
         {/* CERTIFICATIONS */}
         <h2>Certifications</h2>
         {formData.certifications.map((cert, i) => (
@@ -1536,8 +1548,13 @@ useEffect(()=>{
     {/* </div> */}
     </>
     }
-        <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Save</button>
       </div>
+      
+      </div>
+      <div style={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
+      <button style={{ ...buttonStyle, display: 'block', marginTop: '20px', backgroundColor:'green' }} onClick={handleSubmit}>Save</button>
+      </div>
+
     </div>
   );
 };

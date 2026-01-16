@@ -110,10 +110,6 @@
     opacity: 0.85;
   }
   
-  .table tbody tr {
-    background-color: #ffffff;
-  }
-  
   /* ---------------- MOBILE VIEW (SCALE ONLY, NO UI CHANGE) ---------------- */
   
   /* Always desktop view */
@@ -143,6 +139,9 @@
       transform-origin: top center;
       transform: scale(0.325);
     }
+  }
+  .table tbody tr {
+    background-color: #ffffff;
   }
   
   /* ---------------- PDF FIX ---------------- */
