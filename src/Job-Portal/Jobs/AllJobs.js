@@ -895,10 +895,12 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
         
         >
           <strong style={{color:"red", textAlign:"center", fontSize:"14px"}}>NOTICE</strong><br></br>
-          ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
-          <br></br>
-          You will be redirected to the career page of {items.Source}. 
+          
+          You will be redirected to the career page of {items.Source ?items.Source:items.companyName}. 
           ITwalkin is not the authorised partner of this company
+          <br></br><br></br>
+          ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
+          
           {/* <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website. */}
 
           <div ref={alertRef} style={{ marginTop: '15px', display:"flex", gap:"4px", justifyContent:"center" }}>
@@ -967,7 +969,12 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
         }}
         
         >
-          <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.
+          <strong>Notice:</strong> 
+                    
+          You will be redirected to the career page of {items.Source ?items.Source:items.companyName}. 
+          ITwalkin is not the authorised partner of this company
+          <br></br><br></br>
+          ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
 
           <div ref={alertRef} style={{ marginTop: '15px' }}>
             <button
@@ -1321,10 +1328,10 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
                                 
                                 >
                                   <strong style={{color:"red", textAlign:"center", fontSize:"14px"}}>NOTICE</strong><br></br>
-                                  ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
-                                  <br></br>
-                                  You will be redirected to the career page of {job.Source}. 
-                                  ITwalkin is not the authorised partner of this company
+                                    You will be redirected to the career page of {job.Source ?job.Source:job.companyName}. 
+                                    ITwalkin is not the authorised partner of this company
+                                    <br></br><br></br>
+                                    ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
                                   {/* <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website. */}
 
                                   <div ref={alertRef} style={{ marginTop: '15px', display:"flex", justifyContent:"center", gap:"4px" }}>
@@ -1393,7 +1400,11 @@ style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>{items
         }}   
         
         >
-          <strong>Notice:</strong> ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.
+          <strong>Notice:</strong>            
+          You will be redirected to the career page of {job.Source ?job.Source:job.companyName}. 
+          ITwalkin is not the authorised partner of this company
+          <br></br><br></br>
+          ITWALKIN.com never charges fees for job applications. If you encounter misuse or payment requests, report it through our website.<br></br>
 
           <div ref={alertRef} style={{ marginTop: '15px' }}>
             <button
