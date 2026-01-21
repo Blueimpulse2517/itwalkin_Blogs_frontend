@@ -805,7 +805,9 @@ useEffect(()=>{
       </button>
       <button
         className={styles.tvbackbtn}
-        onClick={goToHelp}
+        onClick={() => {
+          navigate("/support/help");
+        }}
         style={{marginRight:"2%"}}
       >
         <div style={{ fontSize: "12px", fontWeight: "800" }}>Help</div>

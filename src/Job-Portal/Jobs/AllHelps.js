@@ -93,56 +93,95 @@ function AllHelps({ Active, getjobs, setJobs, setActive, count, setCount,current
   view: "View",
   details: `Steps to Fill the Resume Builder Form:
 
-1. Login to the ITWalkin portal using your Jobseeker credentials.
+Step 1: Open Resume Builder
 
-2. Navigate to the Resume Builder page from the dashboard or profile menu.
+Click on Resume Builder from the dashboard.
 
-3. Photo Consent:
-   - The system will prompt: “Would you like to include a photo from Google in your resume?”
-   - Click “Give Consent” to allow using your Google profile photo.
+The resume form will open with multiple sections.
 
-4. Form Auto-fill & Manual Entry:
-   - The following fields will be auto-populated from your profile:
-     • Name
-     • Email ID
-     • Total Experience
-     • College / Institute Name
-   - Verify that these details are correctly fetched.
+Step 2: Fill Candidate Details
 
-5. Address:
-   - Manually enter your address if it’s not already available.
+Select whether you want to add your Google profile picture to the resume.
 
-6. Qualification Section:
-   - Add all educational qualifications including:
-     • Degree
-     • University
-     • Passing Year
-     • Percentage/CGPA
-   - Use the “Add More” option to include multiple entries.
+Enter your Full Name.
 
-7. Experience Section:
-   - Add all work experience details:
-     • Company Name
-     • Role/Designation
-     • Duration (From–To)
-     • Responsibilities/Description
-   - Ensure all entries are saved properly.
+Write a short Professional Summary describing your skills and experience.
 
-8. Certifications:
-   - Add relevant certifications with:
-     • Name
-     • Issuing Authority
-     • Year
+Enter your Complete Address.
 
-9. Skills:
-   - Add all key skills (technical and soft skills) using the skill entry field.
+Provide your Email ID.
 
-10. Save Details:
-    - Click the “Save” button to store all entered information.
+Enter your Total Work Experience in years.
 
-11. Download Resume:
-    - Click “Continue to Download”.
-    - The system will generate and allow you to download your resume in PDF format.`
+Fill in your Highest Qualification.
+
+Enter your University / Institute Name.
+
+Step 3: Add Certifications
+
+Type your certification name in the Certification field.
+
+Click Add Certification to add more.
+
+Use Remove to delete any certification.
+
+Step 4: Add Skills
+
+Select a Skill Category (Frontend, Backend, Testing, Database, etc.).
+
+Type a skill in the Add skill field and add it.
+
+Skills will appear as tags.
+
+Click + Add Skills to add another skill category.
+
+Use Remove Section to delete a skill category.
+
+Step 5: Add Education Details
+
+Click + Add New Education.
+
+Enter:
+
+School/College Name
+
+Degree
+
+Field of Study
+
+Grade (% or CGPA)
+
+Year of Passing
+
+Country
+
+City
+
+Click Delete to remove any education entry.
+
+Step 6: Add Experience
+
+Enter the Company Name.
+
+Enter your Job Title.
+
+Select Start Date and End Date.
+
+Add your Job Responsibilities in the description boxes.
+
+Click Add Row to add more responsibilities.
+
+Click Remove Row to delete any responsibility.
+
+Click Add Experience to add another job.
+
+Use Remove Experience to delete a job section.
+
+Step 7: Save Resume
+
+Review all entered details.
+
+Click Save to store your resume information.`
 }
 
      ];
