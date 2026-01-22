@@ -750,6 +750,315 @@ useEffect(()=>{
  let location = useLocation()
    const { formstate } = location.state || {};
   //  console.log("fd",formstate)
+
+
+  // ------------------- xml codes -------------------------------
+  // XML import/export states
+const [xmlLoading, setXmlLoading] = useState(false);
+const [xmlError, setXmlError] = useState("");
+const [isXmlImported, setIsXmlImported] = useState(false);
+
+
+// -------- XML HELPERS --------
+const jsonToXml = (obj, indent = "") => {
+  let xml = "";
+
+  // 🔹 handle primitive directly
+  if (
+    typeof obj === "string" ||
+    typeof obj === "number" ||
+    typeof obj === "boolean"
+  ) {
+    return `${indent}<value>${escapeXml(obj)}</value>\n`;
+  }
+
+  for (const key in obj) {
+    const value = obj[key];
+
+    if (Array.isArray(value)) {
+      xml += `${indent}<${key}>\n`;
+
+      value.forEach((item) => {
+        xml += `${indent}  <item>\n`;
+        xml += jsonToXml(item, indent + "    ");
+        xml += `${indent}  </item>\n`;
+      });
+
+      xml += `${indent}</${key}>\n`;
+    } else if (typeof value === "object" && value !== null) {
+      xml += `${indent}<${key}>\n`;
+      xml += jsonToXml(value, indent + "  ");
+      xml += `${indent}</${key}>\n`;
+    } else {
+      xml += `${indent}<${key}>${escapeXml(value ?? "")}</${key}>\n`;
+    }
+  }
+
+  return xml;
+};
+
+const xmlToJson = (node) => {
+  // <value>text</value>
+  if (node.tagName === "value") {
+    return node.textContent;
+  }
+
+  const children = [...node.children];
+
+  // no children → text node
+  if (children.length === 0) {
+    return node.textContent;
+  }
+
+  // handle arrays: <something><item>...</item></something>
+  const itemNodes = children.filter((c) => c.tagName === "item");
+  if (itemNodes.length === children.length) {
+    // array case
+    return itemNodes.map((item) => xmlToJson(item));
+  }
+
+  // object case
+  const obj = {};
+  children.forEach((child) => {
+    obj[child.tagName] = xmlToJson(child);
+  });
+
+  return obj;
+};
+
+
+// const xmlToJson = (node) => {
+//   if (
+//     node.tagName === "value" &&
+//     node.children.length === 0
+//   ) {
+//     return node.textContent;
+//   }
+
+//   if (!node.children.length) {
+//     return node.textContent;
+//   }
+
+//   const obj = {};
+//   [...node.children].forEach((child) => {
+//     if (child.tagName === "item") {
+//       if (!obj.items) obj.items = [];
+//       obj.items.push(xmlToJson(child));
+//     } else {
+//       obj[child.tagName] = xmlToJson(child);
+//     }
+//   });
+
+//   if (obj.items) {
+//     return obj.items;
+//   }
+//   return obj;
+// };
+
+const normalizeStringArray = (arr, fallback) => {
+  if (!Array.isArray(arr)) return fallback;
+
+  return arr.map((item) =>
+    typeof item === "string"
+      ? item
+      : typeof item === "object" && item !== null
+      ? item.value ?? ""
+      : ""
+  );
+};
+
+const normalizeSkillItems = (items) => {
+  if (!Array.isArray(items)) return [];
+
+  return items.map((i) =>
+    typeof i === "string"
+      ? i
+      : typeof i === "object" && i !== null
+      ? i.value ?? ""
+      : ""
+  );
+};
+
+const extractValue = (v) => {
+  if (typeof v === "string") return v;
+  if (typeof v === "object" && v !== null) return v.value ?? "";
+  return "";
+};
+
+const toStringValue = (v) => {
+  if (typeof v === "string") return v;
+  if (typeof v === "object" && v !== null) return v.value ?? "";
+  return "";
+};
+
+const normalizeFormData = (data) => {
+  const normalized = {
+    ...initialState,
+    ...data,
+  };
+
+  // ---- normalize skills deeply ----
+  
+  normalized.skills = Array.isArray(data.skills)
+  ? data.skills.map((skill) => ({
+      heading: toStringValue(skill.heading),
+      items: Array.isArray(skill.items)
+        ? skill.items.map(toStringValue)
+        : [],
+    }))
+  : initialState.skills;
+
+
+      
+
+
+  // ---- normalize experiences ----
+  normalized.experiences = Array.isArray(data.experiences)
+  ? data.experiences.map((exp) => ({
+      company: exp?.company ?? "",
+      role: exp?.role ?? "",
+      startDate: exp?.startDate ?? "",
+      endDate: exp?.endDate ?? "",
+      descriptions: Array.isArray(exp?.descriptions)
+        ? exp.descriptions.map((d) =>
+            typeof d === "string"
+              ? d
+              : typeof d === "object" && d !== null
+              ? d.value ?? ""
+              : ""
+          )
+        : [""],
+    }))
+  : initialState.experiences;
+
+
+  // ---- normalize simple arrays ----
+  normalized.languages = normalizeStringArray(
+    data.languages,
+    initialState.languages
+  );
+  
+  normalized.achievements = normalizeStringArray(
+    data.achievements,
+    initialState.achievements
+  );
+  
+  normalized.interests = normalizeStringArray(
+    data.interests,
+    initialState.interests
+  );
+  
+  normalized.projects = normalizeStringArray(
+    data.projects,
+    initialState.projects
+  );
+  
+  normalized.certifications = normalizeStringArray(
+    data.certifications,
+    initialState.certifications
+  );
+  
+
+  // ---- qualification details ----
+  normalized.qualificationDetails = Array.isArray(
+    data.qualificationDetails
+  )
+    ? data.qualificationDetails.map((q) => ({
+        ...q,
+        isSaved: q?.isSaved ?? false,
+      }))
+    : initialState.qualificationDetails;
+
+  // ---- personal details ----
+  normalized.personalDetails = Array.isArray(data.personalDetails)
+    ? data.personalDetails
+    : initialState.personalDetails;
+
+  return normalized;
+};
+
+
+
+const handleExportXML = () => {
+  try {
+    setXmlLoading(true);
+    setXmlError("");
+
+    const xml =
+      `<resume>\n` +
+      jsonToXml(formData, "  ") +
+      `</resume>`;
+
+    const blob = new Blob([xml], { type: "application/xml" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "resume.xml";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    setXmlError("Failed to export XML");
+  } finally {
+    setXmlLoading(false);
+  }
+};
+
+const handleImportXML = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.name.endsWith(".xml")) {
+    setXmlError("Only .xml files are allowed");
+    return;
+  }
+
+  setXmlLoading(true);
+  setXmlError("");
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(reader.result, "text/xml");
+
+      if (xml.getElementsByTagName("parsererror").length > 0) {
+        throw new Error("Invalid XML");
+      }
+
+      const resumeNode = xml.getElementsByTagName("resume")[0];
+      if (!resumeNode) {
+        throw new Error("Invalid resume XML structure");
+      }
+
+      const parsedData = xmlToJson(resumeNode);
+
+      // 🔴 Overwrite ONLY because user explicitly imported
+      setFormData(normalizeFormData(parsedData));
+      setIsXmlImported(true);
+    } catch (err) {
+      setXmlError("Invalid XML file");
+    } finally {
+      setXmlLoading(false);
+    }
+  };
+
+  reader.readAsText(file);
+};
+
+const escapeXml = (value) => {
+  if (typeof value !== "string") return value;
+
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+};
+
+
   return (
     <div className={styles.container}>
       <div ref={alertRef} style={{position:"relative"}}>
@@ -803,6 +1112,7 @@ useEffect(()=>{
       >
         <div style={{ fontSize: "12px", fontWeight: "800" }}>Back</div>
       </button>
+
       <button
         className={styles.tvbackbtn}
         onClick={() => {
@@ -812,7 +1122,40 @@ useEffect(()=>{
       >
         <div style={{ fontSize: "12px", fontWeight: "800" }}>Help</div>
       </button>
+
+
+{/* {xmlLoading && <p>Processing XML...</p>}
+{xmlError && <p style={{ color: "red" }}>{xmlError}</p>} */}
+
       </div>
+
+      <div style={{ display: "flex", marginRight:"2%", justifyContent: "flex-end" }}>
+  <input
+    type="file"
+    accept=".xml"
+    id="xmlImport"
+    style={{ display: "none",  }}
+    onChange={handleImportXML}
+  />
+
+  <button
+  style={{fontSize: "12px", fontWeight:700}}
+    className={styles.tvbackbtn}
+    disabled={xmlLoading}
+    onClick={() => document.getElementById("xmlImport").click()}
+  >
+    Import XML
+  </button>
+
+  <button
+    style={{fontSize: "12px",fontWeight:700}}
+    className={styles.tvbackbtn}
+    disabled={xmlLoading}
+    onClick={handleExportXML}
+  >
+    Export XML
+  </button>
+  </div>
 
       <div style={{display:"flex",justifyContent:"center"}}>
           <div><h1>Resume Builder Form</h1></div>
@@ -1133,12 +1476,18 @@ useEffect(()=>{
     const allowedHeadings =
       FORMSTATE_MAP[formstate] || FORMSTATE_MAP.default;
 
-    const filteredSkills = formData.skills
-      .map((skill, originalIndex) => ({ skill, originalIndex }))
-      .filter(({ skill }) => {
-        if (!skill.heading) return true;
-        return allowedHeadings.includes(skill.heading);
-      });
+      const filteredSkills = isXmlImported
+      ? formData.skills.map((skill, originalIndex) => ({
+          skill,
+          originalIndex,
+        }))
+      : formData.skills
+          .map((skill, originalIndex) => ({ skill, originalIndex }))
+          .filter(({ skill }) => {
+            if (!skill.heading) return true;
+            return allowedHeadings.includes(skill.heading);
+          });
+    
 
     return (
       <>
@@ -1499,7 +1848,7 @@ useEffect(()=>{
       {/* {console.log("fomrstate",formstate)} */}
       {(formstate=="freshers" || formstate=="nontech"  ||formstate=="entrylevelpro")&&
       <>
-      <h2>Interests</h2>
+      <h2>Hobbies</h2>
       {formData?.interests?.map((item, index) => (
         <div key={index} style={{  marginBottom: "10px" }}>
           <input
