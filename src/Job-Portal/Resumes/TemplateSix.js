@@ -36,7 +36,9 @@ const TemplateSix = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div id="template-six" className={styles.resume}>
+      <div id="template-six" className={styles.page}>
+  <div className={styles.borderBox}>
+
         {/* HEADER */}
         <h1 className={styles.title}>RESUME</h1>
 
@@ -60,8 +62,8 @@ const TemplateSix = () => {
         </Section>
 
         {/* EDUCATION */}
-        <Section title="Educational Qualifications">
-          <table className={styles.table}>
+        <Section style={{marginLeft:"-32px",marginRight:"25px"}} title="Educational Qualifications">
+          <table   className={styles.table}>
             <thead>
               <tr>
                 <th>Course</th>
@@ -133,7 +135,7 @@ const TemplateSix = () => {
       })
     : "N/A"}</p>
             <p><strong>Gender:</strong> {profileData.personalDetails?.[0]?.gender || "N/A"}</p>
-            <p><strong>Nationality:</strong> {profileData.personalDetails?.[0]?.Nationality || "N/A"}</p>
+            <p><strong>Nationality:</strong> Indian</p>
             <p><strong>Languages Known:</strong> {profileData.languages?.join(", ")}</p>
           </div>
         </Section>
@@ -149,7 +151,7 @@ const TemplateSix = () => {
           <p className={styles.date}><strong>Date:</strong> __________</p>
         </Section>
       </div>
-
+</div>
       <button onClick={handleDownloadPDF} className={styles.downloadBtn}>
         Download Template 6 PDF
       </button>
@@ -157,12 +159,15 @@ const TemplateSix = () => {
   );
 };
 
-const Section = ({ title, children }) => (
+const Section = ({ title, children, style }) => (
   <>
     <div className={styles.sectionTitle}>{title}</div>
-    <div className={styles.sectionContent}>{children}</div>
+    <div className={styles.sectionContent} style={style}>
+      {children}
+    </div>
   </>
 );
+
 
 export default TemplateSix;
 
