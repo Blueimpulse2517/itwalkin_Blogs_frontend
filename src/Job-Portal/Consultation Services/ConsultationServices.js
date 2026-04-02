@@ -51,14 +51,16 @@ const ConsultationCard = ({ title, description, price, onBook }) => {
 
       <div className={styles["card-footer"]}>
         <div className={styles.dateWrapper}>
-          
-
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
+  <input
+    type="date"
+    className={styles.dateInput}
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+  />
+  {!date && (
+    <span className={styles.fakePlaceholder}></span>
+  )}
+</div>
 
         <div className={styles["button-wrapper"]}>
           <button className={styles.bookbutton} onClick={handleBook}>
