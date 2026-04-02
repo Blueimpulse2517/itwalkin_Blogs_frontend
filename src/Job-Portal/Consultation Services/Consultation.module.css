@@ -1,4 +1,24 @@
-.consult-container {
+.dateInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+  font-size: 14px;
+
+  color: transparent;   /* 🔥 hide native text */
+}
+
+/* show text only when date selected */
+.dateInput:focus,
+.dateInput:not(:placeholder-shown),
+.dateInput:valid {
+  color: #000;
+
+  
+}.consult-container {
   display: flex;
   justify-content: center;
   align-items: stretch;
