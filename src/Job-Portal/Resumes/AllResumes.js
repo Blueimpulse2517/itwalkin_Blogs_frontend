@@ -71,7 +71,7 @@ function AllResumes() {
     <div>
       {console.log("st",selectedTemplate)}
       {!selectedTemplate?
-      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Choose resume template<br></br> </h1>
+      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Choose Resume Template<br></br> </h1>
        :
        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Preview Your Resume </h1>}
       {!selectedTemplate && (
